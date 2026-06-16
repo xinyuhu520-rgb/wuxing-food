@@ -20,25 +20,18 @@ body{
 .header{text-align:center;margin-top:30px}
 .header h1{font-size:36px;color:#d4a853;letter-spacing:2px}
 .header p{font-size:14px;color:#666;margin-top:6px}
-
 .bagua-area{margin:40px 0;position:relative;width:180px;height:180px}
 .bagua-ring{
   width:100%;height:100%;border-radius:50%;
   border:2px solid rgba(212,168,83,.4);
-  position:relative;
-  animation:spin 24s linear infinite;
+  position:relative;animation:spin 24s linear infinite;
 }
 .bagua-ring::before{
   content:'☯';position:absolute;top:50%;left:50%;
   transform:translate(-50%,-50%);font-size:52px;color:#d4a853;
 }
-.bagua-char{
-  position:absolute;font-size:20px;color:#d4a853;
-  width:24px;height:24px;display:flex;align-items:center;justify-content:center;
-}
+.bagua-char{position:absolute;font-size:20px;color:#d4a853;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-
-/* 日期选择 */
 .form-card{
   width:100%;background:rgba(255,255,255,.05);
   border-radius:16px;padding:24px 20px;margin-bottom:32px;
@@ -53,7 +46,6 @@ body{
   appearance:none;-webkit-appearance:none;
 }
 .date-row option{background:#1a1a2e;color:#e8e8e8}
-
 .calc-btn{
   width:80%;height:52px;
   background:linear-gradient(135deg,#d4a853,#c4944a);
@@ -64,44 +56,41 @@ body{
   transition:opacity .2s;
 }
 .calc-btn:active{opacity:.75}
-
 .danmu-bar{margin-top:30px;height:24px;overflow:hidden}
 .danmu-text{font-size:12px;color:#555;animation:fade 4s ease infinite}
 @keyframes fade{0%,100%{opacity:.3}50%{opacity:1}}
 .footer{margin-top:16px;font-size:11px;color:#444}
-
 /* ========== 加载 ========== */
 #page-loading{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:80vh}
 .load-bagua{font-size:64px;color:#d4a853;animation:spin 2s linear infinite}
 .load-text{margin-top:16px;font-size:16px;color:#d4a853}
-
 /* ========== 结果页 ========== */
 #page-result{display:none;width:100%;max-width:480px}
-.result-header{
-  text-align:center;padding:30px 0 20px;
-  border-bottom:1px solid rgba(212,168,83,.2);
-  margin-bottom:20px;
-}
+.result-header{text-align:center;padding:30px 0 20px;border-bottom:1px solid rgba(212,168,83,.2);margin-bottom:20px}
 .result-header h2{font-size:20px;color:#d4a853}
-
 .card{
   background:rgba(255,255,255,.04);border-radius:14px;
   padding:18px 16px;margin-bottom:16px;
 }
 .card-title{font-size:16px;font-weight:bold;color:#d4a853;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(212,168,83,.15)}
-
 .info-row{display:flex;justify-content:space-between;padding:6px 0;font-size:14px}
 .info-row .label{color:#777}
 .info-row .value{color:#e8e8e8;font-weight:500}
-
 .analysis-text{font-size:14px;color:#bbb;line-height:1.8}
-
-.yi-food{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04)}
-.yi-food:last-child{border-bottom:none}
+.analysis-text .food-line{
+  display:block;margin-top:8px;padding-top:8px;
+  border-top:1px dashed rgba(212,168,83,.2);
+  color:#d4a853;font-weight:500;
+}
+.category-section{margin-bottom:16px}
+.category-label{font-size:14px;color:#d4a853;margin-bottom:8px;font-weight:bold}
+.food-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.food-item:last-child{border-bottom:none}
 .food-name{font-size:16px;font-weight:bold;margin-bottom:4px}
 .food-meta{display:flex;justify-content:space-between;font-size:12px;color:#888}
 .food-tags{margin-top:6px;display:flex;gap:6px}
 .food-tags span{font-size:11px;color:#999;background:rgba(255,255,255,.06);padding:2px 8px;border-radius:6px}
+.wuxing-reason{font-size:12px;color:#d4a853;margin-top:4px}
 .food-actions{margin-top:10px;display:flex;gap:8px}
 .food-actions a{
   flex:1;text-align:center;padding:8px 0;border-radius:8px;
@@ -109,14 +98,11 @@ body{
 }
 .action-meituan{background:#FFC107;color:#333}
 .action-eleme{background:#0097E6;color:#fff}
-
 .ji-tip{font-size:13px;color:#ef5350;line-height:1.6}
 .ji-tags{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
 .ji-tags span{font-size:12px;color:#ef5350;background:rgba(239,83,80,.1);padding:6px 10px;border-radius:8px}
-
 .lucky-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:14px}
 .color-dot{width:18px;height:18px;border-radius:4px;border:1px solid rgba(255,255,255,.2)}
-
 .share-area{text-align:center;margin-top:8px;padding-bottom:20px}
 .share-btn{
   display:inline-block;padding:14px 40px;
@@ -126,7 +112,6 @@ body{
   box-shadow:0 4px 16px rgba(212,168,83,.3);
 }
 .share-hint{font-size:11px;color:#555;margin-top:10px}
-
 .back-btn{
   position:fixed;top:16px;left:16px;z-index:10;
   width:36px;height:36px;border-radius:50%;
@@ -144,7 +129,6 @@ body{
     <h1>🔮 今日食运</h1>
     <p>五行八卦 · 每日一测</p>
   </div>
-
   <div class="bagua-area">
     <div class="bagua-ring">
       <span class="bagua-char" style="top:-12px;left:calc(50% - 12px)">☰</span>
@@ -157,7 +141,6 @@ body{
       <span class="bagua-char" style="top:38px;left:8px">☷</span>
     </div>
   </div>
-
   <div class="form-card">
     <label>选择你的出生日期</label>
     <div class="date-row">
@@ -166,9 +149,7 @@ body{
       <select id="sel-day"></select>
     </div>
   </div>
-
   <button class="calc-btn" onclick="calc()">🔮 开始今日测算</button>
-
   <div class="danmu-bar"><span class="danmu-text" id="danmu">张三测算了今天宜吃麻辣香锅</span></div>
   <div class="footer">── 趣味娱乐 · 仅供参考 ──</div>
 </div>
@@ -182,7 +163,6 @@ body{
 <!-- ========== 结果页 ========== -->
 <div id="page-result">
   <button class="back-btn" onclick="goBack()">←</button>
-
   <div class="result-header">
     <h2>🔮 今日食运</h2>
     <p id="result-date" style="font-size:13px;color:#888;margin-top:4px"></p>
@@ -198,7 +178,7 @@ body{
 
   <div class="card">
     <div class="card-title">📜 运势解读</div>
-    <p class="analysis-text" id="r-reason"></p>
+    <div class="analysis-text" id="r-reason"></div>
   </div>
 
   <div class="card">
@@ -226,7 +206,7 @@ body{
 
 <script>
 // ============================
-//  算法核心
+//  基础数据
 // ============================
 var TIAN_GAN=[
   {name:'甲',wuxing:'木'},{name:'乙',wuxing:'木'},
@@ -244,51 +224,71 @@ var DI_ZHI=[
   {name:'戌',wuxing:'土',animal:'狗'},{name:'亥',wuxing:'水',animal:'猪'}
 ];
 var WX={
-  '金':{e:'⚔️',c:'#C0C0C0',d:'辛辣、收敛'},
-  '木':{e:'🌿',c:'#4CAF50',d:'酸味、生长'},
-  '水':{e:'💧',c:'#2196F3',d:'咸鲜、滋润'},
-  '火':{e:'🔥',c:'#F44336',d:'苦焦、炎热'},
-  '土':{e:'🏔️',c:'#FF9800',d:'甘甜、承载'}
+  '金':{e:'⚔️',c:'#C0C0C0',d:'辛辣、收敛',relation:'金主肃杀，宜辛散之味'},
+  '木':{e:'🌿',c:'#4CAF50',d:'酸味、生长',relation:'木主生发，宜酸爽清新'},
+  '水':{e:'💧',c:'#2196F3',d:'咸鲜、滋润',relation:'水主润泽，宜鲜美滋养'},
+  '火':{e:'🔥',c:'#F44336',d:'苦焦、炎热',relation:'火主炎上，宜辛热发散'},
+  '土':{e:'🏔️',c:'#FF9800',d:'甘甜、承载',relation:'土主化育，宜甘甜厚味'}
 };
 var KE={木:'土',土:'水',水:'火',火:'金',金:'木'};
 var KE_BY={土:'木',水:'土',火:'水',金:'火',木:'金'};
 var SHENG_BY={火:'木',土:'火',金:'土',水:'金',木:'水'};
+var SHENG={木:'火',火:'土',土:'金',金:'水',水:'木'};
 
+// ============================
+//  菜品数据库（含分类：前菜/主菜/甜点）
+// ============================
 var FOODS=[
-  {n:'麻辣香锅',w:'金',c:'川菜',p:'30-60',t:['辣','聚餐','下饭']},
-  {n:'水煮鱼',w:'金',c:'川菜',p:'40-70',t:['辣','鲜香','大份']},
-  {n:'辣子鸡',w:'金',c:'川菜',p:'25-45',t:['辣','干香','下酒']},
-  {n:'剁椒鱼头',w:'金',c:'湘菜',p:'45-75',t:['辣','鲜','聚餐']},
-  {n:'小炒黄牛肉',w:'金',c:'湘菜',p:'30-50',t:['辣','下饭','快手']},
-  {n:'三文鱼寿司拼盘',w:'木',c:'日料',p:'35-65',t:['清爽','健康','一人食']},
-  {n:'牛油果沙拉',w:'木',c:'轻食',p:'25-40',t:['减脂','清爽','健康']},
-  {n:'日式拉面',w:'木',c:'日料',p:'30-50',t:['暖胃','一人食','汤面']},
-  {n:'凉拌三丝',w:'木',c:'凉菜',p:'10-20',t:['清爽','开胃','便宜']},
-  {n:'Poke能量碗',w:'木',c:'轻食',p:'30-45',t:['减脂','健康','精致']},
-  {n:'海鲜煲',w:'水',c:'海鲜',p:'50-90',t:['丰盛','聚餐','鲜美']},
-  {n:'皮蛋瘦肉粥',w:'水',c:'粥品',p:'12-20',t:['暖胃','清淡','一人食']},
-  {n:'乌鸡汤',w:'水',c:'炖品',p:'30-55',t:['滋补','养生','汤品']},
-  {n:'紫菜蛋花汤',w:'水',c:'汤品',p:'8-15',t:['快手','便宜','暖身']},
-  {n:'蒜蓉扇贝',w:'水',c:'海鲜',p:'35-60',t:['鲜美','精致','夜宵']},
-  {n:'重庆老火锅',w:'火',c:'火锅',p:'60-120',t:['聚餐','重口','过瘾']},
-  {n:'韩式烤肉',w:'火',c:'烤肉',p:'50-100',t:['聚餐','肉食','过瘾']},
-  {n:'川味烤鱼',w:'火',c:'烤鱼',p:'45-80',t:['聚餐','香辣','夜宵']},
-  {n:'烤串拼盘',w:'火',c:'烧烤',p:'30-60',t:['夜宵','下酒','社交']},
-  {n:'麻辣烫',w:'火',c:'火锅',p:'15-30',t:['一人食','自选','便宜']},
-  {n:'黄焖鸡米饭',w:'土',c:'家常菜',p:'18-30',t:['下饭','饱腹','一人食']},
-  {n:'红烧肉',w:'土',c:'家常菜',p:'30-55',t:['浓油赤酱','家常','下饭']},
-  {n:'扬州炒饭',w:'土',c:'炒饭',p:'15-25',t:['快手','饱腹','便宜']},
-  {n:'煲仔饭',w:'土',c:'粤菜',p:'20-35',t:['饱腹','锅巴','一人食']},
-  {n:'鲜肉小笼包',w:'土',c:'面点',p:'15-25',t:['早餐','精致','一人食']},
+  // 金
+  {n:'凉拌三丝',w:'金',c:'凉菜',p:'10-20',cat:'前菜',t:['清爽','开胃']},
+  {n:'水煮鱼',w:'金',c:'川菜',p:'40-70',cat:'主菜',t:['鲜香','下饭']},
+  {n:'麻辣香锅',w:'金',c:'川菜',p:'30-60',cat:'主菜',t:['辣','聚餐','下饭']},
+  {n:'辣子鸡',w:'金',c:'川菜',p:'25-45',cat:'主菜',t:['干香','下酒']},
+  {n:'剁椒鱼头',w:'金',c:'湘菜',p:'45-75',cat:'主菜',t:['鲜','聚餐']},
+  {n:'小炒黄牛肉',w:'金',c:'湘菜',p:'30-50',cat:'主菜',t:['下饭','快手']},
+  {n:'桂花糕',w:'金',c:'甜点',p:'8-15',cat:'甜点',t:['甜蜜','精致']},
+  // 木
+  {n:'牛油果沙拉',w:'木',c:'轻食',p:'25-40',cat:'前菜',t:['减脂','清爽','健康']},
+  {n:'三文鱼寿司拼盘',w:'木',c:'日料',p:'35-65',cat:'主菜',t:['清爽','健康','一人食']},
+  {n:'日式拉面',w:'木',c:'日料',p:'30-50',cat:'主菜',t:['暖胃','一人食','汤面']},
+  {n:'Poke能量碗',w:'木',c:'轻食',p:'30-45',cat:'主菜',t:['减脂','健康','精致']},
+  {n:'抹茶拿铁',w:'木',c:'饮品',p:'15-25',cat:'甜点',t:['清新','提神']},
+  {n:'芋泥奶茶',w:'木',c:'奶茶',p:'15-20',cat:'甜点',t:['甜蜜','人气']},
+  // 水
+  {n:'紫菜蛋花汤',w:'水',c:'汤品',p:'8-15',cat:'前菜',t:['快手','便宜','暖身']},
+  {n:'蒜蓉扇贝',w:'水',c:'海鲜',p:'35-60',cat:'前菜',t:['鲜美','精致']},
+  {n:'海鲜煲',w:'水',c:'海鲜',p:'50-90',cat:'主菜',t:['丰盛','聚餐','鲜美']},
+  {n:'皮蛋瘦肉粥',w:'水',c:'粥品',p:'12-20',cat:'主菜',t:['暖胃','清淡','一人食']},
+  {n:'乌鸡汤',w:'水',c:'炖品',p:'30-55',cat:'主菜',t:['滋补','养生','汤品']},
+  {n:'仙草冻',w:'水',c:'甜点',p:'10-15',cat:'甜点',t:['清凉','解暑']},
+  // 火
+  {n:'烤串拼盘',w:'火',c:'烧烤',p:'30-60',cat:'前菜',t:['夜宵','下酒','社交']},
+  {n:'重庆老火锅',w:'火',c:'火锅',p:'60-120',cat:'主菜',t:['聚餐','重口','过瘾']},
+  {n:'韩式烤肉',w:'火',c:'烤肉',p:'50-100',cat:'主菜',t:['聚餐','肉食','过瘾']},
+  {n:'川味烤鱼',w:'火',c:'烤鱼',p:'45-80',cat:'主菜',t:['香辣','夜宵']},
+  {n:'麻辣烫',w:'火',c:'火锅',p:'15-30',cat:'主菜',t:['一人食','自选','便宜']},
+  {n:'焦糖布丁',w:'火',c:'甜点',p:'12-20',cat:'甜点',t:['甜蜜','焦香']},
+  // 土
+  {n:'鲜肉小笼包',w:'土',c:'面点',p:'15-25',cat:'前菜',t:['精致','一人食']},
+  {n:'黄焖鸡米饭',w:'土',c:'家常菜',p:'18-30',cat:'主菜',t:['下饭','饱腹','一人食']},
+  {n:'红烧肉',w:'土',c:'家常菜',p:'30-55',cat:'主菜',t:['浓油赤酱','家常','下饭']},
+  {n:'扬州炒饭',w:'土',c:'炒饭',p:'15-25',cat:'主菜',t:['快手','饱腹','便宜']},
+  {n:'煲仔饭',w:'土',c:'粤菜',p:'20-35',cat:'主菜',t:['饱腹','锅巴','一人食']},
+  {n:'红糖糍粑',w:'土',c:'甜点',p:'12-18',cat:'甜点',t:['甜蜜','软糯']}
 ];
 
+// ============================
+//  工具函数
+// ============================
 function shuffle(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t}return b}
 
+// ============================
+//  核心测算
+// ============================
 function calc(){
   var y=parseInt(document.getElementById('sel-year').value);
   var m=parseInt(document.getElementById('sel-month').value);
   var d=parseInt(document.getElementById('sel-day').value);
-  var birth=new Date(y,m-1,d);
   var today=new Date();
 
   var ming=TIAN_GAN[(y-4)%10].wuxing;
@@ -300,28 +300,67 @@ function calc(){
   var dayDZ=DI_ZHI[((diff%12)+12)%12];
   var dayWX=dayTG.wuxing;
 
-  var yi,ji,reason;
-  if(dayWX===ming){yi=ming;ji=KE_BY[ming];reason='今日五行与本命相同，运势平稳，宜食'+WX[ming].d+'的菜品，稳中有进✨'}
-  else if(SHENG_BY[dayWX]===ming){yi=ming;ji=KE[ming];reason='今日'+WX[dayWX].e+WX[dayWX].d.slice(0,2)+'生'+WX[ming].d.slice(0,2)+'，得天时之助，宜食'+WX[ming].e+'系菜品'}
-  else if(ming==='木'&&dayWX==='火'||ming==='火'&&dayWX==='土'||ming==='土'&&dayWX==='金'||ming==='金'&&dayWX==='水'||ming==='水'&&dayWX==='木'){yi=dayWX;ji=KE_BY[ming];reason='顺势而为，今日能量输出，宜食'+WX[dayWX].e+'系菜品'}
-  else if(KE[dayWX]===ming){yi=SHENG_BY[ming];ji=dayWX;reason='今日'+WX[dayWX].e+WX[dayWX].d.slice(0,2)+'克'+WX[ming].d.slice(0,2)+'，运势受阻，宜食'+WX[SHENG_BY[ming]].e+'系化解'}
-  else if(KE[ming]===dayWX){yi=dayWX;ji=KE[dayWX];reason='今日你克'+WX[dayWX].label+'，运势可控，宜食'+WX[dayWX].e+'系菜品'}
-  else{yi=ming;ji=KE[ming];reason='五行平和，宜食'+WX[ming].e+'系菜品'}
+  // 五行关系
+  var yi,ji,relation;
+  if(dayWX===ming){
+    yi=ming;ji=KE_BY[ming];
+    relation='比和';
+  }else if(SHENG_BY[dayWX]===ming){
+    yi=ming;ji=KE[ming];
+    relation='今日生你';
+  }else if(SHENG[ming]===dayWX){
+    yi=dayWX;ji=KE_BY[ming];
+    relation='你生今日';
+  }else if(KE[dayWX]===ming){
+    yi=SHENG_BY[ming];ji=dayWX;
+    relation='今日克你';
+  }else if(KE[ming]===dayWX){
+    yi=dayWX;ji=KE[dayWX];
+    relation='你克今日';
+  }else{
+    yi=ming;ji=KE[ming];
+    relation='平和';
+  }
 
-  var yiFoods=shuffle(FOODS.filter(function(f){return f.w===yi})).slice(0,3);
-  var jiFoods=shuffle(FOODS.filter(function(f){return f.w===ji})).slice(0,3);
+  // 运势解读（50字内简洁版，最后一句是食谱运势）
+  var reasonText=buildReason(ming,dayWX,dayTG.name,dayDZ.name,sx,relation,yi,ji);
+
+  var yiFoods=shuffle(FOODS.filter(function(f){return f.w===yi}));
+  var jiFoods=shuffle(FOODS.filter(function(f){return f.w===ji}));
 
   var hours={木:'05:00-07:00',火:'11:00-13:00',土:'07:00-09:00',金:'15:00-17:00',水:'21:00-23:00'};
   var ds=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
 
   renderResult({
     date:ds, ming:ming, sx:sx, gz:dayTG.name+dayDZ.name, dayWX:dayWX,
-    yi:yi, ji:ji, reason:reason,
+    yi:yi, ji:ji, reason:reasonText,
     yiFoods:yiFoods, jiFoods:jiFoods,
     color:WX[ming].c, time:hours[ming]
   });
 }
 
+function buildReason(ming,dayWX,tgName,dzName,sx,relation,yi,ji){
+  var wxMeta=WX[ming];
+  var dayMeta=WX[dayWX];
+  var yiMeta=WX[yi];
+
+  var relationDesc={
+    '比和':'今日'+dayMeta.d.slice(0,2)+'与你的'+wxMeta.d.slice(0,2)+'同气相求',
+    '今日生你':'今日'+dayMeta.d.slice(0,2)+'生你的'+wxMeta.d.slice(0,2)+'，得天时之助',
+    '你生今日':'你的'+wxMeta.d.slice(0,2)+'生今日'+dayMeta.d.slice(0,2)+'，顺势而为',
+    '今日克你':'今日'+dayMeta.d.slice(0,2)+'克你的'+wxMeta.d.slice(0,2)+'，需以食化解',
+    '你克今日':'你的'+wxMeta.d.slice(0,2)+'克今日'+dayMeta.d.slice(0,2)+'，运势可控',
+    '平和':'今日五行平和，气机通达'
+  };
+
+  var foodReason='今日宜食'+yiMeta.e+yiMeta.d.slice(0,2)+'之品'+yiMeta.relation+'，吃对食物才能旺运';
+
+  return relationDesc[relation]+'，'+sx+'之人本命'+ming+'，'+foodReason;
+}
+
+// ============================
+//  渲染结果
+// ============================
 function renderResult(r){
   document.getElementById('page-index').style.display='none';
   document.getElementById('page-loading').style.display='flex';
@@ -336,22 +375,38 @@ function renderResult(r){
     document.getElementById('r-sx').textContent='🐾 '+r.sx;
     document.getElementById('r-gz').textContent=r.gz;
     document.getElementById('r-day').textContent=WX[r.dayWX].e+' '+r.dayWX;
-    document.getElementById('r-reason').textContent=r.reason;
+    document.getElementById('r-reason').innerHTML=r.reason;
 
+    // ===== 菜品分类渲染 =====
     var yiHtml='';
-    r.yiFoods.forEach(function(f){
-      yiHtml+='<div class="yi-food">'
-        +'<div class="food-name">'+f.n+'</div>'
-        +'<div class="food-meta"><span>'+f.c+'</span><span>¥'+f.p+'</span></div>'
-        +'<div class="food-tags">'+f.t.map(function(t){return '<span>'+t+'</span>'}).join('')+'</div>'
-        +'<div class="food-actions">'
-        +'<a class="action-meituan" href="https://mp.meituan.com/search?keyword='+encodeURIComponent(f.n)+'" target="_blank">去美团点 ›</a>'
-        +'<a class="action-eleme" href="https://h5.ele.me/search?keyword='+encodeURIComponent(f.n)+'" target="_blank">去饿了么点 ›</a>'
-        +'</div></div>';
+    var categories=[
+      {key:'前菜',icon:'🥗',label:'前菜'},
+      {key:'主菜',icon:'🍲',label:'主菜'},
+      {key:'甜点',icon:'🍰',label:'甜点 / 奶茶'}
+    ];
+    categories.forEach(function(cat){
+      var foods=r.yiFoods.filter(function(f){return f.cat===cat.key;});
+      if(foods.length===0) return;
+      yiHtml+='<div class="category-section">';
+      yiHtml+='<div class="category-label">'+cat.icon+' '+cat.label+'</div>';
+      foods.forEach(function(f){
+        yiHtml+='<div class="yi-food">'
+          +'<div class="food-name">'+f.n+'</div>'
+          +'<div class="food-meta"><span>'+f.c+'</span><span>¥'+f.p+'</span></div>'
+          +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' → '+WX[r.yi].relation+'</div>'
+          +'<div class="food-tags">'+f.t.map(function(t){return '<span>'+t+'</span>'}).join('')+'</div>'
+          +'<div class="food-actions">'
+          +'<a class="action-meituan" href="https://mp.meituan.com/search?keyword='+encodeURIComponent(f.n)+'" target="_blank">去美团点 ›</a>'
+          +'<a class="action-eleme" href="https://h5.ele.me/search?keyword='+encodeURIComponent(f.n)+'" target="_blank">去饿了么点 ›</a>'
+          +'</div></div>';
+      });
+      yiHtml+='</div>';
     });
     document.getElementById('r-yi-foods').innerHTML=yiHtml;
 
-    document.getElementById('r-ji-tip').textContent='今日不宜吃'+WX[r.ji].label+'系菜品——'+WX[r.ji].d+'，建议忍一忍~';
+    // 今日忌（修复 undefined）
+    var jiMeta=WX[r.ji];
+    document.getElementById('r-ji-tip').textContent='今日不宜吃'+jiMeta.e+' '+jiMeta.d+'类菜品，建议忍一忍~';
     var jiHtml='';
     r.jiFoods.forEach(function(f){jiHtml+='<span>🚫 '+f.n+'</span>'});
     document.getElementById('r-ji-tags').innerHTML=jiHtml;
@@ -359,11 +414,9 @@ function renderResult(r){
     document.getElementById('r-color').style.background=r.color;
     document.getElementById('r-time').textContent=r.time;
 
-    // 分享链接: 把生日编码到URL里，别人打开自动看到结果
-    var shareUrl=location.origin+location.pathname+'?m='+r.ming;
+    var shareUrl=location.origin+location.pathname;
     document.getElementById('share-btn').href=shareUrl;
 
-    // 存localStorage
     localStorage.setItem('birth',JSON.stringify({
       y:parseInt(document.getElementById('sel-year').value),
       m:parseInt(document.getElementById('sel-month').value),
@@ -377,9 +430,10 @@ function goBack(){
   document.getElementById('page-index').style.display='flex';
 }
 
-// 初始化
+// ============================
+//  初始化
+// ============================
 (function(){
-  // 填充日期选择器
   var sy=document.getElementById('sel-year');
   for(var y=2015;y>=1940;y--){var o=document.createElement('option');o.value=y;o.textContent=y+'年';if(y===1995)o.selected=true;sy.appendChild(o)}
   var sm=document.getElementById('sel-month');
@@ -387,13 +441,11 @@ function goBack(){
   var sd=document.getElementById('sel-day');
   for(var d=1;d<=31;d++){var o=document.createElement('option');o.value=d;o.textContent=d+'日';sd.appendChild(o)}
 
-  // 恢复上次输入
   try{
     var b=JSON.parse(localStorage.getItem('birth'));
     if(b){sy.value=b.y;sm.value=b.m;sd.value=b.d}
   }catch(e){}
 
-  // 弹幕
   var danmus=[
     '张三测算了今天宜吃麻辣香锅 🍲',
     '李四今天忌火锅，忍住了！🔥',
@@ -406,13 +458,6 @@ function goBack(){
     document.getElementById('danmu').textContent=danmus[di%danmus.length];
     di++;
   },3500);
-
-  // URL参数分享：别人带参数打开，自动显示结果页
-  var params=new URLSearchParams(location.search);
-  if(params.get('m')){
-    // 简化：如果是分享链接，显示一个通用提示引导去首页
-    // 实际可以做更复杂的分享结果页
-  }
 })();
 </script>
 </body>
