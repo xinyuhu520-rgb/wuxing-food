@@ -514,20 +514,37 @@ function calc(){
   if(zodiac) seed+=zodiac.charCodeAt(0)*100;
   if(city) seed+=city.charCodeAt(0);
 
-  // 排序：天气偏好 > 宜的五行 > 其余
+  // 评分排序：不同城市/星座/生日 → 不同菜品
   var allYiFoods=FOODS.filter(function(f){return f.w===yi});
-  var weatherFoods=[];
-  var otherFoods=[];
-  for(var i=0;i<allYiFoods.length;i++){
-    if(weatherWX && allYiFoods[i].c===weather.cuisine) weatherFoods.push(allYiFoods[i]);
-    else otherFoods.push(allYiFoods[i]);
-  }
-  // 天气偏好放前面
-  weatherFoods=seededShuffle(weatherFoods,seed);
-  otherFoods=seededShuffle(otherFoods,seed+7777);
-  var yiFoods=weatherFoods.concat(otherFoods).slice(0,5);
+  var allJiFoods=FOODS.filter(function(f){return f.w===ji});
 
-  var jiFoods=seededShuffle(FOODS.filter(function(f){return f.w===ji}),seed+9999);
+  // 为每道菜计算个人分数
+  function scoreFood(food, baseSeed){
+    var score=0;
+    // 天气偏好：匹配的菜系 +3 分
+    if(weatherTip.cuisine && food.c===weatherTip.cuisine) score+=3;
+    // 星座偏好：匹配星座喜好的五行 +2 分
+    if(zodiacMeta.pref && food.w===zodiacMeta.pref) score+=1;
+    // 卦象偏好：匹配的五行 +1 分
+    if(personalBagua.wuxing && food.w===personalBagua.wuxing) score+=1;
+    // 基于种子给一个 0~1 的随机偏移，确保不同人生日即使分数相同也有不同排序
+    var s=baseSeed;
+    var nameChars=0;
+    for(var ci=0;ci<food.n.length;ci++) nameChars+=food.n.charCodeAt(ci);
+    s=(s*16807+nameChars)%2147483647;
+    var jitter=(s%100)/100;
+    return score+jitter;
+  }
+
+  var yiFoods=allYiFoods.map(function(f){return {food:f,score:scoreFood(f,seed)};})
+    .sort(function(a,b){return b.score-a.score;})
+    .map(function(x){return x.food;})
+    .slice(0,4);
+
+  var jiFoods=allJiFoods.map(function(f){return {food:f,score:scoreFood(f,seed+9999)};})
+    .sort(function(a,b){return b.score-a.score;})
+    .map(function(x){return x.food;})
+    .slice(0,3);
 
   // 幸运色：五行本色 + 星座/天气调整
   var finalColor=WX[ming].c;
@@ -628,7 +645,7 @@ function renderResult(r){
     document.getElementById('r-ji-tags').innerHTML=jiHtml;
 
     // 天气 + 幸运小贴士
-    document.getElementById('r-weather').innerHTML=r.weather.e+' '+r.city+' · '+r.weather.desc+' ('+r.weather.temp+')';
+    document.getElementById('r-weather').innerHTML=r.city?(r.weather.e+' '+r.city+' · '+r.weather.desc+' ('+r.weather.temp+')'):'🌤️ 未选择城市 · 天气舒适';
     document.getElementById('r-color').style.background=r.color;
     document.getElementById('r-time').textContent=r.time;
 
