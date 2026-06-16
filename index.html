@@ -174,6 +174,7 @@ body{
     <div class="info-row"><span class="label">生肖</span><span class="value" id="r-sx"></span></div>
     <div class="info-row"><span class="label">今日干支</span><span class="value" id="r-gz"></span></div>
     <div class="info-row"><span class="label">今日五行</span><span class="value" id="r-day"></span></div>
+    <div class="info-row"><span class="label">本命卦象</span><span class="value" id="r-bagua"></span></div>
   </div>
 
   <div class="card">
@@ -280,7 +281,28 @@ var FOODS=[
 // ============================
 //  工具函数
 // ============================
-function shuffle(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t}return b}
+function seededShuffle(a, seed){
+  var b=a.slice();
+  var s=seed;
+  function rand(){s=(s*16807)%2147483647;return(s-1)/2147483646}
+  for(var i=b.length-1;i>0;i--){var j=Math.floor(rand()*(i+1));var t=b[i];b[i]=b[j];b[j]=t}
+  return b;
+}
+
+// ============================
+//  八卦映射（用于细化推荐差异）
+// ============================
+var BAGUA=[
+  {name:'乾',symbol:'☰',wuxing:'金',trait:'刚健，宜精致'},
+  {name:'兑',symbol:'☱',wuxing:'金',trait:'愉悦，宜聚餐'},
+  {name:'离',symbol:'☲',wuxing:'火',trait:'热情，宜重口'},
+  {name:'震',symbol:'☳',wuxing:'木',trait:'活力，宜快捷'},
+  {name:'巽',symbol:'☴',wuxing:'木',trait:'温和，宜清淡'},
+  {name:'坎',symbol:'☵',wuxing:'水',trait:'深沉，宜温暖'},
+  {name:'艮',symbol:'☶',wuxing:'土',trait:'稳重，宜饱腹'},
+  {name:'坤',symbol:'☷',wuxing:'土',trait:'包容，宜家常'}
+];
+function getPersonalBagua(m,d){return BAGUA[(m+d-2)%8]}
 
 // ============================
 //  核心测算
@@ -299,6 +321,9 @@ function calc(){
   var dayTG=TIAN_GAN[((diff%10)+10)%10];
   var dayDZ=DI_ZHI[((diff%12)+12)%12];
   var dayWX=dayTG.wuxing;
+
+  // 个人专属卦象（月+日 → 八卦，用于差异化推荐）
+  var personalBagua=getPersonalBagua(m,d);
 
   // 五行关系
   var yi,ji,relation;
@@ -325,8 +350,10 @@ function calc(){
   // 运势解读（50字内简洁版，最后一句是食谱运势）
   var reasonText=buildReason(ming,dayWX,dayTG.name,dayDZ.name,sx,relation,yi,ji);
 
-  var yiFoods=shuffle(FOODS.filter(function(f){return f.w===yi}));
-  var jiFoods=shuffle(FOODS.filter(function(f){return f.w===ji}));
+  // 用完整生日做种子，确保每个人得到不同排列
+  var seed=y*10000+m*100+d;
+  var yiFoods=seededShuffle(FOODS.filter(function(f){return f.w===yi}),seed);
+  var jiFoods=seededShuffle(FOODS.filter(function(f){return f.w===ji}),seed+9999);
 
   var hours={木:'05:00-07:00',火:'11:00-13:00',土:'07:00-09:00',金:'15:00-17:00',水:'21:00-23:00'};
   var ds=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
@@ -335,7 +362,8 @@ function calc(){
     date:ds, ming:ming, sx:sx, gz:dayTG.name+dayDZ.name, dayWX:dayWX,
     yi:yi, ji:ji, reason:reasonText,
     yiFoods:yiFoods, jiFoods:jiFoods,
-    color:WX[ming].c, time:hours[ming]
+    color:WX[ming].c, time:hours[ming],
+    bagua:personalBagua
   });
 }
 
@@ -375,6 +403,7 @@ function renderResult(r){
     document.getElementById('r-sx').textContent='🐾 '+r.sx;
     document.getElementById('r-gz').textContent=r.gz;
     document.getElementById('r-day').textContent=WX[r.dayWX].e+' '+r.dayWX;
+    document.getElementById('r-bagua').textContent=r.bagua.symbol+' '+r.bagua.name+' → '+r.bagua.trait;
     document.getElementById('r-reason').innerHTML=r.reason;
 
     // ===== 菜品分类渲染 =====
@@ -393,7 +422,7 @@ function renderResult(r){
         yiHtml+='<div class="yi-food">'
           +'<div class="food-name">'+f.n+'</div>'
           +'<div class="food-meta"><span>'+f.c+'</span><span>¥'+f.p+'</span></div>'
-          +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' → '+WX[r.yi].relation+'</div>'
+          +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' → '+WX[r.yi].relation+' | 卦象：'+r.bagua.name+r.bagua.trait+'</div>'
           +'<div class="food-tags">'+f.t.map(function(t){return '<span>'+t+'</span>'}).join('')+'</div>'
           +'<div class="food-actions">'
           +'<a class="action-meituan" href="https://mp.meituan.com/search?keyword='+encodeURIComponent(f.n)+'" target="_blank">去美团点 ›</a>'
