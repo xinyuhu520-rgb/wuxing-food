@@ -691,7 +691,7 @@ function buildReason(ming,dayWX,tgName,dzName,sx,zodiac,zodiacMeta,relation,yi,j
     '平和':'今日五行平和，气机通达'
   };
 
-  var zodiacPart=zodiac?'，'+zodiacMeta.d:'';
+  var zodiacPart=zodiac&&zodiacMeta&&zodiacMeta.desc?'，'+zodiacMeta.desc:'';
   var weatherPart=weather.desc?'，'+weather.desc+'':'';
   var yiMeta=WX[yi];
   var foodReason='今日宜食'+yiMeta.e+yiMeta.d.slice(0,2)+'之品'+yiMeta.relation+'，吃对食物才能旺运';
