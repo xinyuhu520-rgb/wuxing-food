@@ -1,0 +1,24 @@
+index.html
+  s_1306479e969652::t_69d868c677556a 284-305
+  s_1306479e969652::t_730d438403e321 365-366
+  s_1306479e969652::t_014311e3b40b1c 425
+  s_1306479e969652::t_c12b5bc474d1b5 325-327,353-356
+  s_1306479e969652::t_c7b4a56a81f51b 406
+  s_1306479e969652::t_fa117a4296db6c 177
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.17-trip",
+  "base_commit_sha": "772f22fef12dbc9311455c04c6878a03c4a14807",
+  "prompts": {},
+  "sessions": {
+    "s_1306479e969652": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef02958a-47b0-43da-b8ab-b38ad0e767de",
+        "model": "qwen3.6-plus"
+      },
+      "human_author": "xinyhu <xinyhu@base.ctripsmartdns.com>"
+    }
+  }
+}
