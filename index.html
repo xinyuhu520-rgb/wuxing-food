@@ -37,6 +37,9 @@ body{
   border-radius:16px;padding:24px 20px;margin-bottom:32px;
 }
 .form-card label{font-size:15px;color:#d4a853;display:block;margin-bottom:12px;text-align:center}
+.form-section{margin-bottom:18px}
+.form-section:last-child{margin-bottom:0}
+.form-section-title{font-size:13px;color:#888;margin-bottom:8px;text-align:left}
 .date-row{display:flex;gap:10px;justify-content:center}
 .date-row select{
   flex:1;padding:12px 0;
@@ -46,6 +49,15 @@ body{
   appearance:none;-webkit-appearance:none;
 }
 .date-row option{background:#1a1a2e;color:#e8e8e8}
+.extra-row{display:flex;gap:10px}
+.extra-row select{
+  flex:1;padding:12px 0;
+  background:rgba(255,255,255,.08);color:#e8e8e8;
+  border:1px solid rgba(212,168,83,.3);border-radius:10px;
+  font-size:14px;text-align:center;
+  appearance:none;-webkit-appearance:none;
+}
+.extra-row option{background:#1a1a2e;color:#e8e8e8}
 .calc-btn{
   width:80%;height:52px;
   background:linear-gradient(135deg,#d4a853,#c4944a);
@@ -77,11 +89,6 @@ body{
 .info-row .label{color:#777}
 .info-row .value{color:#e8e8e8;font-weight:500}
 .analysis-text{font-size:14px;color:#bbb;line-height:1.8}
-.analysis-text .food-line{
-  display:block;margin-top:8px;padding-top:8px;
-  border-top:1px dashed rgba(212,168,83,.2);
-  color:#d4a853;font-weight:500;
-}
 .category-section{margin-bottom:16px}
 .category-label{font-size:14px;color:#d4a853;margin-bottom:8px;font-weight:bold}
 .food-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04)}
@@ -103,6 +110,11 @@ body{
 .ji-tags span{font-size:12px;color:#ef5350;background:rgba(239,83,80,.1);padding:6px 10px;border-radius:8px}
 .lucky-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:14px}
 .color-dot{width:18px;height:18px;border-radius:4px;border:1px solid rgba(255,255,255,.2)}
+.weather-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(255,255,255,.06);padding:4px 10px;border-radius:8px;
+  font-size:13px;color:#aaa;margin-bottom:12px;
+}
 .share-area{text-align:center;margin-top:8px;padding-bottom:20px}
 .share-btn{
   display:inline-block;padding:14px 40px;
@@ -141,15 +153,58 @@ body{
       <span class="bagua-char" style="top:38px;left:8px">☷</span>
     </div>
   </div>
+
   <div class="form-card">
-    <label>选择你的出生日期</label>
-    <div class="date-row">
-      <select id="sel-year"></select>
-      <select id="sel-month"></select>
-      <select id="sel-day"></select>
+    <div class="form-section">
+      <label>选择你的出生日期</label>
+      <div class="date-row">
+        <select id="sel-year"></select>
+        <select id="sel-month"></select>
+        <select id="sel-day"></select>
+      </div>
+    </div>
+    <div class="form-section">
+      <div class="form-section-title">你的星座 · 所在城市</div>
+      <div class="extra-row">
+        <select id="sel-zodiac">
+          <option value="">自动识别</option>
+          <option value="白羊">♈ 白羊座</option>
+          <option value="金牛">♉ 金牛座</option>
+          <option value="双子">♊ 双子座</option>
+          <option value="巨蟹">♋ 巨蟹座</option>
+          <option value="狮子">♌ 狮子座</option>
+          <option value="处女">♍ 处女座</option>
+          <option value="天秤">♎ 天秤座</option>
+          <option value="天蝎">♏ 天蝎座</option>
+          <option value="射手">♐ 射手座</option>
+          <option value="摩羯">♑ 摩羯座</option>
+          <option value="水瓶">♒ 水瓶座</option>
+          <option value="双鱼">♓ 双鱼座</option>
+        </select>
+        <select id="sel-city">
+          <option value="">选择城市</option>
+          <option value="上海">上海</option>
+          <option value="北京">北京</option>
+          <option value="广州">广州</option>
+          <option value="深圳">深圳</option>
+          <option value="杭州">杭州</option>
+          <option value="成都">成都</option>
+          <option value="重庆">重庆</option>
+          <option value="武汉">武汉</option>
+          <option value="南京">南京</option>
+          <option value="西安">西安</option>
+          <option value="长沙">长沙</option>
+          <option value="厦门">厦门</option>
+          <option value="青岛">青岛</option>
+          <option value="昆明">昆明</option>
+          <option value="哈尔滨">哈尔滨</option>
+        </select>
+      </div>
     </div>
   </div>
+
   <button class="calc-btn" onclick="calc()">🔮 开始今日测算</button>
+
   <div class="danmu-bar"><span class="danmu-text" id="danmu">张三测算了今天宜吃麻辣香锅</span></div>
   <div class="footer">── 趣味娱乐 · 仅供参考 ──</div>
 </div>
@@ -172,6 +227,7 @@ body{
     <div class="card-title">基本信息</div>
     <div class="info-row"><span class="label">本命五行</span><span class="value" id="r-ming"></span></div>
     <div class="info-row"><span class="label">生肖</span><span class="value" id="r-sx"></span></div>
+    <div class="info-row"><span class="label">星座</span><span class="value" id="r-zodiac"></span></div>
     <div class="info-row"><span class="label">今日干支</span><span class="value" id="r-gz"></span></div>
     <div class="info-row"><span class="label">今日五行</span><span class="value" id="r-day"></span></div>
     <div class="info-row"><span class="label">本命卦象</span><span class="value" id="r-bagua"></span></div>
@@ -195,6 +251,7 @@ body{
 
   <div class="card">
     <div class="card-title">🌟 幸运小贴士</div>
+    <div class="weather-badge" id="r-weather"></div>
     <div class="lucky-row"><span>幸运色</span><div class="color-dot" id="r-color"></div></div>
     <div class="lucky-row"><span>最佳用餐时间</span><span id="r-time" style="font-weight:500"></span></div>
   </div>
@@ -237,7 +294,95 @@ var SHENG_BY={火:'木',土:'火',金:'土',水:'金',木:'水'};
 var SHENG={木:'火',火:'土',土:'金',金:'水',水:'木'};
 
 // ============================
-//  菜品数据库（含分类：前菜/主菜/甜点）
+//  星座
+// ============================
+var ZODIAC_LIST=['摩羯','水瓶','双鱼','白羊','金牛','双子','巨蟹','狮子','处女','天秤','天蝎','射手','摩羯'];
+var ZODIAC_DATES=[{m:1,d:1},{m:1,d:20},{m:2,d:19},{m:3,d:21},{m:4,d:20},{m:5,d:21},{m:6,d:21},{m:7,d:23},{m:8,d:23},{m:9,d:23},{m:10,d:24},{m:11,d:23},{m:12,d:22}];
+var ZODIAC_META={
+  '白羊':{e:'♈',pref:'火',desc:'冲动热情，宜重口美食'},
+  '金牛':{e:'♉',pref:'土',desc:'稳重务实，宜家常菜'},
+  '双子':{e:'♊',pref:'木',desc:'多变好奇，宜新奇口味'},
+  '巨蟹':{e:'♋',pref:'水',desc:'顾家温和，宜汤粥炖品'},
+  '狮子':{e:'♌',pref:'火',desc:'霸气张扬，宜大份聚餐'},
+  '处女':{e:'♍',pref:'土',desc:'精致讲究，宜健康轻食'},
+  '天秤':{e:'♎',pref:'金',desc:'优雅平衡，宜精致日料'},
+  '天蝎':{e:'♏',pref:'水',desc:'深沉神秘，宜重口夜宵'},
+  '射手':{e:'♐',pref:'火',desc:'自由奔放，宜异国风味'},
+  '摩羯':{e:'♑',pref:'土',desc:'踏实可靠，宜饱腹暖胃'},
+  '水瓶':{e:'♒',pref:'金',desc:'创新独特，宜创意融合'},
+  '双鱼':{e:'♓',pref:'水',desc:'浪漫梦幻，宜甜品奶茶'}
+};
+function getZodiac(m,d){
+  var idx=0;
+  for(var i=0;i<ZODIAC_DATES.length-1;i++){
+    if(m===ZODIAC_DATES[i+1].m && d<ZODIAC_DATES[i+1].d){idx=i;break}
+    if(m===ZODIAC_DATES[i].m && d>=ZODIAC_DATES[i].d && m<ZODIAC_DATES[i+1].m){idx=i;break}
+  }
+  if(m>=12 && d>=22) idx=12; //摩羯
+  return ZODIAC_LIST[idx];
+}
+
+// ============================
+//  城市天气（模拟）
+// ============================
+var WEATHER_DB={
+  '上海':{e:'🌧️',type:'rainy',temp:'适中',desc:'阴雨绵绵',weatherColor:'#4A90D9'},
+  '北京':{e:'🌬️',type:'cold',temp:'偏冷',desc:'干燥多风',weatherColor:'#90CAF9'},
+  '广州':{e:'☀️',type:'hot',temp:'炎热',desc:'高温闷热',weatherColor:'#FF7043'},
+  '深圳':{e:'☀️',type:'hot',temp:'炎热',desc:'高温潮湿',weatherColor:'#FF7043'},
+  '杭州':{e:'🌧️',type:'rainy',temp:'适中',desc:'细雨蒙蒙',weatherColor:'#4A90D9'},
+  '成都':{e:'🌫️',type:'humid',temp:'潮湿',desc:'阴湿多云',weatherColor:'#A5D6A7'},
+  '重庆':{e:'🌫️',type:'humid',temp:'潮湿',desc:'闷热潮湿',weatherColor:'#A5D6A7'},
+  '武汉':{e:'☀️',type:'hot',temp:'炎热',desc:'酷热难耐',weatherColor:'#FF7043'},
+  '南京':{e:'☀️',type:'hot',temp:'偏热',desc:'湿热交替',weatherColor:'#FFAB40'},
+  '西安':{e:'🌬️',type:'cold',temp:'偏冷',desc:'干燥寒冷',weatherColor:'#90CAF9'},
+  '长沙':{e:'☀️',type:'hot',temp:'炎热',desc:'火辣湿热',weatherColor:'#FF7043'},
+  '厦门':{e:'🌊',type:'warm',temp:'温暖',desc:'海风宜人',weatherColor:'#4DB6AC'},
+  '青岛':{e:'🌊',type:'cool',temp:'清凉',desc:'海风清凉',weatherColor:'#4DB6AC'},
+  '昆明':{e:'🌤️',type:'warm',temp:'宜人',desc:'四季如春',weatherColor:'#81C784'},
+  '哈尔滨':{e:'❄️',type:'cold',temp:'严寒',desc:'冰天雪地',weatherColor:'#90CAF9'}
+};
+function getWeather(city){
+  if(!city || !WEATHER_DB[city]) return {e:'🌤️',type:'normal',temp:'适中',desc:'天气舒适',weatherColor:'#81C784'};
+  return WEATHER_DB[city];
+}
+
+// 天气对推荐的加分规则（返回宜吃的五行偏好 + 菜系偏好）
+function weatherBoost(weather, dayWX){
+  var boost={wx:null, cuisine:null, tip:''};
+  switch(weather.type){
+    case 'cold':
+      boost.wx='火'; boost.cuisine='火锅';
+      boost.tip='天气'+weather.temp+'，宜吃'+WX['火'].e+'系热食暖身';
+      break;
+    case 'hot':
+      boost.wx='水'; boost.cuisine='轻食';
+      boost.tip='天气'+weather.temp+'，宜吃'+WX['水'].e+'系清凉解暑';
+      break;
+    case 'rainy':
+      boost.wx='土'; boost.cuisine='家常菜';
+      boost.tip=weather.desc+'，宜吃'+WX['土'].e+'系暖胃驱湿';
+      break;
+    case 'humid':
+      boost.wx='金'; boost.cuisine='川菜';
+      boost.tip=weather.desc+'，宜吃'+WX['金'].e+'系辛辣祛湿';
+      break;
+    case 'warm':
+      boost.wx='木'; boost.cuisine='日料';
+      boost.tip=weather.desc+'，宜吃'+WX['木'].e+'系清爽怡人';
+      break;
+    case 'cool':
+      boost.wx='水'; boost.cuisine='海鲜';
+      boost.tip=weather.desc+'，宜吃'+WX['水'].e+'系鲜美滋养';
+      break;
+    default:
+      boost.wx=dayWX; boost.tip='天气舒适，随心而食';
+  }
+  return boost;
+}
+
+// ============================
+//  菜品数据库
 // ============================
 var FOODS=[
   // 金
@@ -290,7 +435,7 @@ function seededShuffle(a, seed){
 }
 
 // ============================
-//  八卦映射（用于细化推荐差异）
+//  八卦映射（年+月+日 → 确保每人不同）
 // ============================
 var BAGUA=[
   {name:'乾',symbol:'☰',wuxing:'金',trait:'刚健，宜精致'},
@@ -302,7 +447,7 @@ var BAGUA=[
   {name:'艮',symbol:'☶',wuxing:'土',trait:'稳重，宜饱腹'},
   {name:'坤',symbol:'☷',wuxing:'土',trait:'包容，宜家常'}
 ];
-function getPersonalBagua(m,d){return BAGUA[(m+d-2)%8]}
+function getPersonalBagua(y,m,d){return BAGUA[(y+m+d)%8]}
 
 // ============================
 //  核心测算
@@ -311,19 +456,29 @@ function calc(){
   var y=parseInt(document.getElementById('sel-year').value);
   var m=parseInt(document.getElementById('sel-month').value);
   var d=parseInt(document.getElementById('sel-day').value);
+  var zodiacInput=document.getElementById('sel-zodiac').value;
+  var city=document.getElementById('sel-city').value;
   var today=new Date();
 
   var ming=TIAN_GAN[(y-4)%10].wuxing;
   var sx=DI_ZHI[(y-4)%12].animal;
 
+  // 星座（自动识别 or 手动选择）
+  var zodiac=zodiacInput || getZodiac(m,d);
+  var zodiacMeta=ZODIAC_META[zodiac];
+
+  // 天气
+  var weather=getWeather(city);
+
+  // 日柱
   var base=new Date(1900,0,1);
   var diff=Math.floor((today.getTime()-base.getTime())/86400000);
   var dayTG=TIAN_GAN[((diff%10)+10)%10];
   var dayDZ=DI_ZHI[((diff%12)+12)%12];
   var dayWX=dayTG.wuxing;
 
-  // 个人专属卦象（月+日 → 八卦，用于差异化推荐）
-  var personalBagua=getPersonalBagua(m,d);
+  // 个人卦象（年+月+日，确保每人不同）
+  var personalBagua=getPersonalBagua(y,m,d);
 
   // 五行关系
   var yi,ji,relation;
@@ -347,13 +502,38 @@ function calc(){
     relation='平和';
   }
 
-  // 运势解读（50字内简洁版，最后一句是食谱运势）
-  var reasonText=buildReason(ming,dayWX,dayTG.name,dayDZ.name,sx,relation,yi,ji);
+  // 天气加权 → 调整推荐偏好
+  var weatherTip=weatherBoost(weather,dayWX);
+  var weatherWX=weatherTip.wx;
 
-  // 用完整生日做种子，确保每个人得到不同排列
+  // 运势解读
+  var reasonText=buildReason(ming,dayWX,dayTG.name,dayDZ.name,sx,zodiac,zodiacMeta,relation,yi,ji,weather,weatherWX);
+
+  // 用完整生日+星座+城市做种子，确保每个人不同排列
   var seed=y*10000+m*100+d;
-  var yiFoods=seededShuffle(FOODS.filter(function(f){return f.w===yi}),seed);
+  if(zodiac) seed+=zodiac.charCodeAt(0)*100;
+  if(city) seed+=city.charCodeAt(0);
+
+  // 排序：天气偏好 > 宜的五行 > 其余
+  var allYiFoods=FOODS.filter(function(f){return f.w===yi});
+  var weatherFoods=[];
+  var otherFoods=[];
+  for(var i=0;i<allYiFoods.length;i++){
+    if(weatherWX && allYiFoods[i].c===weather.cuisine) weatherFoods.push(allYiFoods[i]);
+    else otherFoods.push(allYiFoods[i]);
+  }
+  // 天气偏好放前面
+  weatherFoods=seededShuffle(weatherFoods,seed);
+  otherFoods=seededShuffle(otherFoods,seed+7777);
+  var yiFoods=weatherFoods.concat(otherFoods).slice(0,5);
+
   var jiFoods=seededShuffle(FOODS.filter(function(f){return f.w===ji}),seed+9999);
+
+  // 幸运色：五行本色 + 星座/天气调整
+  var finalColor=WX[ming].c;
+  if(weather.type==='hot') finalColor=WX['水'].c;
+  else if(weather.type==='cold') finalColor=WX['火'].c;
+  else if(zodiacMeta) finalColor=WX[zodiacMeta.pref]?WX[zodiacMeta.pref].c:WX[ming].c;
 
   var hours={木:'05:00-07:00',火:'11:00-13:00',土:'07:00-09:00',金:'15:00-17:00',水:'21:00-23:00'};
   var ds=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
@@ -362,15 +542,16 @@ function calc(){
     date:ds, ming:ming, sx:sx, gz:dayTG.name+dayDZ.name, dayWX:dayWX,
     yi:yi, ji:ji, reason:reasonText,
     yiFoods:yiFoods, jiFoods:jiFoods,
-    color:WX[ming].c, time:hours[ming],
-    bagua:personalBagua
+    color:finalColor, time:hours[ming],
+    bagua:personalBagua,
+    zodiac:zodiac, zodiacMeta:zodiacMeta,
+    weather:weather, weatherTip:weatherTip, city:city
   });
 }
 
-function buildReason(ming,dayWX,tgName,dzName,sx,relation,yi,ji){
+function buildReason(ming,dayWX,tgName,dzName,sx,zodiac,zodiacMeta,relation,yi,ji,weather,weatherWX){
   var wxMeta=WX[ming];
   var dayMeta=WX[dayWX];
-  var yiMeta=WX[yi];
 
   var relationDesc={
     '比和':'今日'+dayMeta.d.slice(0,2)+'与你的'+wxMeta.d.slice(0,2)+'同气相求',
@@ -381,9 +562,12 @@ function buildReason(ming,dayWX,tgName,dzName,sx,relation,yi,ji){
     '平和':'今日五行平和，气机通达'
   };
 
+  var zodiacPart=zodiac?'，'+zodiacMeta.d:'';
+  var weatherPart=weather.desc?'，'+weather.desc+'':'';
+  var yiMeta=WX[yi];
   var foodReason='今日宜食'+yiMeta.e+yiMeta.d.slice(0,2)+'之品'+yiMeta.relation+'，吃对食物才能旺运';
 
-  return relationDesc[relation]+'，'+sx+'之人本命'+ming+'，'+foodReason;
+  return relationDesc[relation]+zodiacPart+weatherPart+'，'+foodReason;
 }
 
 // ============================
@@ -401,6 +585,7 @@ function renderResult(r){
     document.getElementById('result-date').textContent='🔮 '+r.date;
     document.getElementById('r-ming').textContent=WX[r.ming].e+' '+r.ming+'命';
     document.getElementById('r-sx').textContent='🐾 '+r.sx;
+    document.getElementById('r-zodiac').textContent=(ZODIAC_META[r.zodiac]?ZODIAC_META[r.zodiac].e:'⭐')+' '+r.zodiac+'座';
     document.getElementById('r-gz').textContent=r.gz;
     document.getElementById('r-day').textContent=WX[r.dayWX].e+' '+r.dayWX;
     document.getElementById('r-bagua').textContent=r.bagua.symbol+' '+r.bagua.name+' → '+r.bagua.trait;
@@ -419,10 +604,12 @@ function renderResult(r){
       yiHtml+='<div class="category-section">';
       yiHtml+='<div class="category-label">'+cat.icon+' '+cat.label+'</div>';
       foods.forEach(function(f){
+        var wxRelation=WX[r.yi].relation;
+        if(r.weather.cuisine && f.c===r.weather.cuisine) wxRelation+=' 🌟 天气加分';
         yiHtml+='<div class="yi-food">'
           +'<div class="food-name">'+f.n+'</div>'
           +'<div class="food-meta"><span>'+f.c+'</span><span>¥'+f.p+'</span></div>'
-          +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' → '+WX[r.yi].relation+' | 卦象：'+r.bagua.name+r.bagua.trait+'</div>'
+          +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' → '+wxRelation+'</div>'
           +'<div class="food-tags">'+f.t.map(function(t){return '<span>'+t+'</span>'}).join('')+'</div>'
           +'<div class="food-actions">'
           +'<a class="action-meituan" href="https://mp.meituan.com/search?keyword='+encodeURIComponent(f.n)+'" target="_blank">去美团点 ›</a>'
@@ -433,13 +620,15 @@ function renderResult(r){
     });
     document.getElementById('r-yi-foods').innerHTML=yiHtml;
 
-    // 今日忌（修复 undefined）
+    // 今日忌
     var jiMeta=WX[r.ji];
     document.getElementById('r-ji-tip').textContent='今日不宜吃'+jiMeta.e+' '+jiMeta.d+'类菜品，建议忍一忍~';
     var jiHtml='';
     r.jiFoods.forEach(function(f){jiHtml+='<span>🚫 '+f.n+'</span>'});
     document.getElementById('r-ji-tags').innerHTML=jiHtml;
 
+    // 天气 + 幸运小贴士
+    document.getElementById('r-weather').innerHTML=r.weather.e+' '+r.city+' · '+r.weather.desc+' ('+r.weather.temp+')';
     document.getElementById('r-color').style.background=r.color;
     document.getElementById('r-time').textContent=r.time;
 
