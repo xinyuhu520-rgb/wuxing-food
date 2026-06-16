@@ -167,7 +167,7 @@ body{
     </div>
   </div>
 
-  <button class="calc-btn" onclick="calculate()">🔮 开始今日测算</button>
+  <button class="calc-btn" onclick="calc()">🔮 开始今日测算</button>
 
   <div class="danmu-bar"><span class="danmu-text" id="danmu">张三测算了今天宜吃麻辣香锅</span></div>
   <div class="footer">── 趣味娱乐 · 仅供参考 ──</div>
@@ -303,7 +303,7 @@ function calc(){
   var yi,ji,reason;
   if(dayWX===ming){yi=ming;ji=KE_BY[ming];reason='今日五行与本命相同，运势平稳，宜食'+WX[ming].d+'的菜品，稳中有进✨'}
   else if(SHENG_BY[dayWX]===ming){yi=ming;ji=KE[ming];reason='今日'+WX[dayWX].e+WX[dayWX].d.slice(0,2)+'生'+WX[ming].d.slice(0,2)+'，得天时之助，宜食'+WX[ming].e+'系菜品'}
-  else if(ming==='木'&&dayWX==='火'||ming==='火'&&dayWX==='土'||ming==='土'&&dayWX==='金'||ming==='金'&&dayWX==='水'||ming==='水'&&dayWX==='木'){yi=dayWX;ji=KE_BY[ming];reason='顺势而为，今日能量输出到'+WX[dayWX].label+'，宜食'+WX[dayWX].e+'系菜品'}
+  else if(ming==='木'&&dayWX==='火'||ming==='火'&&dayWX==='土'||ming==='土'&&dayWX==='金'||ming==='金'&&dayWX==='水'||ming==='水'&&dayWX==='木'){yi=dayWX;ji=KE_BY[ming];reason='顺势而为，今日能量输出，宜食'+WX[dayWX].e+'系菜品'}
   else if(KE[dayWX]===ming){yi=SHENG_BY[ming];ji=dayWX;reason='今日'+WX[dayWX].e+WX[dayWX].d.slice(0,2)+'克'+WX[ming].d.slice(0,2)+'，运势受阻，宜食'+WX[SHENG_BY[ming]].e+'系化解'}
   else if(KE[ming]===dayWX){yi=dayWX;ji=KE[dayWX];reason='今日你克'+WX[dayWX].label+'，运势可控，宜食'+WX[dayWX].e+'系菜品'}
   else{yi=ming;ji=KE[ming];reason='五行平和，宜食'+WX[ming].e+'系菜品'}
