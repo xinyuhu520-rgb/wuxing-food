@@ -323,28 +323,79 @@ function getZodiac(m,d){
 }
 
 // ============================
-//  城市天气（模拟）
+//  实时天气 API（Open-Meteo，无需 API Key）
 // ============================
-var WEATHER_DB={
-  '上海':{e:'🌧️',type:'rainy',temp:'适中',desc:'阴雨绵绵',weatherColor:'#4A90D9'},
-  '北京':{e:'🌬️',type:'cold',temp:'偏冷',desc:'干燥多风',weatherColor:'#90CAF9'},
-  '广州':{e:'☀️',type:'hot',temp:'炎热',desc:'高温闷热',weatherColor:'#FF7043'},
-  '深圳':{e:'☀️',type:'hot',temp:'炎热',desc:'高温潮湿',weatherColor:'#FF7043'},
-  '杭州':{e:'🌧️',type:'rainy',temp:'适中',desc:'细雨蒙蒙',weatherColor:'#4A90D9'},
-  '成都':{e:'🌫️',type:'humid',temp:'潮湿',desc:'阴湿多云',weatherColor:'#A5D6A7'},
-  '重庆':{e:'🌫️',type:'humid',temp:'潮湿',desc:'闷热潮湿',weatherColor:'#A5D6A7'},
-  '武汉':{e:'☀️',type:'hot',temp:'炎热',desc:'酷热难耐',weatherColor:'#FF7043'},
-  '南京':{e:'☀️',type:'hot',temp:'偏热',desc:'湿热交替',weatherColor:'#FFAB40'},
-  '西安':{e:'🌬️',type:'cold',temp:'偏冷',desc:'干燥寒冷',weatherColor:'#90CAF9'},
-  '长沙':{e:'☀️',type:'hot',temp:'炎热',desc:'火辣湿热',weatherColor:'#FF7043'},
-  '厦门':{e:'🌊',type:'warm',temp:'温暖',desc:'海风宜人',weatherColor:'#4DB6AC'},
-  '青岛':{e:'🌊',type:'cool',temp:'清凉',desc:'海风清凉',weatherColor:'#4DB6AC'},
-  '昆明':{e:'🌤️',type:'warm',temp:'宜人',desc:'四季如春',weatherColor:'#81C784'},
-  '哈尔滨':{e:'❄️',type:'cold',temp:'严寒',desc:'冰天雪地',weatherColor:'#90CAF9'}
+var CITY_COORDS={
+  '上海':{lat:31.23,lon:121.47},'北京':{lat:39.90,lon:116.41},
+  '广州':{lat:23.13,lon:113.26},'深圳':{lat:22.54,lon:114.05},
+  '杭州':{lat:30.25,lon:120.17},'成都':{lat:30.57,lon:104.07},
+  '重庆':{lat:29.56,lon:106.55},'武汉':{lat:30.59,lon:114.31},
+  '南京':{lat:32.06,lon:118.80},'西安':{lat:34.27,lon:108.94},
+  '长沙':{lat:28.23,lon:112.94},'厦门':{lat:24.48,lon:118.09},
+  '青岛':{lat:36.07,lon:120.38},'昆明':{lat:25.04,lon:102.71},
+  '哈尔滨':{lat:45.80,lon:126.53}
 };
-function getWeather(city){
-  if(!city || !WEATHER_DB[city]) return {e:'🌤️',type:'normal',temp:'适中',desc:'天气舒适',weatherColor:'#81C784'};
-  return WEATHER_DB[city];
+
+// WMO天气代码 → 我们的内部格式
+function wmoToType(code,isNight){
+  if(code>=71) return {type:'cold',cuisine:'火锅',tip:'宜热食暖身'}; // 雪/冰
+  if(code>=51) return {type:'rainy',cuisine:'家常菜',tip:'宜暖胃驱湿'}; // 雨
+  if(code>=40) return {type:'rainy',cuisine:'家常菜',tip:'宜暖胃驱湿'}; // 雾
+  if(code>=3) return {type:'rainy',cuisine:'家常菜',tip:'宜暖胃驱湿'}; // 多云/阴
+  if(code>=1) return {type:'warm',cuisine:'日料',tip:'宜清爽怡人'}; // 晴间多云
+  return {type:'warm',cuisine:'日料',tip:'宜清爽怡人'}; // 晴
+}
+function tempDesc(t){
+  if(t<=0) return '严寒';if(t<=10) return '偏冷';if(t<=20) return '适中';
+  if(t<=28) return '偏热';return '炎热';
+}
+function tempType(t){
+  if(t<=5) return 'cold';if(t<=20) return 'cool';
+  if(t<=30) return 'warm';return 'hot';
+}
+function weatherIcon(code,isNight){
+  if(code>=71) return '❄️';if(code>=51) return '🌧️';if(code>=40) return '🌫️';
+  if(code>=3) return '☁️';if(code>=1) return isNight?'🌙':'🌤️';
+  return isNight?'🌙':'☀️';
+}
+
+function parseWeather(data, cityName){
+  var cur=data.current;
+  var temp=Math.round(cur.temperature);
+  var code=cur.weather_code;
+  var isNight=cur.is_day===0;
+  var tt=tempType(temp);
+  var wt=wmoToType(code,isNight);
+  // 雨/雪覆盖温度判断
+  if(code>=51) tt='rainy';
+  if(code>=71) tt='cold';
+
+  return {
+    e:weatherIcon(code,isNight),type:tt,
+    temp:tempDesc(temp),
+    desc:tempDesc(temp)+' · '+cur.weather_description,
+    realTemp:temp,
+    weatherColor: tt==='hot'?'#FF7043':tt==='cold'||tt==='rainy'?'#90CAF9':'#81C784',
+    cuisine:wt.cuisine,
+    tip:cityName+' '+tempDesc(temp)+weatherIcon(code,isNight)+'，'+wt.tip
+  };
+}
+
+async function fetchRealWeather(cityName){
+  if(!cityName || !CITY_COORDS[cityName]) return null;
+  var coord=CITY_COORDS[cityName];
+  try{
+    var url='https://api.open-meteo.com/v1/forecast?latitude='+coord.lat
+      +'&longitude='+coord.lon
+      +'&current=temperature_2m,weather_code,is_day'
+      +'&temperature_unit=celsius&timezone=auto';
+    var resp=await fetch(url);
+    var data=await resp.json();
+    return parseWeather(data, cityName);
+  }catch(e){
+    console.warn('天气API失败，使用默认值:', e);
+    return null;
+  }
 }
 
 // 天气对推荐的加分规则（返回宜吃的五行偏好 + 菜系偏好）
@@ -365,18 +416,18 @@ function weatherBoost(weather, dayWX){
       break;
     case 'humid':
       boost.wx='金'; boost.cuisine='川菜';
-      boost.tip=weather.desc+'，宜吃'+WX['金'].e+'系辛辣祛湿';
+      boost.tip='潮湿闷热，宜吃'+WX['金'].e+'系辛辣祛湿';
       break;
     case 'warm':
       boost.wx='木'; boost.cuisine='日料';
-      boost.tip=weather.desc+'，宜吃'+WX['木'].e+'系清爽怡人';
+      boost.tip='天气宜人，宜吃'+WX['木'].e+'系清爽怡人';
       break;
     case 'cool':
       boost.wx='水'; boost.cuisine='海鲜';
-      boost.tip=weather.desc+'，宜吃'+WX['水'].e+'系鲜美滋养';
+      boost.tip='天气清凉，宜吃'+WX['水'].e+'系鲜美滋养';
       break;
     default:
-      boost.wx=dayWX; boost.tip='天气舒适，随心而食';
+      boost.wx=dayWX; boost.cuisine=''; boost.tip='天气舒适，随心而食';
   }
   return boost;
 }
@@ -458,6 +509,22 @@ function calc(){
   var d=parseInt(document.getElementById('sel-day').value);
   var zodiacInput=document.getElementById('sel-zodiac').value;
   var city=document.getElementById('sel-city').value;
+
+  // 先显示加载动画
+  document.getElementById('page-index').style.display='none';
+  document.getElementById('page-loading').style.display='flex';
+
+  // 异步获取实时天气
+  fetchRealWeather(city).then(function(realWeather){
+    var weather=realWeather || {
+      e:'🌤️',type:'warm',temp:'适中',desc:'天气舒适',
+      realTemp:25,weatherColor:'#81C784',cuisine:'',tip:'天气舒适，随心而食'
+    };
+    doCalculation(y,m,d,zodiacInput,city,weather);
+  });
+}
+
+function doCalculation(y,m,d,zodiacInput,city,weather){
   var today=new Date();
 
   var ming=TIAN_GAN[(y-4)%10].wuxing;
@@ -466,9 +533,6 @@ function calc(){
   // 星座（自动识别 or 手动选择）
   var zodiac=zodiacInput || getZodiac(m,d);
   var zodiacMeta=ZODIAC_META[zodiac];
-
-  // 天气
-  var weather=getWeather(city);
 
   // 日柱
   var base=new Date(1900,0,1);
@@ -523,6 +587,7 @@ function calc(){
     var score=0;
     // 天气偏好：匹配的菜系 +3 分
     if(weatherTip.cuisine && food.c===weatherTip.cuisine) score+=3;
+    if(weather.cuisine && food.c===weather.cuisine) score+=2;
     // 星座偏好：匹配星座喜好的五行 +2 分
     if(zodiacMeta.pref && food.w===zodiacMeta.pref) score+=1;
     // 卦象偏好：匹配的五行 +1 分
@@ -546,11 +611,11 @@ function calc(){
     .map(function(x){return x.food;})
     .slice(0,3);
 
-  // 幸运色：五行本色 + 星座/天气调整
+  // 幸运色：五行本色 + 天气调整
   var finalColor=WX[ming].c;
   if(weather.type==='hot') finalColor=WX['水'].c;
   else if(weather.type==='cold') finalColor=WX['火'].c;
-  else if(zodiacMeta) finalColor=WX[zodiacMeta.pref]?WX[zodiacMeta.pref].c:WX[ming].c;
+  else if(zodiacMeta.pref && WX[zodiacMeta.pref]) finalColor=WX[zodiacMeta.pref].c;
 
   var hours={木:'05:00-07:00',火:'11:00-13:00',土:'07:00-09:00',金:'15:00-17:00',水:'21:00-23:00'};
   var ds=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
@@ -645,7 +710,10 @@ function renderResult(r){
     document.getElementById('r-ji-tags').innerHTML=jiHtml;
 
     // 天气 + 幸运小贴士
-    document.getElementById('r-weather').innerHTML=r.city?(r.weather.e+' '+r.city+' · '+r.weather.desc+' ('+r.weather.temp+')'):'🌤️ 未选择城市 · 天气舒适';
+    var weatherHtml=r.city?
+      (r.weather.e+' '+r.city+' · '+r.weather.temp+'（实时天气）'):
+      '🌤️ 未选择城市';
+    document.getElementById('r-weather').innerHTML=weatherHtml;
     document.getElementById('r-color').style.background=r.color;
     document.getElementById('r-time').textContent=r.time;
 
