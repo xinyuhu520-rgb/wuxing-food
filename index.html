@@ -357,52 +357,8 @@ function getZodiac(m,d){
 const EDAMAM_APP_ID = '68f5f356';
 const EDAMAM_APP_KEY = 'ba4859cd79abef0ded59c989ac333d9b';
 
-// 图片缓存（避免重复请求）
-const imageCache = {};
-
-// ============================
-//  动态图片获取（使用 Edamam API）
-// ============================
-async function getFoodImage(foodName, wuxing, category, index){
-  // 如果 API key 未配置，使用占位图
-  if(EDAMAM_APP_ID === 'YOUR_APP_ID' || EDAMAM_APP_KEY === 'YOUR_APP_KEY'){
-    return getPlaceholderImage(foodName, wuxing);
-  }
-
-  // 检查缓存
-  var cacheKey = foodName + '_' + wuxing;
-  if(imageCache[cacheKey]){
-    return imageCache[cacheKey];
-  }
-
-  try{
-    // 使用 Edamam Recipe Search API
-    var searchQuery = encodeURIComponent(foodName);
-    var url = 'https://api.edamam.com/api/recipes/v2?q=' + searchQuery
-      + '&type=public'
-      + '&app_id=' + EDAMAM_APP_ID
-      + '&app_key=' + EDAMAM_APP_KEY;
-
-    var response = await fetch(url);
-    var data = await response.json();
-
-    if(data.hits && data.hits.length > 0){
-      var recipe = data.hits[0].recipe;
-      // 获取食谱图片
-      var imageUrl = recipe.image;
-
-      // 缓存结果
-      imageCache[cacheKey] = imageUrl;
-      return imageUrl;
-    }
-
-    // 如果没有找到，使用占位图
-    return getPlaceholderImage(foodName, wuxing);
-  }catch(error){
-    console.warn('Edamam API 调用失败:', error);
-    return getPlaceholderImage(foodName, wuxing);
-  }
-}
+// 注意：Edamam API 有速率限制，容易导致连接错误
+// 当前已禁用 API 调用，使用占位图确保稳定性
 
 // 占位图备用方案
 function getPlaceholderImage(foodName, wuxing){
@@ -423,60 +379,15 @@ function getPlaceholderImage(foodName, wuxing){
 
 // 异步加载食物图片
 async function loadFoodImages(){
-  // 如果 API key 未配置，跳过
-  if(EDAMAM_APP_ID === 'YOUR_APP_ID' || EDAMAM_APP_KEY === 'YOUR_APP_KEY'){
-    console.log('Edamam API key 未配置，使用占位图');
-    return;
-  }
+  // Edamam API 有速率限制，容易出现连接错误
+  // 暂时使用占位图，确保稳定性
+  console.log('图片已通过占位图加载完成');
 
-  var images = document.querySelectorAll('.yi-food img');
-  console.log('开始加载 ' + images.length + ' 张食物图片');
-
-  // 顺序加载图片，避免并发请求过多
-  for(var i=0; i<images.length; i++){
-    var img = images[i];
-    var foodName = img.getAttribute('data-food-name');
-    var wuxing = img.getAttribute('data-wuxing');
-    var category = img.getAttribute('data-category');
-    var index = parseInt(img.getAttribute('data-index'));
-
-    try{
-      console.log('[' + (i+1) + '/' + images.length + '] 加载图片: ' + foodName);
-      var realImageUrl = await getFoodImage(foodName, wuxing, category, index);
-      console.log('[' + (i+1) + '/' + images.length + '] 图片URL: ' + realImageUrl);
-
-      // 添加错误处理
-      img.onerror = function() {
-        console.warn('图片加载失败，使用占位图: ' + this.getAttribute('data-food-name'));
-        this.src = getPlaceholderImage(this.getAttribute('data-food-name'), this.getAttribute('data-wuxing'));
-        // 隐藏加载提示
-        var loading = this.parentNode.querySelector('.image-loading');
-        if(loading) loading.style.display = 'none';
-      };
-
-      // 添加成功处理
-      img.onload = function() {
-        console.log('图片加载成功: ' + this.getAttribute('data-food-name'));
-        // 隐藏加载提示
-        var loading = this.parentNode.querySelector('.image-loading');
-        if(loading) loading.style.display = 'none';
-      };
-
-      img.src = realImageUrl;
-
-      // 添加延迟，避免请求过快 - 从300ms减少到100ms
-      if(i < images.length - 1){
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
-    }catch(error){
-      console.warn('[' + (i+1) + '/' + images.length + '] 加载图片失败:', foodName, error);
-      img.src = getPlaceholderImage(foodName, wuxing);
-      // 隐藏加载提示
-      var loading = img.parentNode.querySelector('.image-loading');
-      if(loading) loading.style.display = 'none';
-    }
-  }
-  console.log('所有图片加载完成');
+  // 隐藏所有加载提示
+  var loadingIndicators = document.querySelectorAll('.image-loading');
+  loadingIndicators.forEach(function(indicator) {
+    indicator.style.display = 'none';
+  });
 }
 
 // ============================
