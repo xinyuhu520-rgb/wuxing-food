@@ -432,6 +432,7 @@ async function loadFoodImages(){
   var images = document.querySelectorAll('.yi-food img');
   console.log('开始加载 ' + images.length + ' 张食物图片');
 
+  // 顺序加载图片，避免并发请求过多
   for(var i=0; i<images.length; i++){
     var img = images[i];
     var foodName = img.getAttribute('data-food-name');
@@ -440,22 +441,33 @@ async function loadFoodImages(){
     var index = parseInt(img.getAttribute('data-index'));
 
     try{
-      console.log('加载图片: ' + foodName);
+      console.log('[' + (i+1) + '/' + images.length + '] 加载图片: ' + foodName);
       var realImageUrl = await getFoodImage(foodName, wuxing, category, index);
-      console.log('图片URL: ' + realImageUrl);
+      console.log('[' + (i+1) + '/' + images.length + '] 图片URL: ' + realImageUrl);
 
       // 添加错误处理
       img.onerror = function() {
-        console.warn('图片加载失败，使用占位图: ' + foodName);
-        this.src = getPlaceholderImage(foodName, wuxing);
+        console.warn('图片加载失败，使用占位图: ' + this.getAttribute('data-food-name'));
+        this.src = getPlaceholderImage(this.getAttribute('data-food-name'), this.getAttribute('data-wuxing'));
+      };
+
+      // 添加成功处理
+      img.onload = function() {
+        console.log('图片加载成功: ' + this.getAttribute('data-food-name'));
       };
 
       img.src = realImageUrl;
+
+      // 添加延迟，避免请求过快
+      if(i < images.length - 1){
+        await new Promise(resolve => setTimeout(resolve, 300));
+      }
     }catch(error){
-      console.warn('加载图片失败:', foodName, error);
+      console.warn('[' + (i+1) + '/' + images.length + '] 加载图片失败:', foodName, error);
       img.src = getPlaceholderImage(foodName, wuxing);
     }
   }
+  console.log('所有图片加载完成');
 }
 
 // ============================
