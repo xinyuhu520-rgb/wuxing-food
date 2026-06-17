@@ -558,11 +558,14 @@ body{
 
   <div class="form-card">
     <div class="form-section">
-      <label>选择你的出生日期</label>
+      <label>选择你的出生日期（阳历）</label>
       <div class="date-row">
         <select id="sel-year"></select>
         <select id="sel-month"></select>
         <select id="sel-day"></select>
+      </div>
+      <div id="lunar-display" style="margin-top:10px;padding:8px;background:rgba(212,168,83,.08);border-radius:6px;text-align:center;font-size:13px;color:#666;min-height:20px;">
+        选择生日后自动显示农历
       </div>
     </div>
     <div class="form-section">
@@ -2003,19 +2006,34 @@ function buildFortuneGuide(ming, dayWX, zodiac, city, weather){
     if(b){sy.value=b.y;sm.value=b.m;sd.value=b.d}
   }catch(e){}
 
-  // 星座自动识别：当月/日变化时自动更新星座选择
+  // 星座自动识别 + 农历显示：当月/日变化时自动更新
   function updateZodiac(){
+    var y=parseInt(document.getElementById('sel-year').value);
     var m=parseInt(document.getElementById('sel-month').value);
     var d=parseInt(document.getElementById('sel-day').value);
+
+    // 星座自动识别
     if(m && d){
       var zodiac=getZodiac(m,d);
       var zodiacSelect=document.getElementById('sel-zodiac');
       // 自动更新下拉框的值
       zodiacSelect.value=zodiac;
     }
+
+    // 农历自动显示
+    if(y && m && d){
+      var lunar=solar2lunar(y, m, d);
+      var lunarDisplay=document.getElementById('lunar-display');
+      if(lunar){
+        lunarDisplay.innerHTML='<strong>农历：</strong>'+lunar.yearCn+' '+lunar.monthCn+lunar.dayCn+' · '+lunar.gan+lunar.zhi+'年 · 属'+lunar.animal;
+        lunarDisplay.style.color='#d4a853';
+        lunarDisplay.style.fontWeight='500';
+      }
+    }
   }
 
   // 添加事件监听器
+  sy.addEventListener('change',updateZodiac);
   sm.addEventListener('change',updateZodiac);
   sd.addEventListener('change',updateZodiac);
 
