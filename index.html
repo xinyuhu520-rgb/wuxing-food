@@ -58,16 +58,15 @@ body{
 .header h1{font-size:32px;color:#d4a853;letter-spacing:2px;font-weight:bold;margin-bottom:8px}
 .header p{font-size:14px;color:#5c5c5c;line-height:1.6}
 
-.bagua-area{margin:30px 0;position:relative;width:200px;height:200px}
+.bagua-area{margin:30px 0;position:relative;width:240px;height:240px}
 .bagua-ring{
   width:100%;height:100%;
-  position:relative;animation:spin 20s linear infinite;
+  position:relative;animation:spin 30s linear infinite;
   display:flex;align-items:center;justify-content:center;
-  filter:drop-shadow(0 4px 12px rgba(212,168,83,0.3));
+  filter:drop-shadow(0 6px 20px rgba(212,168,83,0.4));
 }
-.bagua-ring img{
+.bagua-ring svg{
   width:100%;height:100%;
-  object-fit:contain;
 }
 .bagua-char{position:absolute;font-size:18px;color:#d4a853;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
@@ -422,99 +421,136 @@ body{
   </div>
   <div class="bagua-area">
     <div class="bagua-ring">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <radialGradient id="bgGradient">
-            <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#0f0f1e;stop-opacity:1" />
+          <radialGradient id="bgGrad">
+            <stop offset="0%" style="stop-color:#2a2a4a"/>
+            <stop offset="100%" style="stop-color:#1a1a2e"/>
           </radialGradient>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#f4d03f"/>
+            <stop offset="50%" style="stop-color:#d4a853"/>
+            <stop offset="100%" style="stop-color:#c4944a"/>
+          </linearGradient>
           <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-            <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
 
         <!-- 背景 -->
-        <circle cx="100" cy="100" r="98" fill="url(#bgGradient)"/>
+        <circle cx="120" cy="120" r="118" fill="url(#bgGrad)"/>
 
-        <!-- 外圈金色边框 -->
-        <circle cx="100" cy="100" r="95" fill="none" stroke="#d4a853" stroke-width="3" filter="url(#glow)"/>
-        <circle cx="100" cy="100" r="88" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.5"/>
+        <!-- 最外圈装饰 -->
+        <circle cx="120" cy="120" r="115" fill="none" stroke="url(#goldGrad)" stroke-width="2" opacity="0.6"/>
+        <circle cx="120" cy="120" r="110" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.3"/>
 
-        <!-- 八卦符号（用线条表示） -->
-        <g stroke="#d4a853" stroke-width="2.5" stroke-linecap="round" filter="url(#glow)">
-          <!-- 乾 ☰ (三连) -->
-          <line x1="85" y1="20" x2="115" y2="20"/>
-          <line x1="85" y1="26" x2="115" y2="26"/>
-          <line x1="85" y1="32" x2="115" y2="32"/>
-
-          <!-- 兑 ☱ (上断) -->
-          <line x1="150" y1="45" x2="165" y2="45"/>
-          <line x1="170" y1="45" x2="180" y2="45"/>
-          <line x1="150" y1="51" x2="180" y2="51"/>
-          <line x1="150" y1="57" x2="180" y2="57"/>
-
-          <!-- 离 ☲ (中虚) -->
-          <line x1="170" y1="90" x2="180" y2="90"/>
-          <line x1="170" y1="96" x2="175" y2="96"/>
-          <line x1="178" y1="96" x2="180" y2="96"/>
-          <line x1="170" y1="102" x2="180" y2="102"/>
-
-          <!-- 震 ☳ (下连) -->
-          <line x1="150" y1="140" x2="180" y2="140"/>
-          <line x1="150" y1="146" x2="180" y2="146"/>
-          <line x1="150" y1="152" x2="165" y2="152"/>
-          <line x1="170" y1="152" x2="180" y2="152"/>
-
-          <!-- 巽 ☴ (下断) -->
-          <line x1="85" y1="170" x2="115" y2="170"/>
-          <line x1="85" y1="164" x2="115" y2="164"/>
-          <line x1="85" y1="158" x2="100" y2="158"/>
-          <line x1="105" y1="158" x2="115" y2="158"/>
-
-          <!-- 坎 ☵ (中满) -->
-          <line x1="20" y1="90" x2="30" y2="90"/>
-          <line x1="20" y1="96" x2="30" y2="96"/>
-          <line x1="20" y1="102" x2="30" y2="102"/>
-
-          <!-- 艮 ☶ (上连) -->
-          <line x1="20" y1="45" x2="35" y2="45"/>
-          <line x1="40" y1="45" x2="50" y2="45"/>
-          <line x1="20" y1="51" x2="50" y2="51"/>
-          <line x1="20" y1="57" x2="50" y2="57"/>
-
-          <!-- 坤 ☷ (六断) -->
-          <line x1="20" y1="140" x2="35" y2="140"/>
-          <line x1="40" y1="140" x2="50" y2="140"/>
-          <line x1="20" y1="146" x2="35" y2="146"/>
-          <line x1="40" y1="146" x2="50" y2="146"/>
-          <line x1="20" y1="152" x2="35" y2="152"/>
-          <line x1="40" y1="152" x2="50" y2="152"/>
+        <!-- 天干地支圈（24山向） -->
+        <g font-size="8" fill="#d4a853" opacity="0.7" text-anchor="middle">
+          <text x="120" y="20">子</text>
+          <text x="145" y="25">癸</text>
+          <text x="165" y="38">丑</text>
+          <text x="180" y="55">艮</text>
+          <text x="190" y="75">寅</text>
+          <text x="195" y="98">甲</text>
+          <text x="195" y="120">卯</text>
+          <text x="195" y="142">乙</text>
+          <text x="190" y="165">辰</text>
+          <text x="180" y="185">巽</text>
+          <text x="165" y="202">巳</text>
+          <text x="145" y="215">丙</text>
+          <text x="120" y="220">午</text>
+          <text x="95" y="215">丁</text>
+          <text x="75" y="202">未</text>
+          <text x="60" y="185">坤</text>
+          <text x="50" y="165">申</text>
+          <text x="45" y="142">庚</text>
+          <text x="45" y="120">酉</text>
+          <text x="45" y="98">辛</text>
+          <text x="50" y="75">戌</text>
+          <text x="60" y="55">乾</text>
+          <text x="75" y="38">亥</text>
+          <text x="95" y="25">壬</text>
         </g>
 
-        <!-- 太极图 -->
-        <g filter="url(#glow)">
-          <!-- 外圆 -->
-          <circle cx="100" cy="100" r="55" fill="#1a1a2e" stroke="#d4a853" stroke-width="2"/>
+        <!-- 中圈装饰 -->
+        <circle cx="120" cy="120" r="95" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" filter="url(#glow)"/>
+        <circle cx="120" cy="120" r="88" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.4"/>
 
-          <!-- 阳（白色） -->
-          <path d="M 100,45 A 55,55 0 0,1 100,155 A 27.5,27.5 0 0,0 100,100 A 27.5,27.5 0 0,1 100,45" fill="#f5f5f5"/>
+        <!-- 八卦符号（更精致） -->
+        <g stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round" filter="url(#glow)">
+          <!-- 乾 ☰ -->
+          <line x1="105" y1="30" x2="135" y2="30"/>
+          <line x1="105" y1="36" x2="135" y2="36"/>
+          <line x1="105" y1="42" x2="135" y2="42"/>
 
-          <!-- 阴（黑色） -->
-          <path d="M 100,155 A 55,55 0 0,1 100,45 A 27.5,27.5 0 0,0 100,100 A 27.5,27.5 0 0,1 100,155" fill="#2c2c3e"/>
+          <!-- 兑 ☱ -->
+          <line x1="170" y1="55" x2="185" y2="55"/>
+          <line x1="190" y1="55" x2="200" y2="55"/>
+          <line x1="170" y1="61" x2="200" y2="61"/>
+          <line x1="170" y1="67" x2="200" y2="67"/>
 
-          <!-- 阴中之阳 -->
-          <circle cx="100" cy="72.5" r="8" fill="#2c2c3e"/>
+          <!-- 离 ☲ -->
+          <line x1="195" y1="105" x2="205" y2="105"/>
+          <line x1="195" y1="111" x2="200" y2="111"/>
+          <line x1="202" y1="111" x2="205" y2="111"/>
+          <line x1="195" y1="117" x2="205" y2="117"/>
 
-          <!-- 阳中之阴 -->
-          <circle cx="100" cy="127.5" r="8" fill="#f5f5f5"/>
+          <!-- 震 ☳ -->
+          <line x1="170" y1="170" x2="200" y2="170"/>
+          <line x1="170" y1="176" x2="200" y2="176"/>
+          <line x1="170" y1="182" x2="185" y2="182"/>
+          <line x1="190" y1="182" x2="200" y2="182"/>
+
+          <!-- 巽 ☴ -->
+          <line x1="105" y1="205" x2="135" y2="205"/>
+          <line x1="105" y1="199" x2="135" y2="199"/>
+          <line x1="105" y1="193" x2="120" y2="193"/>
+          <line x1="125" y1="193" x2="135" y2="193"/>
+
+          <!-- 坎 ☵ -->
+          <line x1="35" y1="105" x2="45" y2="105"/>
+          <line x1="35" y1="111" x2="45" y2="111"/>
+          <line x1="35" y1="117" x2="45" y2="117"/>
+
+          <!-- 艮 ☶ -->
+          <line x1="40" y1="55" x2="55" y2="55"/>
+          <line x1="60" y1="55" x2="70" y2="55"/>
+          <line x1="40" y1="61" x2="70" y2="61"/>
+          <line x1="40" y1="67" x2="70" y2="67"/>
+
+          <!-- 坤 ☷ -->
+          <line x1="40" y1="170" x2="55" y2="170"/>
+          <line x1="60" y1="170" x2="70" y2="170"/>
+          <line x1="40" y1="176" x2="55" y2="176"/>
+          <line x1="60" y1="176" x2="70" y2="176"/>
+          <line x1="40" y1="182" x2="55" y2="182"/>
+          <line x1="60" y1="182" x2="70" y2="182"/>
         </g>
 
         <!-- 内圈装饰 -->
-        <circle cx="100" cy="100" r="60" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.3" stroke-dasharray="4,4"/>
+        <circle cx="120" cy="120" r="75" fill="none" stroke="#d4a853" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="120" cy="120" r="70" fill="none" stroke="#d4a853" stroke-width="0.5" opacity="0.3" stroke-dasharray="2,2"/>
+
+        <!-- 太极图 -->
+        <g filter="url(#glow)">
+          <circle cx="120" cy="120" r="60" fill="#1a1a2e" stroke="url(#goldGrad)" stroke-width="2.5"/>
+
+          <!-- 阳（白色） -->
+          <path d="M 120,60 A 60,60 0 0,1 120,180 A 30,30 0 0,0 120,120 A 30,30 0 0,1 120,60" fill="#f5f5f5"/>
+
+          <!-- 阴（深色） -->
+          <path d="M 120,180 A 60,60 0 0,1 120,60 A 30,30 0 0,0 120,120 A 30,30 0 0,1 120,180" fill="#3a3a5a"/>
+
+          <!-- 阴中之阳 -->
+          <circle cx="120" cy="90" r="9" fill="#3a3a5a"/>
+
+          <!-- 阳中之阴 -->
+          <circle cx="120" cy="150" r="9" fill="#f5f5f5"/>
+        </g>
+
+        <!-- 最内圈装饰 -->
+        <circle cx="120" cy="120" r="65" fill="none" stroke="#d4a853" stroke-width="0.5" opacity="0.4"/>
       </svg>
     </div>
   </div>
