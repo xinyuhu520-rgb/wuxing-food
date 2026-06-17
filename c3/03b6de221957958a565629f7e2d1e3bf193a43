@@ -1,0 +1,30 @@
+index.html
+  s_7d1b09c9e9fdab::t_4be0ea42efb33e 110
+  s_7d1b09c9e9fdab::t_232ab998e1ce88 149
+  s_7d1b09c9e9fdab::t_be4e8749b30a8e 1385
+  s_7d1b09c9e9fdab::t_1415871500a6e5 41
+  s_7d1b09c9e9fdab::t_f43055f67a681a 62
+  s_7d1b09c9e9fdab::t_a42a46dd1dd677 123
+  s_7d1b09c9e9fdab::t_316871e4a43308 92
+  s_7d1b09c9e9fdab::t_e08e7c435318d1 119
+  s_7d1b09c9e9fdab::t_b9034d7791158e 247
+  s_7d1b09c9e9fdab::t_8f272403931093 127
+  s_7d1b09c9e9fdab::t_b5721ef59e75ed 121
+  s_7d1b09c9e9fdab::t_a6c094e1f8c6be 1350
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.17-trip",
+  "base_commit_sha": "c303b6de221957958a565629f7e2d1e3bf193a43",
+  "prompts": {},
+  "sessions": {
+    "s_7d1b09c9e9fdab": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "406359ad-b76a-4df2-9af7-d8f4520be62f",
+        "model": "qwen3.7-plus"
+      },
+      "human_author": "xinyhu <xinyhu@base.ctripsmartdns.com>"
+    }
+  }
+}
