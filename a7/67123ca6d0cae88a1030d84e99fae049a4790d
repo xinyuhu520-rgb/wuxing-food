@@ -1,0 +1,23 @@
+share-preview.html
+  s_7d1b09c9e9fdab::t_4367c6f931ce08 1-95
+index.html
+  s_7d1b09c9e9fdab::t_30d343f2162f02 8,11-12,14-16,21-22,25-29,32
+SHARE-OPTIMIZATION.md
+  s_7d1b09c9e9fdab::t_e948d8c69a9e6f 1-190
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.17-trip",
+  "base_commit_sha": "a767123ca6d0cae88a1030d84e99fae049a4790d",
+  "prompts": {},
+  "sessions": {
+    "s_7d1b09c9e9fdab": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "406359ad-b76a-4df2-9af7-d8f4520be62f",
+        "model": "qwen3.7-plus"
+      },
+      "human_author": "xinyhu <xinyhu@base.ctripsmartdns.com>"
+    }
+  }
+}
