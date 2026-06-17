@@ -1,0 +1,31 @@
+index.html
+  s_7d1b09c9e9fdab::t_96962425b9d71c 814-875
+  s_7d1b09c9e9fdab::t_20885c802d4b6f 94-95
+  s_7d1b09c9e9fdab::t_928bff4683044e 262,264
+  s_7d1b09c9e9fdab::t_702648997e3970 10
+  s_7d1b09c9e9fdab::t_25acbe814c4ad8 105
+  s_7d1b09c9e9fdab::t_fb22e16d307a4f 135-141
+  s_7d1b09c9e9fdab::t_93acd9aa15b41a 151
+  s_7d1b09c9e9fdab::t_ed8db7f92c3fc5 19
+  s_7d1b09c9e9fdab::t_e51c44de797ee2 445,449-464,466-482,484-499,501-516,518-542
+  s_7d1b09c9e9fdab::t_f78006cb634c3e 760,766-767
+  s_7d1b09c9e9fdab::t_94fa3c02ff132b 781-791
+  s_7d1b09c9e9fdab::t_17a5a20bbaff5d 880-895
+  s_7d1b09c9e9fdab::t_37f49622170889 707-712,718,720
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.17-trip",
+  "base_commit_sha": "e7fce8a7d4325fa2183aaf9b5e2f7bd53abebd29",
+  "prompts": {},
+  "sessions": {
+    "s_7d1b09c9e9fdab": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "406359ad-b76a-4df2-9af7-d8f4520be62f",
+        "model": "arn:aws:bedrock:us-west-2:133197901387:application-inference-profile/44zlpcmel2rf"
+      },
+      "human_author": "xinyhu <xinyhu@base.ctripsmartdns.com>"
+    }
+  }
+}
