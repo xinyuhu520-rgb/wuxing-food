@@ -211,10 +211,12 @@ body{
         </select>
         <select id="sel-city">
           <option value="">选择城市</option>
+          <!-- 一线城市 -->
           <option value="上海">上海</option>
           <option value="北京">北京</option>
           <option value="广州">广州</option>
           <option value="深圳">深圳</option>
+          <!-- 新一线城市 -->
           <option value="杭州">杭州</option>
           <option value="成都">成都</option>
           <option value="重庆">重庆</option>
@@ -222,10 +224,41 @@ body{
           <option value="南京">南京</option>
           <option value="西安">西安</option>
           <option value="长沙">长沙</option>
-          <option value="厦门">厦门</option>
+          <option value="苏州">苏州</option>
+          <option value="天津">天津</option>
+          <option value="郑州">郑州</option>
           <option value="青岛">青岛</option>
+          <!-- 二线城市 -->
+          <option value="厦门">厦门</option>
           <option value="昆明">昆明</option>
           <option value="哈尔滨">哈尔滨</option>
+          <option value="沈阳">沈阳</option>
+          <option value="大连">大连</option>
+          <option value="济南">济南</option>
+          <option value="福州">福州</option>
+          <option value="合肥">合肥</option>
+          <option value="南昌">南昌</option>
+          <option value="贵阳">贵阳</option>
+          <option value="南宁">南宁</option>
+          <option value="太原">太原</option>
+          <option value="石家庄">石家庄</option>
+          <option value="兰州">兰州</option>
+          <option value="呼和浩特">呼和浩特</option>
+          <option value="乌鲁木齐">乌鲁木齐</option>
+          <option value="银川">银川</option>
+          <option value="西宁">西宁</option>
+          <option value="拉萨">拉萨</option>
+          <!-- 特色城市 -->
+          <option value="三亚">三亚</option>
+          <option value="丽江">丽江</option>
+          <option value="桂林">桂林</option>
+          <option value="珠海">珠海</option>
+          <option value="无锡">无锡</option>
+          <option value="宁波">宁波</option>
+          <option value="佛山">佛山</option>
+          <option value="东莞">东莞</option>
+          <option value="常州">常州</option>
+          <option value="温州">温州</option>
         </select>
       </div>
     </div>
@@ -359,14 +392,54 @@ function getZodiac(m,d){
 //  实时天气 API（Open-Meteo，无需 API Key）
 // ============================
 var CITY_COORDS={
-  '上海':{lat:31.23,lon:121.47},'北京':{lat:39.90,lon:116.41},
-  '广州':{lat:23.13,lon:113.26},'深圳':{lat:22.54,lon:114.05},
-  '杭州':{lat:30.25,lon:120.17},'成都':{lat:30.57,lon:104.07},
-  '重庆':{lat:29.56,lon:106.55},'武汉':{lat:30.59,lon:114.31},
-  '南京':{lat:32.06,lon:118.80},'西安':{lat:34.27,lon:108.94},
-  '长沙':{lat:28.23,lon:112.94},'厦门':{lat:24.48,lon:118.09},
-  '青岛':{lat:36.07,lon:120.38},'昆明':{lat:25.04,lon:102.71},
-  '哈尔滨':{lat:45.80,lon:126.53}
+  // 一线城市
+  '上海':{lat:31.23,lon:121.47},
+  '北京':{lat:39.90,lon:116.41},
+  '广州':{lat:23.13,lon:113.26},
+  '深圳':{lat:22.54,lon:114.05},
+  // 新一线城市
+  '杭州':{lat:30.25,lon:120.17},
+  '成都':{lat:30.57,lon:104.07},
+  '重庆':{lat:29.56,lon:106.55},
+  '武汉':{lat:30.59,lon:114.31},
+  '南京':{lat:32.06,lon:118.80},
+  '西安':{lat:34.27,lon:108.94},
+  '长沙':{lat:28.23,lon:112.94},
+  '苏州':{lat:31.30,lon:120.62},
+  '天津':{lat:39.13,lon:117.20},
+  '郑州':{lat:34.75,lon:113.65},
+  '青岛':{lat:36.07,lon:120.38},
+  // 二线城市
+  '厦门':{lat:24.48,lon:118.09},
+  '昆明':{lat:25.04,lon:102.71},
+  '哈尔滨':{lat:45.80,lon:126.53},
+  '沈阳':{lat:41.80,lon:123.43},
+  '大连':{lat:38.91,lon:121.60},
+  '济南':{lat:36.65,lon:116.98},
+  '福州':{lat:26.07,lon:119.30},
+  '合肥':{lat:31.82,lon:117.23},
+  '南昌':{lat:28.68,lon:115.89},
+  '贵阳':{lat:26.65,lon:106.71},
+  '南宁':{lat:22.82,lon:108.32},
+  '太原':{lat:37.87,lon:112.55},
+  '石家庄':{lat:38.04,lon:114.51},
+  '兰州':{lat:36.06,lon:103.83},
+  '呼和浩特':{lat:40.84,lon:111.75},
+  '乌鲁木齐':{lat:43.83,lon:87.62},
+  '银川':{lat:38.47,lon:106.27},
+  '西宁':{lat:36.62,lon:101.78},
+  '拉萨':{lat:29.65,lon:91.14},
+  // 特色城市
+  '三亚':{lat:18.25,lon:109.50},
+  '丽江':{lat:26.88,lon:100.23},
+  '桂林':{lat:25.27,lon:110.29},
+  '珠海':{lat:22.27,lon:113.57},
+  '无锡':{lat:31.57,lon:120.30},
+  '宁波':{lat:29.87,lon:121.55},
+  '佛山':{lat:23.02,lon:113.12},
+  '东莞':{lat:23.04,lon:113.75},
+  '常州':{lat:31.77,lon:119.97},
+  '温州':{lat:28.00,lon:120.67}
 };
 
 function tempDesc(t){
@@ -619,6 +692,7 @@ function calc(){
 
 function doCalculation(y,m,d,zodiacInput,city,weather){
   var today=new Date();
+  var dayOfWeek=today.getDay(); // 0=周日, 1=周一, ..., 6=周六
 
   var ming=TIAN_GAN[(y-4)%10].wuxing;
   var sx=DI_ZHI[(y-4)%12].animal;
@@ -675,13 +749,53 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
   var allYiFoods=FOODS.filter(function(f){return f.w===yi});
   var allJiFoods=FOODS.filter(function(f){return f.w===ji});
 
+  // 星期推荐规则（不同星期推荐不同五行）
+  var WEEKDAY_PREF={
+    0:'火', // 周日：火系（热闹聚餐）
+    1:'木', // 周一：木系（清爽开胃，迎接新一周）
+    2:'土', // 周二：土系（饱腹扎实，工作有力）
+    3:'金', // 周三：金系（辛辣刺激，提振精神）
+    4:'水', // 周四：水系（滋补汤品，为周末蓄力）
+    5:'火', // 周五：火系（周末狂欢，热辣开场）
+    6:'土'  // 周六：土系（家常舒适，享受时光）
+  };
+  var weekdayPref=WEEKDAY_PREF[dayOfWeek];
+
+  // 城市推荐菜系（根据城市特色）
+  var CITY_CUISINE={
+    '上海':'本帮菜',
+    '北京':'家常菜',
+    '广州':'粤菜',
+    '深圳':'粤菜',
+    '成都':'川菜',
+    '重庆':'川菜',
+    '武汉':'川菜',
+    '长沙':'湘菜',
+    '西安':'西北菜',
+    '杭州':'轻食',
+    '南京':'家常菜',
+    '厦门':'海鲜',
+    '青岛':'海鲜',
+    '大连':'海鲜',
+    '三亚':'海鲜',
+    '桂林':'家常菜',
+    '昆明':'家常菜',
+    '哈尔滨':'东北菜',
+    '沈阳':'东北菜'
+  };
+  var cityCuisine=CITY_CUISINE[city];
+
   // 为每道菜计算个人分数
   function scoreFood(food, baseSeed){
     var score=0;
     // 天气偏好：匹配的菜系 +3 分
     if(weatherTip.cuisine && food.c===weatherTip.cuisine) score+=3;
     if(weather.cuisine && food.c===weather.cuisine) score+=2;
-    // 星座偏好：匹配星座喜好的五行 +2 分
+    // 城市偏好：匹配城市特色菜系 +2 分
+    if(cityCuisine && food.c===cityCuisine) score+=2;
+    // 星期偏好：匹配星期推荐五行 +2 分
+    if(weekdayPref && food.w===weekdayPref) score+=2;
+    // 星座偏好：匹配星座喜好的五行 +1 分
     if(zodiacMeta.pref && food.w===zodiacMeta.pref) score+=1;
     // 卦象偏好：匹配的五行 +1 分
     if(personalBagua.wuxing && food.w===personalBagua.wuxing) score+=1;
@@ -988,6 +1102,36 @@ function buildFortuneGuide(ming, dayWX, zodiac, city, weather){
     var b=JSON.parse(localStorage.getItem('birth'));
     if(b){sy.value=b.y;sm.value=b.m;sd.value=b.d}
   }catch(e){}
+
+  // 星座自动识别：当月/日变化时自动更新星座选择
+  function updateZodiac(){
+    var m=parseInt(document.getElementById('sel-month').value);
+    var d=parseInt(document.getElementById('sel-day').value);
+    if(m && d){
+      var zodiac=getZodiac(m,d);
+      var zodiacSelect=document.getElementById('sel-zodiac');
+      // 只有当选择"自动识别"时才更新
+      if(zodiacSelect.value===''){
+        // 在页面上显示星座提示（不改变select的值，保持"自动识别"状态）
+        var zodiacMeta=ZODIAC_META[zodiac];
+        var tip=document.getElementById('zodiac-hint');
+        if(!tip){
+          tip=document.createElement('div');
+          tip.id='zodiac-hint';
+          tip.style.cssText='font-size:12px;color:#d4a853;margin-top:8px;text-align:center;';
+          zodiacSelect.parentNode.appendChild(tip);
+        }
+        tip.textContent='✨ 自动识别：'+zodiacMeta.e+' '+zodiac+'座 - '+zodiacMeta.desc;
+      }
+    }
+  }
+
+  // 添加事件监听器
+  sm.addEventListener('change',updateZodiac);
+  sd.addEventListener('change',updateZodiac);
+
+  // 初始化时立即执行一次
+  setTimeout(updateZodiac,100);
 
   var danmus=[
     '张三测算了今天宜吃麻辣香锅 🍲',
