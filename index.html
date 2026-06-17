@@ -158,8 +158,8 @@ body{
 .guide-row{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:14px}
 .guide-label{color:#d4a853;font-weight:bold;min-width:80px}
 .guide-color-block{width:32px;height:32px;border-radius:6px;border:2px solid rgba(255,255,255,.2);box-shadow:0 0 12px rgba(212,168,83,.3)}
-.guide-desc{color:#ccc;margin-left:8px}
-.guide-value{color:#e8e8e8;font-weight:500}
+.guide-desc{color:#444;margin-left:8px}
+.guide-value{color:#2c3e50;font-weight:500}
 .guide-fortune{font-size:15px;color:#d4a853;font-weight:bold;line-height:1.6}
 </style>
 </head>
@@ -266,7 +266,7 @@ body{
   <div class="card">
     <div class="card-title">📜 运势解读</div>
     <div class="analysis-text" id="r-reason"></div>
-    <div id="r-detailed-analysis" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(212,168,83,.2);font-size:13px;color:#aaa;line-height:1.8;"></div>
+    <div id="r-detailed-analysis" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(212,168,83,.2);font-size:13px;color:#444;line-height:1.8;"></div>
   </div>
 
   <div class="card">
@@ -362,14 +362,29 @@ const EDAMAM_APP_KEY = 'ba4859cd79abef0ded59c989ac333d9b';
 
 // 占位图备用方案
 function getPlaceholderImage(foodName, wuxing){
-  var colors = {
-    '金': 'C0C0C0',
-    '木': '4CAF50',
-    '水': '2196F3',
-    '火': 'F44336',
-    '土': 'FF9800'
+  // 为每个菜品生成独特的颜色（基于菜品名称哈希）
+  var hash = 0;
+  for(var i=0; i<foodName.length; i++){
+    hash = foodName.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  // 五行基础颜色
+  var baseColors = {
+    '金': [192, 192, 192],
+    '木': [76, 175, 80],
+    '水': [33, 150, 243],
+    '火': [244, 67, 54],
+    '土': [255, 152, 0]
   };
-  var bgColor = colors[wuxing] || '888888';
+
+  // 基于哈希值微调颜色，让每个菜品都不同
+  var baseColor = baseColors[wuxing] || [136, 136, 136];
+  var variation = (hash % 60) - 30; // -30 到 +30 的变化
+  var r = Math.max(0, Math.min(255, baseColor[0] + variation));
+  var g = Math.max(0, Math.min(255, baseColor[1] + variation));
+  var b = Math.max(0, Math.min(255, baseColor[2] + variation));
+
+  var bgColor = ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
   var textColor = 'FFFFFF';
   var size = '400x300';
   var text = encodeURIComponent(foodName);
@@ -1385,9 +1400,9 @@ function renderResult(r){
           +'<div style="font-size:11px;color:#5c5c5c;text-align:center;">'+f.c+'</div>'
           +'</div>'
           +'</div>'
-          +'<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">'
+          +'<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;">'
           +'<div class="food-name">'+f.n+'</div>'
-          +'<div style="font-size:12px;color:#5c5c5c;white-space:nowrap;">¥'+f.p+'</div>'
+          +'<div style="font-size:12px;color:#888;">¥'+f.p+'</div>'
           +'</div>'
           +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' · '+wxRelation+'</div>'
           +'<div class="food-tags">'+f.t.map(function(t){return '<span>'+t+'</span>'}).join('')+'</div>'
