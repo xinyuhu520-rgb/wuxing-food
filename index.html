@@ -177,54 +177,177 @@ body{
 }
 .food-item:last-child{border-bottom:none}
 
+/* ========== 菜品卡片 - 高端设计 ========== */
+
+/* 菜品分类标题 */
+.category-label{
+  font-size:15px;color:#d4a853;
+  margin:20px 0 12px 0;
+  font-weight:bold;
+  letter-spacing:1px;
+  display:flex;align-items:center;gap:8px;
+}
+.category-label::before{
+  content:'';display:block;width:3px;height:16px;
+  background:linear-gradient(180deg,#d4a853,#c4944a);
+  border-radius:2px;
+}
+
+/* 菜品项容器 */
+.food-item{
+  padding:0 0 20px 0;
+  margin-bottom:20px;
+  border-bottom:1px solid rgba(212,168,83,.1);
+}
+.food-item:last-child{
+  border-bottom:none;margin-bottom:0;padding-bottom:0;
+}
+
+/* 菜品名称区域 - 主要重点 */
+.food-header{
+  margin-bottom:14px;
+}
+.food-name{
+  font-size:19px;
+  font-weight:600;
+  color:#2c3e50;
+  line-height:1.3;
+  margin-bottom:6px;
+  letter-spacing:0.5px;
+}
+.food-meta-row{
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;
+}
+.food-price{
+  color:#d4a853;
+  font-weight:600;
+  font-size:14px;
+}
+.food-cuisine{
+  color:#888;
+  font-size:12px;
+}
+.food-category-tag{
+  font-size:11px;
+  color:#d4a853;
+  background:rgba(212,168,83,.1);
+  padding:2px 8px;
+  border-radius:4px;
+  font-weight:500;
+  margin-left:auto;
+}
+
+/* 图片区域 - 视觉焦点 */
 .food-image-container{
-  position:relative;width:100%;height:140px;
-  background:rgba(212,168,83,.05);
-  border-radius:10px;margin-bottom:10px;
+  position:relative;
+  width:100%;
+  height:180px;
+  background:linear-gradient(135deg,rgba(212,168,83,.03) 0%,rgba(212,168,83,.08) 100%);
+  border-radius:12px;
+  margin-bottom:14px;
   overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(100,80,160,.06);
 }
 .food-item img{
-  width:100%;height:100%;object-fit:cover;
-  border-radius:10px;
-  transition:opacity .3s;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:opacity .3s ease,transform .3s ease;
+}
+.food-item img:hover{
+  transform:scale(1.02);
+}
+.image-loading{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  color:#d4a853;font-size:12px;
+  display:none;
 }
 
-.food-name{font-size:16px;font-weight:bold;margin-bottom:6px;color:#2c3e50;line-height:1.4}
-
-.food-meta{
-  display:flex;justify-content:space-between;align-items:center;
-  font-size:12px;color:#888;margin-bottom:6px;
-}
-
-.food-tags{margin-top:4px;display:flex;flex-wrap:wrap;gap:6px}
-.food-tags span{
-  font-size:11px;color:#666;
-  background:rgba(212,168,83,.12);
-  padding:3px 8px;border-radius:6px;
-  font-weight:500;
-}
-
-.wuxing-reason{font-size:12px;color:#d4a853;margin-top:6px;line-height:1.5;font-weight:500}
-
-.xuanxue-tip{
-  font-size:12px;color:#555;margin-top:8px;padding:10px 12px;
-  background:rgba(212,168,83,.06);
-  border-left:3px solid #d4a853;border-radius:6px;
+/* 五行说明 - 细节 */
+.wuxing-reason{
+  font-size:13px;
+  color:#555;
+  margin:12px 0 10px 0;
   line-height:1.6;
+  padding-left:12px;
+  border-left:2px solid rgba(212,168,83,.3);
+}
+.wuxing-reason .emoji{
+  color:#d4a853;
+  margin-right:4px;
 }
 
-.food-actions{margin-top:10px;display:flex;gap:8px}
+/* 标签区域 - 细节 */
+.food-tags{
+  margin:10px 0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.food-tags span{
+  font-size:11px;
+  color:#666;
+  background:rgba(212,168,83,.08);
+  padding:4px 10px;
+  border-radius:5px;
+  font-weight:500;
+  border:1px solid rgba(212,168,83,.12);
+  transition:all .2s;
+}
+.food-tags span:hover{
+  background:rgba(212,168,83,.15);
+  border-color:rgba(212,168,83,.25);
+}
+
+/* 玄学联系 - 可选细节 */
+.xuanxue-tip{
+  font-size:12px;
+  color:#666;
+  margin:12px 0;
+  padding:10px 12px;
+  background:linear-gradient(135deg,rgba(212,168,83,.04) 0%,rgba(212,168,83,.08) 100%);
+  border-left:3px solid #d4a853;
+  border-radius:6px;
+  line-height:1.7;
+  font-style:italic;
+}
+
+/* 操作按钮 - 行动点 */
+.food-actions{
+  margin-top:14px;
+  display:flex;
+  gap:10px;
+}
 .food-actions a{
-  flex:1;text-align:center;padding:8px 0;border-radius:8px;
-  font-size:12px;font-weight:500;text-decoration:none;
-  cursor:not-allowed;opacity:0.7;
-  transition:opacity .2s;
+  flex:1;
+  text-align:center;
+  padding:10px 0;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:600;
+  text-decoration:none;
+  cursor:not-allowed;
+  opacity:0.75;
+  transition:all .2s;
+  letter-spacing:0.5px;
 }
-.food-actions a:hover{opacity:1}
-
-.action-meituan{background:#FFC107;color:#333}
-.action-eleme{background:#0097E6;color:#fff}
+.food-actions a:hover{
+  opacity:1;
+  transform:translateY(-1px);
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+.action-meituan{
+  background:linear-gradient(135deg,#FFD54F,#FFC107);
+  color:#333;
+  box-shadow:0 2px 6px rgba(255,193,7,.2);
+}
+.action-eleme{
+  background:linear-gradient(135deg,#42A5F5,#0097E6);
+  color:#fff;
+  box-shadow:0 2px 6px rgba(0,151,230,.2);
+}
 
 /* ========== 今日忌 ========== */
 .ji-tip{font-size:13px;color:#ef5350;line-height:1.6;font-weight:500}
@@ -1540,24 +1663,27 @@ function renderResult(r){
         // 混合方案：优先使用真实图片，加载失败则使用占位图
         var placeholderUrl = getPlaceholderImage(f.n, r.yi);
         var imageUrl = f.img || placeholderUrl;
-        yiHtml+='<div class="yi-food">'
-          +'<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;">'
+        yiHtml+='<div class="food-item">'
+          +'<div class="food-header">'
           +'<div class="food-name">'+f.n+'</div>'
-          +'<div style="font-size:12px;color:#888;">¥'+f.p+'</div>'
-          +'<div style="font-size:11px;color:#d4a853;background:rgba(212,168,83,0.15);padding:3px 8px;border-radius:6px;margin-left:auto;">'+cat.key+'</div>'
+          +'<div class="food-meta-row">'
+          +'<span class="food-price">¥'+f.p+'</span>'
+          +'<span class="food-cuisine">'+f.c+'</span>'
+          +'<span class="food-category-tag">'+cat.icon+' '+cat.key+'</span>'
           +'</div>'
-          +'<div class="food-image-container" style="position:relative;width:100%;height:100px;background:rgba(212,168,83,0.08);border-radius:8px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;">'
-          +'<img src="'+imageUrl+'" alt="'+f.n+'" data-food-name="'+f.n+'" data-wuxing="'+r.yi+'" data-placeholder="'+placeholderUrl+'" data-category="'+cat.key+'" data-index="'+index+'" style="width:100%;height:100%;object-fit:cover;border-radius:8px;opacity:0;transition:opacity 0.3s;" onerror="if(!this.dataset.failed){this.dataset.failed=\'true\';this.src=this.dataset.placeholder;this.style.opacity=1;}" onload="this.style.opacity=1">'
-          +'<div class="image-loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#d4a853;font-size:11px;display:none;">加载中...</div>'
           +'</div>'
-          +'<div style="font-size:11px;color:#888;margin-bottom:6px;">'+f.c+'</div>'
-          +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' · '+wxRelation+'</div>'
+          +'<div class="food-image-container">'
+          +'<img src="'+imageUrl+'" alt="'+f.n+'" data-food-name="'+f.n+'" data-wuxing="'+r.yi+'" data-placeholder="'+placeholderUrl+'" data-category="'+cat.key+'" data-index="'+index+'" onerror="if(!this.dataset.failed){this.dataset.failed=\'true\';this.src=this.dataset.placeholder;this.style.opacity=1;}" onload="this.style.opacity=1">'
+          +'<div class="image-loading">加载中...</div>'
+          +'</div>'
+          +'<div class="wuxing-reason"><span class="emoji">'+WX[r.yi].e+'</span>五行属'+r.yi+' · '+wxRelation+'</div>'
           +'<div class="food-tags">'+f.t.map(function(t){return '<span>'+t+'</span>'}).join('')+'</div>'
           +(xuanxueText?'<div class="xuanxue-tip">'+xuanxueText+'</div>':'')
           +'<div class="food-actions">'
           +'<a class="action-meituan" href="#">美团点餐</a>'
           +'<a class="action-eleme" href="#">饿了么点餐</a>'
-          +'</div></div>';
+          +'</div>'
+          +'</div>';
       });
       yiHtml+='</div>';
     });
