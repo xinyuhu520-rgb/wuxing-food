@@ -350,108 +350,17 @@ function getZodiac(m,d){
 }
 
 // ============================
-//  丰富的图片URL数组（每道菜使用不同图片）
+//  动态图片获取（根据菜品名称搜索）
 // ============================
-var FOOD_IMAGES={
-  '金':{
-    '前菜':[
-      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',
-      'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400',
-      'https://images.unsplash.com/photo-1599001860179-f2c86d2c9502?w=400',
-      'https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=400',
-      'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400'
-    ],
-    '主菜':[
-      'https://images.unsplash.com/photo-1585238341710-4913987c7c5b?w=400',
-      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',
-      'https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=400',
-      'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400',
-      'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400'
-    ],
-    '甜点':[
-      'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400',
-      'https://images.unsplash.com/photo-1566144142944-2765e056c47a?w=400'
-    ],
-    '小食':[
-      'https://images.unsplash.com/photo-1566144142944-2765e056c47a?w=400'
-    ]
-  },
-  '木':{
-    '前菜':[
-      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',
-      'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400',
-      'https://images.unsplash.com/photo-1599001860179-f2c86d2c9502?w=400'
-    ],
-    '主菜':[
-      'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400',
-      'https://images.unsplash.com/photo-1521390292621-cbe66dbfc433?w=400',
-      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',
-      'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400'
-    ],
-    '饮品':[
-      'https://images.unsplash.com/photo-1599007357583-9f55be7ec8c2?w=400',
-      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'
-    ],
-    '奶茶':[
-      'https://images.unsplash.com/photo-1599007357583-9f55be7ec8c2?w=400'
-    ],
-    '甜点':[
-      'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400'
-    ]
-  },
-  '水':{
-    '前菜':[
-      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',
-      'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400'
-    ],
-    '主菜':[
-      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',
-      'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400',
-      'https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=400'
-    ],
-    '甜点':[
-      'https://images.unsplash.com/photo-1566144142944-2765e056c47a?w=400',
-      'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400'
-    ]
-  },
-  '火':{
-    '小食':[
-      'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400',
-      'https://images.unsplash.com/photo-1626082927389-6cd097cda6ec?w=400',
-      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'
-    ],
-    '主菜':[
-      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',
-      'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400',
-      'https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=400'
-    ],
-    '甜点':[
-      'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400'
-    ]
-  },
-  '土':{
-    '前菜':[
-      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',
-      'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400'
-    ],
-    '主菜':[
-      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',
-      'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400',
-      'https://images.unsplash.com/photo-1599001860179-f2c86d2c9502?w=400'
-    ],
-    '甜点':[
-      'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400'
-    ]
-  }
-};
+function getFoodImage(foodName, wuxing, category, index){
+  // 使用Unsplash Source API，根据菜品名称搜索图片
+  // 如果搜索失败，使用占位图
+  var keywords = encodeURIComponent(foodName + ' food');
+  var imgUrl = 'https://source.unsplash.com/400x300/?' + keywords;
 
-// 根据五行和分类获取图片
-function getFoodImage(wuxing, category, index){
-  var images = FOOD_IMAGES[wuxing] && FOOD_IMAGES[wuxing][category];
-  if(!images || images.length === 0){
-    return 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
-  }
-  return images[index % images.length];
+  // 为每道菜生成唯一的seed，确保同一道菜总是显示同一张图片
+  var seed = wuxing + category + index;
+  return 'https://source.unsplash.com/400x300/?' + keywords + '&sig=' + seed;
 }
 
 // ============================
@@ -1413,8 +1322,8 @@ function renderResult(r){
 
         // 添加玄学联系
         var xuanxueText = f.x || '';
-        // 使用动态图片
-        var imgUrl = getFoodImage(r.yi, cat.key, index);
+        // 使用动态图片（根据菜品名称搜索）
+        var imgUrl = getFoodImage(f.n, r.yi, cat.key, index);
         yiHtml+='<div class="yi-food">'
           +'<img src="'+imgUrl+'" alt="'+f.n+'" onerror="this.src=\'https://via.placeholder.com/400x300?text='+encodeURIComponent(f.n)+'\'">'
           +'<div class="food-name">'+f.n+'</div>'
