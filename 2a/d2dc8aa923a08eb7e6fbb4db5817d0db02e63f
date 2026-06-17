@@ -1,0 +1,22 @@
+food-images.json
+  s_7d1b09c9e9fdab::t_634c2574e53de7 1-537
+index.html
+  s_7d1b09c9e9fdab::t_342c55cac30f59 1049-1072
+  s_7d1b09c9e9fdab::t_2bba5063e36e88 922,925-926
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.17-trip",
+  "base_commit_sha": "2ad2dc8aa923a08eb7e6fbb4db5817d0db02e63f",
+  "prompts": {},
+  "sessions": {
+    "s_7d1b09c9e9fdab": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "406359ad-b76a-4df2-9af7-d8f4520be62f",
+        "model": "qwen3.6-plus"
+      },
+      "human_author": "xinyhu <xinyhu@base.ctripsmartdns.com>"
+    }
+  }
+}
