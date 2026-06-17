@@ -350,17 +350,52 @@ function getZodiac(m,d){
 }
 
 // ============================
-//  动态图片获取（根据菜品名称生成占位图）
+//  Spoonacular API 配置
 // ============================
-function getFoodImage(foodName, wuxing, category, index){
-  // 使用占位图服务，根据菜品名称生成带文字的图片
-  // 颜色根据五行属性变化
+const SPOONACULAR_API_KEY = 'c7175c6ebe004b4b9f98db75209fdde8';
+
+// ============================
+//  动态图片获取（使用 Spoonacular API）
+// ============================
+async function getFoodImage(foodName, wuxing, category, index){
+  // 如果 API key 未配置，使用占位图
+  if(SPOONACULAR_API_KEY === 'YOUR_API_KEY_HERE'){
+    return getPlaceholderImage(foodName, wuxing);
+  }
+
+  try{
+    // 使用 Spoonacular API 搜索食物图片
+    var searchQuery = encodeURIComponent(foodName);
+    var url = 'https://api.spoonacular.com/food/ingredients/search?query=' + searchQuery
+      + '&number=1'
+      + '&apiKey=' + SPOONACULAR_API_KEY;
+
+    var response = await fetch(url);
+    var data = await response.json();
+
+    if(data.results && data.results.length > 0){
+      var ingredient = data.results[0];
+      // 获取食物图片
+      var imageUrl = 'https://spoonacular.com/cdn/ingredients_100x100/' + ingredient.image;
+      return imageUrl;
+    }
+
+    // 如果没有找到，使用占位图
+    return getPlaceholderImage(foodName, wuxing);
+  }catch(error){
+    console.warn('Spoonacular API 调用失败:', error);
+    return getPlaceholderImage(foodName, wuxing);
+  }
+}
+
+// 占位图备用方案
+function getPlaceholderImage(foodName, wuxing){
   var colors = {
-    '金': 'C0C0C0',  // 银色
-    '木': '4CAF50',  // 绿色
-    '水': '2196F3',  // 蓝色
-    '火': 'F44336',  // 红色
-    '土': 'FF9800'   // 橙色
+    '金': 'C0C0C0',
+    '木': '4CAF50',
+    '水': '2196F3',
+    '火': 'F44336',
+    '土': 'FF9800'
   };
   var bgColor = colors[wuxing] || '888888';
   var textColor = 'FFFFFF';
@@ -368,6 +403,30 @@ function getFoodImage(foodName, wuxing, category, index){
   var text = encodeURIComponent(foodName);
 
   return 'https://via.placeholder.com/' + size + '/' + bgColor + '/' + textColor + '?text=' + text;
+}
+
+// 异步加载食物图片
+async function loadFoodImages(){
+  // 如果 API key 未配置，跳过
+  if(SPOONACULAR_API_KEY === 'YOUR_API_KEY_HERE'){
+    return;
+  }
+
+  var images = document.querySelectorAll('.yi-food img');
+  for(var i=0; i<images.length; i++){
+    var img = images[i];
+    var foodName = img.getAttribute('data-food-name');
+    var wuxing = img.getAttribute('data-wuxing');
+    var category = img.getAttribute('data-category');
+    var index = parseInt(img.getAttribute('data-index'));
+
+    try{
+      var realImageUrl = await getFoodImage(foodName, wuxing, category, index);
+      img.src = realImageUrl;
+    }catch(error){
+      console.warn('加载图片失败:', foodName, error);
+    }
+  }
 }
 
 // ============================
@@ -1329,10 +1388,10 @@ function renderResult(r){
 
         // 添加玄学联系
         var xuanxueText = f.x || '';
-        // 使用动态图片（根据菜品名称搜索）
-        var imgUrl = getFoodImage(f.n, r.yi, cat.key, index);
+        // 先使用占位图，稍后异步加载真实图片
+        var placeholderUrl = getPlaceholderImage(f.n, r.yi);
         yiHtml+='<div class="yi-food">'
-          +'<img src="'+imgUrl+'" alt="'+f.n+'" onerror="this.src=\'https://via.placeholder.com/400x300?text='+encodeURIComponent(f.n)+'\'">'
+          +'<img src="'+placeholderUrl+'" alt="'+f.n+'" data-food-name="'+f.n+'" data-wuxing="'+r.yi+'" data-category="'+cat.key+'" data-index="'+index+'" onerror="this.src=\'https://via.placeholder.com/400x300?text='+encodeURIComponent(f.n)+'\'">'
           +'<div class="food-name">'+f.n+'</div>'
           +'<div class="food-meta"><span>'+f.c+'</span><span>¥'+f.p+'</span></div>'
           +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' → '+wxRelation+'</div>'
@@ -1348,6 +1407,9 @@ function renderResult(r){
       yiHtml+='</div>';
     });
     document.getElementById('r-yi-foods').innerHTML=yiHtml;
+
+    // 异步加载真实图片
+    loadFoodImages();
 
     // 今日忌
     var jiMeta=WX[r.ji];
