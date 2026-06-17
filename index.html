@@ -146,7 +146,7 @@ body{
 .weather-badge{
   display:inline-flex;align-items:center;gap:4px;
   background:rgba(255,255,255,.06);padding:4px 10px;border-radius:8px;
-  font-size:13px;color:#aaa;margin-bottom:12px;
+  font-size:13px;color:#444;margin-bottom:8px;
 }
 .share-area{text-align:center;margin-top:8px;padding-bottom:20px}
 .share-btn{
@@ -165,7 +165,7 @@ body{
   display:flex;align-items:center;justify-content:center;
 }
 /* 运势指南样式 */
-.guide-row{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:14px}
+.guide-row{display:flex;align-items:center;gap:12px;padding:6px 0;font-size:14px}
 .guide-label{color:#d4a853;font-weight:bold;min-width:80px}
 .guide-color-block{width:32px;height:32px;border-radius:6px;border:2px solid rgba(255,255,255,.2);box-shadow:0 0 12px rgba(212,168,83,.3)}
 .guide-desc{color:#444;margin-left:8px}
@@ -1470,7 +1470,7 @@ function renderResult(r){
     guideHtml+='<div class="guide-row"><span class="guide-label">🧭 吉利方向</span><span class="guide-value">'+fortuneGuide.direction+'</span></div>';
     guideHtml+='<div class="guide-row"><span class="guide-label">⏰ 最佳时间</span><span class="guide-value">'+r.time+'</span></div>';
     guideHtml+='<div class="guide-row"><span class="guide-label">🔢 幸运数字</span><span class="guide-value">'+fortuneGuide.luckyNumber+'</span></div>';
-    guideHtml+='<div class="guide-row" style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(212,168,83,.2);"><span class="guide-fortune">'+fortuneGuide.overallFortune+'</span></div>';
+    guideHtml+='<div class="guide-row" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(212,168,83,.2);"><span class="guide-fortune">'+fortuneGuide.overallFortune+'</span></div>';
     document.getElementById('r-fortune-guide').innerHTML=guideHtml;
 
     // 天气信息
