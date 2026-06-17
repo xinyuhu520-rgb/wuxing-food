@@ -12,525 +12,525 @@
       "name": "凉拌三丝",
       "wuxing": "金",
       "category": "前菜",
-      "image": "images/food/food_001.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=凉拌三丝",
       "description": "金主肃杀，三丝凉拌通肺经，助收敛之气"
     },
     {
       "name": "夫妻肺片",
       "wuxing": "金",
       "category": "前菜",
-      "image": "images/food/food_004.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=夫妻肺片",
       "description": "金气收敛，肺片补肺，辛辣驱寒，旺财运"
     },
     {
       "name": "酸辣土豆丝",
       "wuxing": "金",
       "category": "前菜",
-      "image": "images/food/food_005.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=酸辣土豆丝",
       "description": "酸辣开胃，土豆属土生金，财运亨通"
     },
     {
       "name": "蒜泥白肉",
       "wuxing": "金",
       "category": "前菜",
-      "image": "images/food/food_006.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=蒜泥白肉",
       "description": "蒜属金，白肉滋阴，金气充沛利决策"
     },
     {
       "name": "口水鸡",
       "wuxing": "金",
       "category": "前菜",
-      "image": "images/food/food_008.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=口水鸡",
       "description": "鸡肉属金，麻辣开胃，金生水旺智慧"
     },
     {
       "name": "皮蛋豆腐",
       "wuxing": "金",
       "category": "前菜",
-      "image": "images/food/food_011.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=皮蛋豆腐",
       "description": "皮蛋滋阴，豆腐清热，金气平和利思考"
     },
     {
       "name": "鸭头",
       "wuxing": "金",
       "category": "前菜",
-      "image": "images/food/food_013.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=鸭头",
       "description": "鸭属水，头为阳，金水相生旺桃花"
     },
     {
       "name": "虎皮凤爪",
       "wuxing": "金",
       "category": "前菜",
-      "image": "images/food/food_014.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=虎皮凤爪",
       "description": "凤爪抓财，虎皮聚气，金气旺盛利财运"
     },
     {
       "name": "水煮鱼",
       "wuxing": "金",
       "category": "主菜",
-      "image": "images/food/food_016.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=水煮鱼",
       "description": "鱼跃龙门，水煮生财，金气旺盛利事业"
     },
     {
       "name": "麻辣香锅",
       "wuxing": "金",
       "category": "主菜",
-      "image": "images/food/food_017.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=麻辣香锅",
       "description": "百味汇聚，麻辣开运，金气充沛旺人缘"
     },
     {
       "name": "辣子鸡",
       "wuxing": "金",
       "category": "主菜",
-      "image": "images/food/food_018.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=辣子鸡",
       "description": "鸡肉属金，辣椒助火，火炼真金旺事业"
     },
     {
       "name": "剁椒鱼头",
       "wuxing": "金",
       "category": "主菜",
-      "image": "images/food/food_019.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=剁椒鱼头",
       "description": "鱼头为阳，剁椒助运，金气升腾旺贵人"
     },
     {
       "name": "小炒黄牛肉",
       "wuxing": "金",
       "category": "主菜",
-      "image": "images/food/food_020.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=小炒黄牛肉",
       "description": "牛肉补脾，小炒聚气，金土相生旺稳定"
     },
     {
       "name": "宫保鸡丁",
       "wuxing": "金",
       "category": "主菜",
-      "image": "images/food/food_021.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=宫保鸡丁",
       "description": "宫保聚财，鸡丁属金，金气平和利人缘"
     },
     {
       "name": "毛血旺",
       "wuxing": "金",
       "category": "主菜",
-      "image": "images/food/food_022.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=毛血旺",
       "description": "血旺补气血，毛菜聚财气，金气旺盛旺财运"
     },
     {
       "name": "泡椒牛蛙",
       "wuxing": "金",
       "category": "主菜",
-      "image": "images/food/food_023.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=泡椒牛蛙",
       "description": "牛蛙跳龙门，泡椒助金气，旺事业升迁"
     },
     {
       "name": "干锅花菜",
       "wuxing": "金",
       "category": "主菜",
-      "image": "images/food/food_024.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=干锅花菜",
       "description": "花菜开花，干锅聚气，金木相济旺学业"
     },
     {
       "name": "胡辣汤",
       "wuxing": "金",
       "category": "主菜",
-      "image": "images/food/food_025.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=胡辣汤",
       "description": "胡辣通窍，汤水养金，金气清朗旺思路"
     },
     {
       "name": "桂花糕",
       "wuxing": "金",
       "category": "甜点",
-      "image": "images/food/food_026.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=桂花糕",
       "description": "桂花属金，糕点聚财，金气芬芳旺桃花"
     },
     {
       "name": "冰粉",
       "wuxing": "金",
       "category": "小食",
-      "image": "images/food/food_027.jpg",
+      "image": "https://via.placeholder.com/400x300/C0C0C0/FFFFFF?text=冰粉",
       "description": "冰粉清凉，金气下沉，利思考决策"
     },
     {
       "name": "牛油果沙拉",
       "wuxing": "木",
       "category": "前菜",
-      "image": "images/food/food_028.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=牛油果沙拉",
       "description": "牛油果属木，沙拉通肝经，木气生发旺健康"
     },
     {
       "name": "泰式青木瓜沙拉",
       "wuxing": "木",
       "category": "前菜",
-      "image": "images/food/food_029.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=泰式青木瓜沙拉",
       "description": "木瓜属木，酸辣开胃，木气升腾旺创意"
     },
     {
       "name": "水果便当",
       "wuxing": "木",
       "category": "前菜",
-      "image": "images/food/food_031.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=水果便当",
       "description": "水果聚木气，便当纳百福，木旺利学业"
     },
     {
       "name": "三文鱼寿司拼盘",
       "wuxing": "木",
       "category": "主菜",
-      "image": "images/food/food_032.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=三文鱼寿司拼盘",
       "description": "三文鱼逆流，寿司聚气，木水相生旺智慧"
     },
     {
       "name": "日式拉面",
       "wuxing": "木",
       "category": "主菜",
-      "image": "images/food/food_037.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=日式拉面",
       "description": "拉面绵长，木气生发，利成长发展"
     },
     {
       "name": "Poke能量碗",
       "wuxing": "木",
       "category": "主菜",
-      "image": "images/food/food_038.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=Poke能量碗",
       "description": "Poke聚能，木气旺盛，利运动健身"
     },
     {
       "name": "越南河粉",
       "wuxing": "木",
       "category": "主菜",
-      "image": "images/food/food_040.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=越南河粉",
       "description": "河粉通透，木气疏通，利人际沟通"
     },
     {
       "name": "日式咖喱猪排饭",
       "wuxing": "木",
       "category": "主菜",
-      "image": "images/food/food_042.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=日式咖喱猪排饭",
       "description": "咖喱金黄，猪排属木，木土相济旺稳定"
     },
     {
       "name": "照烧鸡排饭",
       "wuxing": "木",
       "category": "主菜",
-      "image": "images/food/food_043.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=照烧鸡排饭",
       "description": "照烧甜润，鸡排属木，木气甜润旺人缘"
     },
     {
       "name": "鳗鱼饭",
       "wuxing": "木",
       "category": "主菜",
-      "image": "images/food/food_048.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=鳗鱼饭",
       "description": "鳗鱼补虚，木气滋养，利养生保健"
     },
     {
       "name": "韩式拌饭",
       "wuxing": "木",
       "category": "主菜",
-      "image": "images/food/food_049.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=韩式拌饭",
       "description": "拌饭汇聚，木气调和，利人际和谐"
     },
     {
       "name": "冷面",
       "wuxing": "木",
       "category": "主菜",
-      "image": "images/food/food_050.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=冷面",
       "description": "冷面清凉，木气下沉，利冷静思考"
     },
     {
       "name": "抹茶拿铁",
       "wuxing": "木",
       "category": "饮品",
-      "image": "images/food/food_051.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=抹茶拿铁",
       "description": "抹茶属木，拿铁聚气，木气清新浪漫"
     },
     {
       "name": "芋泥奶茶",
       "wuxing": "木",
       "category": "奶茶",
-      "image": "images/food/food_052.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=芋泥奶茶",
       "description": "芋泥甜润，奶茶聚木，木旺桃花"
     },
     {
       "name": "黑糖珍珠奶茶",
       "wuxing": "木",
       "category": "奶茶",
-      "image": "images/food/food_053.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=黑糖珍珠奶茶",
       "description": "黑糖属土，珍珠属木，木土相济旺财运"
     },
     {
       "name": "鲜果茶",
       "wuxing": "木",
       "category": "饮品",
-      "image": "images/food/food_060.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=鲜果茶",
       "description": "鲜果聚木气，茶香通心窍，利思路清晰"
     },
     {
       "name": "芒果糯米糍",
       "wuxing": "木",
       "category": "甜点",
-      "image": "images/food/food_064.jpg",
+      "image": "https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=芒果糯米糍",
       "description": "芒果属木，糯米聚气，木旺利创意"
     },
     {
       "name": "紫菜蛋花汤",
       "wuxing": "水",
       "category": "前菜",
-      "image": "images/food/food_065.jpg",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=紫菜蛋花汤",
       "description": "紫菜属水，蛋花聚气，水气滋养旺肾气"
     },
     {
       "name": "蒜蓉扇贝",
       "wuxing": "水",
       "category": "前菜",
-      "image": "images/food/food_066.jpg",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=蒜蓉扇贝",
       "description": "扇贝属水，蒜蓉助金，金水相生旺智慧"
     },
     {
       "name": "蛤蜊汤",
       "wuxing": "水",
       "category": "前菜",
-      "image": "images/food/food_069.jpg",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=蛤蜊汤",
       "description": "蛤蜊属水，汤通肾经，水旺利思考"
     },
     {
       "name": "海鲜煲",
       "wuxing": "水",
       "category": "主菜",
-      "image": "images/food/food_070.jpg",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=海鲜煲",
       "description": "海鲜聚水气，煲聚百财，水旺财运"
     },
     {
       "name": "皮蛋瘦肉粥",
       "wuxing": "水",
       "category": "主菜",
-      "image": "images/food/food_072.jpg",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=皮蛋瘦肉粥",
       "description": "皮蛋属水，粥养胃气，水气平和旺健康"
     },
     {
       "name": "乌鸡汤",
       "wuxing": "水",
       "category": "主菜",
-      "image": "images/food/food_073.jpg",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=乌鸡汤",
       "description": "乌鸡滋阴，汤水养肾，水旺利桃花"
     },
     {
       "name": "酸菜鱼",
       "wuxing": "水",
       "category": "主菜",
-      "image": "images/food/food_074.jpg",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=酸菜鱼",
       "description": "鱼跃龙门，酸菜聚水，水旺利事业"
     },
     {
       "name": "清蒸鲈鱼",
       "wuxing": "水",
       "category": "主菜",
-      "image": "images/food/food_075.jpg",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=清蒸鲈鱼",
       "description": "鲈鱼清蒸，水气纯净，利思路清晰"
     },
     {
       "name": "花甲粉丝煲",
       "wuxing": "水",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=花甲粉丝煲",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=花甲粉丝煲",
       "description": "花甲属水，粉丝绵长，水旺利人缘"
     },
     {
       "name": "白灼虾",
       "wuxing": "水",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=白灼虾",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=白灼虾",
       "description": "白虾属水，灼法聚气，水旺利健康"
     },
     {
       "name": "番茄牛腩汤",
       "wuxing": "水",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=番茄牛腩汤",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=番茄牛腩汤",
       "description": "番茄属火，牛腩补土，火土水相济旺财运"
     },
     {
       "name": "小米粥",
       "wuxing": "水",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=小米粥",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=小米粥",
       "description": "小米养胃，粥通百脉，水气平和旺健康"
     },
     {
       "name": "鱼片粥",
       "wuxing": "水",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=鱼片粥",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=鱼片粥",
       "description": "鱼片属水，粥养脾胃，水旺利思考"
     },
     {
       "name": "仙草冻",
       "wuxing": "水",
       "category": "甜点",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=仙草冻",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=仙草冻",
       "description": "仙草属水，冻品清凉，水气下沉利冷静"
     },
     {
       "name": "莲子银耳羹",
       "wuxing": "水",
       "category": "甜点",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=莲子银耳羹",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=莲子银耳羹",
       "description": "莲子养心，银耳润肺，水气滋养旺桃花"
     },
     {
       "name": "椰汁西米露",
       "wuxing": "水",
       "category": "甜点",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=椰汁西米露",
+      "image": "https://via.placeholder.com/400x300/2196F3/FFFFFF?text=椰汁西米露",
       "description": "椰汁属水，西米聚气，水旺利人缘"
     },
     {
       "name": "烤串拼盘",
       "wuxing": "火",
       "category": "小食",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=烤串拼盘",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=烤串拼盘",
       "description": "烤串聚火气，拼盘纳百福，火旺利人缘"
     },
     {
       "name": "炸鸡翅",
       "wuxing": "火",
       "category": "小食",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=炸鸡翅",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=炸鸡翅",
       "description": "鸡翅属火，炸法聚气，火旺利活力"
     },
     {
       "name": "火山石烤肠",
       "wuxing": "火",
       "category": "小食",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=火山石烤肠",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=火山石烤肠",
       "description": "烤肠属火，火山石聚气，火旺利热情"
     },
     {
       "name": "铁板鱿鱼",
       "wuxing": "火",
       "category": "小食",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=铁板鱿鱼",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=铁板鱿鱼",
       "description": "鱿鱼属水，铁板助火，水火相济旺财运"
     },
     {
       "name": "椒盐皮皮虾",
       "wuxing": "火",
       "category": "小食",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=椒盐皮皮虾",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=椒盐皮皮虾",
       "description": "皮皮虾属水，椒盐助火，水火相济旺桃花"
     },
     {
       "name": "重庆老火锅",
       "wuxing": "火",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=重庆老火锅",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=重庆老火锅",
       "description": "火锅聚火气，重庆旺运势，火旺利事业"
     },
     {
       "name": "韩式烤肉",
       "wuxing": "火",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=韩式烤肉",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=韩式烤肉",
       "description": "烤肉聚火气，韩式旺人缘，火旺利社交"
     },
     {
       "name": "川味烤鱼",
       "wuxing": "火",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=川味烤鱼",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=川味烤鱼",
       "description": "烤鱼聚火气，川味旺运势，火旺利财运"
     },
     {
       "name": "麻辣烫",
       "wuxing": "火",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=麻辣烫",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=麻辣烫",
       "description": "麻辣聚火气，自选纳百福，火旺利选择"
     },
     {
       "name": "羊蝎子火锅",
       "wuxing": "火",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=羊蝎子火锅",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=羊蝎子火锅",
       "description": "羊蝎子补阳，火锅聚火，火旺利健康"
     },
     {
       "name": "铁板牛肉",
       "wuxing": "火",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=铁板牛肉",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=铁板牛肉",
       "description": "牛肉补脾，铁板聚火，火土相济旺稳定"
     },
     {
       "name": "烤羊排",
       "wuxing": "火",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=烤羊排",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=烤羊排",
       "description": "羊排属火，烤法聚气，火旺利豪气"
     },
     {
       "name": "新疆大盘鸡",
       "wuxing": "火",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=新疆大盘鸡",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=新疆大盘鸡",
       "description": "大盘鸡聚火气，西北旺运势，火旺利事业"
     },
     {
       "name": "干锅肥肠",
       "wuxing": "火",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=干锅肥肠",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=干锅肥肠",
       "description": "肥肠补虚，干锅聚火，火旺利财运"
     },
     {
       "name": "牛蛙火锅",
       "wuxing": "火",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=牛蛙火锅",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=牛蛙火锅",
       "description": "牛蛙跳龙门，火锅聚火，火旺利升迁"
     },
     {
       "name": "焦糖布丁",
       "wuxing": "火",
       "category": "甜点",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=焦糖布丁",
+      "image": "https://via.placeholder.com/400x300/F44336/FFFFFF?text=焦糖布丁",
       "description": "焦糖属火，布丁聚气，火旺利甜蜜"
     },
     {
       "name": "鲜肉小笼包",
       "wuxing": "土",
       "category": "前菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=鲜肉小笼包",
+      "image": "https://via.placeholder.com/400x300/FF9800/FFFFFF?text=鲜肉小笼包",
       "description": "小笼包聚土气，鲜肉补脾，土旺利稳定"
     },
     {
       "name": "肉夹馍",
       "wuxing": "土",
       "category": "前菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=肉夹馍",
+      "image": "https://via.placeholder.com/400x300/FF9800/FFFFFF?text=肉夹馍",
       "description": "肉夹馍属土，馍聚气，土旺利饱腹"
     },
     {
       "name": "广式肠粉",
       "wuxing": "土",
       "category": "前菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=广式肠粉",
+      "image": "https://via.placeholder.com/400x300/FF9800/FFFFFF?text=广式肠粉",
       "description": "肠粉属土，广式聚气，土旺利精致"
     },
     {
       "name": "咸蛋黄流沙包",
       "wuxing": "土",
       "category": "前菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=咸蛋黄流沙包",
+      "image": "https://via.placeholder.com/400x300/FF9800/FFFFFF?text=咸蛋黄流沙包",
       "description": "咸蛋黄属土，流沙聚财，土旺利财运"
     },
     {
       "name": "虾饺",
       "wuxing": "土",
       "category": "前菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=虾饺",
+      "image": "https://via.placeholder.com/400x300/FF9800/FFFFFF?text=虾饺",
       "description": "虾饺属土，精致聚气，土旺利贵人"
     },
     {
       "name": "黄焖鸡米饭",
       "wuxing": "土",
       "category": "主菜",
-      "image": "https://via.placeholder.com/400x300/d4a853/ffffff?text=黄焖鸡米饭",
+      "image": "https://via.placeholder.com/400x300/FF9800/FFFFFF?text=黄焖鸡米饭",
       "description": "黄焖聚土气，鸡肉补脾，土旺利饱腹"
     }
   ]
