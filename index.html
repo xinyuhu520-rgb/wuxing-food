@@ -243,8 +243,20 @@ body{
   </div>
 
   <div class="card">
+    <div class="card-title">🌟 今日指南 · 运势密码</div>
+    <div class="weather-badge" id="r-weather"></div>
+    <div id="r-fortune-guide" style="margin-top:16px;"></div>
+  </div>
+
+  <div class="card">
     <div class="card-title">📜 运势解读</div>
     <div class="analysis-text" id="r-reason"></div>
+    <div id="r-detailed-analysis" style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(212,168,83,.2);font-size:13px;color:#aaa;line-height:1.8;"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">👥 交友社交指南</div>
+    <div id="r-social-guide" style="font-size:13px;line-height:1.8;"></div>
   </div>
 
   <div class="card">
@@ -256,12 +268,6 @@ body{
     <div class="card-title">❌ 今日忌</div>
     <p class="ji-tip" id="r-ji-tip"></p>
     <div class="ji-tags" id="r-ji-tags"></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">🌟 今日指南 · 运势密码</div>
-    <div class="weather-badge" id="r-weather"></div>
-    <div id="r-fortune-guide" style="margin-top:16px;"></div>
   </div>
 
   <div class="share-area">
@@ -690,7 +696,7 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
 
   renderResult({
     date:ds, ming:ming, sx:sx, gz:dayTG.name+dayDZ.name, dayWX:dayWX,
-    yi:yi, ji:ji, reason:reasonText,
+    yi:yi, ji:ji, reason:reasonText, relation:relation,
     yiFoods:yiFoods, jiFoods:jiFoods,
     color:finalColor, time:hours[ming],
     bagua:personalBagua,
@@ -721,6 +727,57 @@ function buildReason(ming,dayWX,tgName,dzName,sx,zodiac,zodiacMeta,relation,yi,j
 }
 
 // ============================
+//  详细运势解读（扩充版）
+// ============================
+function buildDetailedAnalysis(ming, dayWX, relation, zodiac, weather, sx) {
+  var analyses = {
+    '比和': '五行同性相吸，你与天地之气息完全共鸣。这一天不是爆发日，而是蓄能日。适合静坐反思，整理思绪，为下一步的行动铺垫基础。你会感到心境平和，不急不躁，这种沉静的力量在关键时刻往往能逆转乾坤。',
+    '今日生你': '天时眷顾，星辰拱照。这是罕见的顺势之日——天地之气正在强力扶持你前行。适合主动出击、争取机遇、提出申请、开启新计划。你的每一次行动都会得到命运的加持，事半功倍。把握今日，乘风破浪。',
+    '你生今日': '你的力量今日得到完全释放。你不是被动承受，而是主动创造。这一天你是施者，是给予者。适合帮助他人、指导下属、分享经验、传道授业。在给予中，你会收获意想不到的回报和心灵的满足。',
+    '今日克你': '五行相克，需要转化。这一天可能会遇到意外阻滞或人事纠纷，但不用惊慌——克制之中蕴含转机。适合沉着应对、以柔克刚、利用食物化解、寻求贵人相助。吃对食物是最简单的化解方式，可大大消弭负面影响。',
+    '你克今日': '你的力量虽强，但需要适度收敛。这一天容易过度表现、招人嫉妒或引发冲突。适合低调行事、听取意见、给他人表现的机会。收敛锋芒，反而能让你走得更远。',
+    '平和': '五行循环运转，互为相生。天地之气平稳流动，没有明显的优势也没有明显的劣势。这是修养生息的好时机。适合学习新知、修身养性、打好基础、为长期目标做准备。今日的平和是为明日的腾飞蓄能。'
+  };
+
+  var weatherTip = '';
+  if(weather && weather.type==='hot'){
+    weatherTip = '☀️ 天气炎热：宜补阴液，清心静气。避免过度消耗，保留元气。';
+  } else if(weather && weather.type==='cold'){
+    weatherTip = '❄️ 天气寒冷：宜温阳进补，温暖脾胃。动作不宜过快，温和行事最佳。';
+  } else if(weather && weather.type==='rainy'){
+    weatherTip = '🌧️ 天气阴雨：宜驱湿进补，活动身体。适合室内修行或温和的社交。';
+  }
+
+  var fortuneText = analyses[relation] || analyses['平和'];
+  return fortuneText + (weatherTip ? '\n\n' + weatherTip : '');
+}
+
+// ============================
+//  交友社交指南
+// ============================
+function buildSocialGuide(ming, dayWX, zodiac, zodiacMeta, relation) {
+  var socialTips = {
+    '木': '木系人今日易散发温和亲切的气质，适合结交新朋友。建议参加文化活动、文艺聚会或创意工作坊，会遇到志同道合的人。与朋友聊天时多讲故事、分享经历，你的叙述能力今日格外迷人。避免过度承诺，保持适度的神秘感。',
+    '火': '火系人今日光芒四射，自信满满，是社交的中心。适合组织活动、主持聚会、参加大型活动。你的热情会感染周围的人，但注意不要过于霸道，给他人表现的空间。与异性互动时，你的魅力值拉满，但也要留意对方的反应。',
+    '土': '土系人今日展现稳重可靠的气场，容易获得他人的信任和依赖。适合一对一深入交流、建立长期关系、给予建议。这是加深现有人脉的好日子。避免过度包容，学会说"不"。今日可主动邀请重要的人一起用餐或叙旧。',
+    '金': '金系人今日思路清晰，言辞锐利，适合谈判、竞争或需要决策的场合。但在社交中要注意措辞，避免过度直白伤人。适合与专业人士、商业伙伴互动。在轻松的社交场合，可尝试幽默风格，会有意想不到的效果。',
+    '水': '水系人今日洞察力超群，适合倾听和理解他人。朋友会主动向你倾诉，你会成为"树洞"般的存在。这是加强情感联系的好时机。适合深度对话、参加小型聚会。避免过度消耗自己的精力，记得保留一些神秘感。'
+  };
+
+  var relationTip = '';
+  if(relation === '今日生你' || relation === '比和'){
+    relationTip = '✨ 今日人脉运势优异：主动出击，拓展人脉，发起邀约。遇到的陌生人很可能成为长期合作者或知己。';
+  } else if(relation === '今日克你'){
+    relationTip = '⚠️ 今日人际可能有小摩擦：多倾听，少言语。如发生冲突，用温言软语化解，吃对食物可消弭误会。';
+  } else if(relation === '你克今日'){
+    relationTip = '🤝 今日宜给他人表现机会：放下领导者的姿态，做支持者和聆听者。这样的低调反而会赢得好感。';
+  }
+
+  var socialText = socialTips[ming] || socialTips['土'];
+  return relationTip + '\n\n' + socialText;
+}
+
+// ============================
 //  渲染结果
 // ============================
 function renderResult(r){
@@ -740,6 +797,14 @@ function renderResult(r){
     document.getElementById('r-day').textContent=WX[r.dayWX].e+' '+r.dayWX;
     document.getElementById('r-bagua').textContent=r.bagua.symbol+' '+r.bagua.name+' → '+r.bagua.trait;
     document.getElementById('r-reason').innerHTML=r.reason;
+
+    // ===== 详细运势解读 =====
+    var detailedAnalysis = buildDetailedAnalysis(r.ming, r.dayWX, r.relation, r.zodiac, r.weather, r.sx);
+    document.getElementById('r-detailed-analysis').innerHTML = detailedAnalysis.replace(/\n/g, '<br>');
+
+    // ===== 交友社交指南 =====
+    var socialGuide = buildSocialGuide(r.ming, r.dayWX, r.zodiac, r.zodiacMeta, r.relation);
+    document.getElementById('r-social-guide').innerHTML = socialGuide.replace(/\n/g, '<br>');
 
     // ===== 菜品分类渲染 =====
     var yiHtml='';
