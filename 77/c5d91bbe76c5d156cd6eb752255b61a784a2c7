@@ -1,0 +1,84 @@
+images/food/food_056.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_046.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_009.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+download_images.sh
+  s_7d1b09c9e9fdab::t_0b7c661950ad93 1-17,19-22,25,27-28,39-40,45-49,51-61
+  s_7d1b09c9e9fdab::t_08be7745e81f0f 18,23-24,26,29-38,41-44,50
+images/food/food_003.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_033.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_068.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_062.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_036.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_039.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_059.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+update_image_paths.sh
+  s_7d1b09c9e9fdab::t_86ddc1d7233415 1-60
+images/food/food_047.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_057.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_012.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_054.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_058.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+food-images.json
+  s_7d1b09c9e9fdab::t_15259c9aa2dab9 15,22,29,36,43,50,57,64,71,78,85,92,99,106,113,120,127,134,141,148,155,162,169,176,183,190,197,204,211,218,225,232,239,246,253,260,267,274,281,288,295,302,309,316,323,537
+images/food/food_035.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_002.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_045.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_063.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_007.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_044.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_030.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_067.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_010.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_034.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_071.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_015.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_041.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_061.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+images/food/food_055.jpg
+  s_7d1b09c9e9fdab::t_3d5eeaf4a5bb3b 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.17-trip",
+  "base_commit_sha": "77c5d91bbe76c5d156cd6eb752255b61a784a2c7",
+  "prompts": {},
+  "sessions": {
+    "s_7d1b09c9e9fdab": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "406359ad-b76a-4df2-9af7-d8f4520be62f",
+        "model": "qwen3.6-plus"
+      },
+      "human_author": "xinyhu <xinyhu@base.ctripsmartdns.com>"
+    }
+  }
+}
