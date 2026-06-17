@@ -58,14 +58,16 @@ body{
 .header h1{font-size:32px;color:#d4a853;letter-spacing:2px;font-weight:bold;margin-bottom:8px}
 .header p{font-size:14px;color:#5c5c5c;line-height:1.6}
 
-.bagua-area{margin:30px 0;position:relative;width:180px;height:180px}
+.bagua-area{margin:30px 0;position:relative;width:200px;height:200px}
 .bagua-ring{
-  width:100%;height:100%;border-radius:50%;
-  position:relative;animation:spin 24s linear infinite;
-  display:flex;align-items:center;justify-content:center;
-}
-.bagua-ring svg{
   width:100%;height:100%;
+  position:relative;animation:spin 20s linear infinite;
+  display:flex;align-items:center;justify-content:center;
+  filter:drop-shadow(0 4px 12px rgba(212,168,83,0.3));
+}
+.bagua-ring img{
+  width:100%;height:100%;
+  object-fit:contain;
 }
 .bagua-char{position:absolute;font-size:18px;color:#d4a853;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
@@ -420,7 +422,100 @@ body{
   </div>
   <div class="bagua-area">
     <div class="bagua-ring">
-      <img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk1IiBmaWxsPSJub25lIiBzdHJva2U9InJzZ2JhKDIxMiwxNjgsODMsMC4yKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI4NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyc2diYSgyMTIsMTY4LDgzLDAuMykiIHN0cm9rZS13aWR0aD0iMiIvPjxnIGZpbGw9IiNkNGE4NTMiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj48dGV4dCB4PSIxMDAiIHk9IjI1Ij7imLAvPC90ZXh0Pjx0ZXh0IHg9IjE1NSIgeT0iNTUiPjjimLExPC90ZXh0Pjx0ZXh0IHg9IjE3NSIgeT0iMTA1Ij7imLAvPC90ZXh0Pjx0ZXh0IHg9IjE1NSIgeT0iMTU1Ij7imLAvPC90ZXh0Pjx0ZXh0IHg9IjEwMCIgeT0iMTg1Ij7imLAvPC90ZXh0Pjx0ZXh0IHg9IjQ1IiB5PSIxNTUiPjjimLAvPC90ZXh0Pjx0ZXh0IHg9IjI1IiB5PSIxMDUiPjjimLAvPC90ZXh0Pjx0ZXh0IHg9IjQ1IiB5PSI1NSI+4piwPC90ZXh0PjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMDAsMTAwKSI+PGNpcmNsZSByPSI1MCIgZmlsbD0icmdiYSgyMTIsMTY4LDgzLDAuMSkiIHN0cm9rZT0iI2Q0YTg1MyIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTSAwLC01MCBBIDUwLDUwIDAsMCwxIDAsNTAgQSAyNSwyNSAwLDAsMCAwLDAgQSAyNSwyNSAwLDAsMSAwLC01MCIgZmlsbD0iI2Q0YTg1MyIvPjxwYXRoIGQ9Ik0gMCw1MCBBIDUwLDUwIDAsMCwxIDAsLTUwIEEgMjUsMjUgMCwwLDAgMCwwIEEgMjUsMjUgMCwwLDEgMCw1MCIgZmlsbD0icmdiYSgyMTIsMTY4LDgzLDAuMykiLz48Y2lyY2xlIGN4PSIwIiBjeT0iLTI1IiByPSI2IiBmaWxsPSJyZ2JhKDIxMiwxNjgsODMsMC4zKSIvPjxjaXJjbGUgY3g9IjAiIGN5PSIyNSIgcj0iNiIgZmlsbD0iI2Q0YTg1MyIvPjwvZz48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjU1IiBmaWxsPSJub25lIiBzdHJva2U9InJncGJhKDIxMiwxNjgsODMsMC40KSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtZGFzaGFycmF5PSIzLDMiLz48L3N2Zz4=" alt="八卦" style="width:100%;height:100%;">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+        <defs>
+          <radialGradient id="bgGradient">
+            <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#0f0f1e;stop-opacity:1" />
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- 背景 -->
+        <circle cx="100" cy="100" r="98" fill="url(#bgGradient)"/>
+
+        <!-- 外圈金色边框 -->
+        <circle cx="100" cy="100" r="95" fill="none" stroke="#d4a853" stroke-width="3" filter="url(#glow)"/>
+        <circle cx="100" cy="100" r="88" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.5"/>
+
+        <!-- 八卦符号（用线条表示） -->
+        <g stroke="#d4a853" stroke-width="2.5" stroke-linecap="round" filter="url(#glow)">
+          <!-- 乾 ☰ (三连) -->
+          <line x1="85" y1="20" x2="115" y2="20"/>
+          <line x1="85" y1="26" x2="115" y2="26"/>
+          <line x1="85" y1="32" x2="115" y2="32"/>
+
+          <!-- 兑 ☱ (上断) -->
+          <line x1="150" y1="45" x2="165" y2="45"/>
+          <line x1="170" y1="45" x2="180" y2="45"/>
+          <line x1="150" y1="51" x2="180" y2="51"/>
+          <line x1="150" y1="57" x2="180" y2="57"/>
+
+          <!-- 离 ☲ (中虚) -->
+          <line x1="170" y1="90" x2="180" y2="90"/>
+          <line x1="170" y1="96" x2="175" y2="96"/>
+          <line x1="178" y1="96" x2="180" y2="96"/>
+          <line x1="170" y1="102" x2="180" y2="102"/>
+
+          <!-- 震 ☳ (下连) -->
+          <line x1="150" y1="140" x2="180" y2="140"/>
+          <line x1="150" y1="146" x2="180" y2="146"/>
+          <line x1="150" y1="152" x2="165" y2="152"/>
+          <line x1="170" y1="152" x2="180" y2="152"/>
+
+          <!-- 巽 ☴ (下断) -->
+          <line x1="85" y1="170" x2="115" y2="170"/>
+          <line x1="85" y1="164" x2="115" y2="164"/>
+          <line x1="85" y1="158" x2="100" y2="158"/>
+          <line x1="105" y1="158" x2="115" y2="158"/>
+
+          <!-- 坎 ☵ (中满) -->
+          <line x1="20" y1="90" x2="30" y2="90"/>
+          <line x1="20" y1="96" x2="30" y2="96"/>
+          <line x1="20" y1="102" x2="30" y2="102"/>
+
+          <!-- 艮 ☶ (上连) -->
+          <line x1="20" y1="45" x2="35" y2="45"/>
+          <line x1="40" y1="45" x2="50" y2="45"/>
+          <line x1="20" y1="51" x2="50" y2="51"/>
+          <line x1="20" y1="57" x2="50" y2="57"/>
+
+          <!-- 坤 ☷ (六断) -->
+          <line x1="20" y1="140" x2="35" y2="140"/>
+          <line x1="40" y1="140" x2="50" y2="140"/>
+          <line x1="20" y1="146" x2="35" y2="146"/>
+          <line x1="40" y1="146" x2="50" y2="146"/>
+          <line x1="20" y1="152" x2="35" y2="152"/>
+          <line x1="40" y1="152" x2="50" y2="152"/>
+        </g>
+
+        <!-- 太极图 -->
+        <g filter="url(#glow)">
+          <!-- 外圆 -->
+          <circle cx="100" cy="100" r="55" fill="#1a1a2e" stroke="#d4a853" stroke-width="2"/>
+
+          <!-- 阳（白色） -->
+          <path d="M 100,45 A 55,55 0 0,1 100,155 A 27.5,27.5 0 0,0 100,100 A 27.5,27.5 0 0,1 100,45" fill="#f5f5f5"/>
+
+          <!-- 阴（黑色） -->
+          <path d="M 100,155 A 55,55 0 0,1 100,45 A 27.5,27.5 0 0,0 100,100 A 27.5,27.5 0 0,1 100,155" fill="#2c2c3e"/>
+
+          <!-- 阴中之阳 -->
+          <circle cx="100" cy="72.5" r="8" fill="#2c2c3e"/>
+
+          <!-- 阳中之阴 -->
+          <circle cx="100" cy="127.5" r="8" fill="#f5f5f5"/>
+        </g>
+
+        <!-- 内圈装饰 -->
+        <circle cx="100" cy="100" r="60" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.3" stroke-dasharray="4,4"/>
+      </svg>
     </div>
   </div>
 
