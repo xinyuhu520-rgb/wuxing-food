@@ -1617,19 +1617,40 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
     return score+jitter;
   }
 
-  // 计算推荐菜品数量（3-5道随机数）
+  // 计算推荐菜品数量（按类别限制）
   var luckyNumStr = luckyNumbers[ming] || '3,8';
   var luckyNums = luckyNumStr.split(',').map(function(n){ return parseInt(n); });
-  // 生成3-5之间的随机数
-  var yiFoodCount = Math.floor(Math.random() * 3) + 3; // 3, 4, or 5
-  var jiFoodCount = Math.floor(Math.random() * 2) + 2; // 2, 3, or 4
 
-  var yiFoods=allYiFoods.map(function(f){return {food:f,score:scoreFood(f,seed)};})
-    .sort(function(a,b){return b.score-a.score;})
-    .map(function(x){return x.food;})
-    .slice(0,yiFoodCount);
+  // 按类别选择菜品
+  var yiFoods = [];
+  var jiFoods = [];
 
-  var jiFoods=allJiFoods.map(function(f){return {food:f,score:scoreFood(f,seed+9999)};})
+  // 常规菜品类别（前菜、主菜、小食、甜点）：每类2-3道
+  var regularCategories = ['前菜', '主菜', '小食', '甜点'];
+  regularCategories.forEach(function(cat) {
+    var catFoods = allYiFoods.filter(function(f){return f.cat===cat;})
+      .map(function(f){return {food:f,score:scoreFood(f,seed)};})
+      .sort(function(a,b){return b.score-a.score;})
+      .map(function(x){return x.food;});
+    var count = Math.floor(Math.random() * 2) + 2; // 2 or 3
+    yiFoods = yiFoods.concat(catFoods.slice(0, count));
+  });
+
+  // 饮品类（饮品、奶茶）：每类1道
+  var drinkCategories = ['饮品', '奶茶'];
+  drinkCategories.forEach(function(cat) {
+    var catFoods = allYiFoods.filter(function(f){return f.cat===cat;})
+      .map(function(f){return {food:f,score:scoreFood(f,seed)};})
+      .sort(function(a,b){return b.score-a.score;})
+      .map(function(x){return x.food;});
+    if(catFoods.length > 0) {
+      yiFoods.push(catFoods[0]); // 只选1道
+    }
+  });
+
+  // 今日忌：总共3-4道
+  var jiFoodCount = Math.floor(Math.random() * 2) + 3; // 3 or 4
+  jiFoods = allJiFoods.map(function(f){return {food:f,score:scoreFood(f,seed+9999)};})
     .sort(function(a,b){return b.score-a.score;})
     .map(function(x){return x.food;})
     .slice(0,jiFoodCount);
