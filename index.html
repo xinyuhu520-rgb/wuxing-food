@@ -111,7 +111,7 @@ body{
 .category-section{margin-bottom:16px}
 .category-label{font-size:14px;color:#d4a853;margin-bottom:8px;font-weight:bold}
 .food-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;flex-direction:column}
-.food-item img{width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;background:rgba(255,255,255,.05)}
+.food-item img{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:8px;background:rgba(255,255,255,.05)}
 .food-item:last-child{border-bottom:none}
 .food-name{font-size:16px;font-weight:bold;margin-bottom:4px}
 .food-meta{display:flex;justify-content:space-between;font-size:12px;color:#888}
@@ -193,9 +193,9 @@ body{
       </div>
     </div>
     <div class="form-section">
-      <div class="form-section-title">你的星座 · 所在城市</div>
+      <div class="form-section-title">你的星座</div>
       <div class="extra-row">
-        <select id="sel-zodiac">
+        <select id="sel-zodiac" style="width:100%">
           <option value="">自动识别</option>
           <option value="白羊">♈ 白羊座</option>
           <option value="金牛">♉ 金牛座</option>
@@ -210,15 +210,17 @@ body{
           <option value="水瓶">♒ 水瓶座</option>
           <option value="双鱼">♓ 双鱼座</option>
         </select>
+      </div>
+    </div>
+    <div class="form-section">
+      <div class="form-section-title">所在城市</div>
+      <div class="extra-row">
         <select id="sel-province">
           <option value="">选择省份</option>
         </select>
-      </div>
-      <div class="extra-row" style="margin-top:10px;">
         <select id="sel-city">
           <option value="">选择城市</option>
         </select>
-      </div>
       </div>
     </div>
   </div>
