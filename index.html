@@ -620,6 +620,8 @@ body{
 
   <div class="card">
     <div class="card-title">基本信息</div>
+    <div class="info-row"><span class="label">阳历生日</span><span class="value" id="r-solar-date"></span></div>
+    <div class="info-row"><span class="label">农历生日</span><span class="value" id="r-lunar-date"></span></div>
     <div class="info-row"><span class="label">本命五行</span><span class="value" id="r-ming"></span></div>
     <div class="info-row"><span class="label">生肖</span><span class="value" id="r-sx"></span></div>
     <div class="info-row"><span class="label">星座</span><span class="value" id="r-zodiac"></span></div>
@@ -662,6 +664,7 @@ body{
   </div>
 </div>
 
+<script src="lunar.js"></script>
 <script>
 // ============================
 //  基础数据
@@ -1493,22 +1496,29 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
   var today=new Date();
   var dayOfWeek=today.getDay(); // 0=周日, 1=周一, ..., 6=周六
 
-  var ming=TIAN_GAN[(y-4)%10].wuxing;
-  var sx=DI_ZHI[(y-4)%12].animal;
+  // 阳历转农历
+  var lunar = solar2lunar(y, m, d);
+  var lunarYear = lunar.lYear;
+  var lunarMonth = lunar.lMonth;
+  var lunarDay = lunar.lDay;
 
-  // 星座（自动识别 or 手动选择）
+  // 使用农历年份计算五行和生肖
+  var ming=TIAN_GAN[(lunarYear-4)%10].wuxing;
+  var sx=DI_ZHI[(lunarYear-4)%12].animal;
+
+  // 星座（自动识别 or 手动选择）- 使用阳历
   var zodiac=zodiacInput || getZodiac(m,d);
   var zodiacMeta=ZODIAC_META[zodiac];
 
-  // 日柱
+  // 日柱 - 使用今天的日期
   var base=new Date(1900,0,1);
   var diff=Math.floor((today.getTime()-base.getTime())/86400000);
   var dayTG=TIAN_GAN[((diff%10)+10)%10];
   var dayDZ=DI_ZHI[((diff%12)+12)%12];
   var dayWX=dayTG.wuxing;
 
-  // 个人卦象（年+月+日，确保每人不同）
-  var personalBagua=getPersonalBagua(y,m,d);
+  // 个人卦象（农历年+月+日，确保每人不同）
+  var personalBagua=getPersonalBagua(lunarYear,lunarMonth,lunarDay);
 
   // 五行关系
   var yi,ji,relation;
@@ -1643,7 +1653,8 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
   var ds=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
 
   renderResult({
-    date:ds, ming:ming, sx:sx, gz:dayTG.name+dayDZ.name, dayWX:dayWX,
+    date:ds, solarDate:y+'年'+m+'月'+d+'日', lunarDate:lunar.yearCn+' '+lunar.monthCn+lunar.dayCn,
+    ming:ming, sx:sx, gz:dayTG.name+dayDZ.name, dayWX:dayWX,
     yi:yi, ji:ji, reason:reasonText, relation:relation,
     yiFoods:yiFoods, jiFoods:jiFoods,
     color:finalColor, time:hours[ming],
@@ -1739,6 +1750,8 @@ function renderResult(r){
     document.getElementById('page-result').style.display='block';
 
     document.getElementById('result-date').textContent='🔮 '+r.date;
+    document.getElementById('r-solar-date').textContent=r.solarDate;
+    document.getElementById('r-lunar-date').textContent=r.lunarDate;
     document.getElementById('r-ming').textContent=WX[r.ming].e+' '+r.ming+'命';
     document.getElementById('r-sx').textContent='🐾 '+r.sx;
     document.getElementById('r-zodiac').textContent=(ZODIAC_META[r.zodiac]?ZODIAC_META[r.zodiac].e:'⭐')+' '+r.zodiac+'座';
