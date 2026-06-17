@@ -26,7 +26,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  background:linear-gradient(135deg,#d4e4ff 0%,#e0c5f0 100%);
+  background:linear-gradient(135deg,#dce9ff 0%,#e8d5f5 50%,#f0e6ff 100%);
   color:#2c3e50;
   font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
   min-height:100vh;
@@ -52,9 +52,10 @@ body{
 .bagua-char{position:absolute;font-size:20px;color:#d4a853;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .form-card{
-  width:100%;background:rgba(255,255,255,.95);
-  border-radius:16px;padding:24px 20px;margin-bottom:32px;
-  box-shadow:0 2px 8px rgba(0,0,0,.1);
+  width:100%;background:rgba(255,255,255,.98);
+  border-radius:20px;padding:24px 20px;margin-bottom:32px;
+  box-shadow:0 4px 16px rgba(100,80,160,.08),0 1px 3px rgba(0,0,0,.05);
+  border:1px solid rgba(212,168,83,.15);
 }
 .form-card label{font-size:15px;color:#d4a853;display:block;margin-bottom:12px;text-align:center}
 .form-section{margin-bottom:18px}
@@ -101,11 +102,12 @@ body{
 .result-header{text-align:center;padding:30px 0 20px;border-bottom:1px solid rgba(212,168,83,.2);margin-bottom:20px}
 .result-header h2{font-size:20px;color:#d4a853}
 .card{
-  width:100%;background:rgba(255,255,255,.95);
-  border-radius:14px;padding:18px 16px;margin-bottom:16px;
-  box-shadow:0 2px 8px rgba(0,0,0,.1);
+  width:100%;background:rgba(255,255,255,.98);
+  border-radius:18px;padding:18px 16px;margin-bottom:16px;
+  box-shadow:0 4px 16px rgba(100,80,160,.08),0 1px 3px rgba(0,0,0,.05);
+  border:1px solid rgba(212,168,83,.12);
 }
-.card-title{font-size:16px;font-weight:bold;color:#d4a853;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid rgba(212,168,83,.3)}
+.card-title{font-size:16px;font-weight:bold;color:#d4a853;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid rgba(212,168,83,.25)}
 .info-row{display:flex;justify-content:space-between;padding:6px 0;font-size:14px}
 .info-row .label{color:#444}
 .info-row .value{color:#2c3e50;font-weight:500}
@@ -922,28 +924,28 @@ function weatherBoost(weather, dayWX){
 var FOODS=[
   // ============ 金系（辛辣·凉菜·前菜）============
   // 前菜
-  {n:'凉拌三丝',w:'金',c:'凉菜',p:'10-20',cat:'前菜',t:['清爽','开胃'],x:'金主肃杀，三丝凉拌通肺经，助收敛之气',img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'},
-  {n:'夫妻肺片',w:'金',c:'川菜',p:'30-45',cat:'前菜',t:['经典','冷菜'],x:'金气收敛，肺片补肺，辛辣驱寒，旺财运',img:'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400'},
-  {n:'酸辣土豆丝',w:'金',c:'川菜',p:'12-20',cat:'前菜',t:['家常','酸辣'],x:'酸辣开胃，土豆属土生金，财运亨通',img:'https://images.unsplash.com/photo-1599001860179-f2c86d2c9502?w=400'},
-  {n:'蒜泥白肉',w:'金',c:'川菜',p:'25-40',cat:'前菜',t:['蒜香','下酒'],x:'蒜属金，白肉滋阴，金气充沛利决策',img:'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400'},
-  {n:'口水鸡',w:'金',c:'川菜',p:'28-45',cat:'前菜',t:['麻辣','开胃'],x:'鸡肉属金，麻辣开胃，金生水旺智慧',img:'https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=400'},
-  {n:'皮蛋豆腐',w:'金',c:'凉菜',p:'15-25',cat:'前菜',t:['清爽','养生'],x:'皮蛋滋阴，豆腐清热，金气平和利思考',img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'},
-  {n:'鸭头',w:'金',c:'湘菜',p:'20-35',cat:'前菜',t:['重口','下酒'],x:'鸭属水，头为阳，金水相生旺桃花',img:'https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=400'},
-  {n:'虎皮凤爪',w:'金',c:'粤菜',p:'25-40',cat:'前菜',t:['软糯','入味'],x:'凤爪抓财，虎皮聚气，金气旺盛利财运',img:'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400'},
+  {n:'凉拌三丝',w:'金',c:'凉菜',p:'10-20',cat:'前菜',t:['清爽','开胃'],x:'金主肃杀，三丝凉拌通肺经，助收敛之气',img:'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'夫妻肺片',w:'金',c:'川菜',p:'30-45',cat:'前菜',t:['经典','冷菜'],x:'金气收敛，肺片补肺，辛辣驱寒，旺财运',img:'https://images.pexels.com/photos/5848581/pexels-photo-5848581.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'酸辣土豆丝',w:'金',c:'川菜',p:'12-20',cat:'前菜',t:['家常','酸辣'],x:'酸辣开胃，土豆属土生金，财运亨通',img:'https://images.pexels.com/photos/6315962/pexels-photo-6315962.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'蒜泥白肉',w:'金',c:'川菜',p:'25-40',cat:'前菜',t:['蒜香','下酒'],x:'蒜属金，白肉滋阴，金气充沛利决策',img:'https://images.pexels.com/photos/7698416/pexels-photo-7698416.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'口水鸡',w:'金',c:'川菜',p:'28-45',cat:'前菜',t:['麻辣','开胃'],x:'鸡肉属金，麻辣开胃，金生水旺智慧',img:'https://images.pexels.com/photos/7937503/pexels-photo-7937503.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'皮蛋豆腐',w:'金',c:'凉菜',p:'15-25',cat:'前菜',t:['清爽','养生'],x:'皮蛋滋阴，豆腐清热，金气平和利思考',img:'https://images.pexels.com/photos/9551373/pexels-photo-9551373.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'鸭头',w:'金',c:'湘菜',p:'20-35',cat:'前菜',t:['重口','下酒'],x:'鸭属水，头为阳，金水相生旺桃花',img:'https://images.pexels.com/photos/8428132/pexels-photo-8428132.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'虎皮凤爪',w:'金',c:'粤菜',p:'25-40',cat:'前菜',t:['软糯','入味'],x:'凤爪抓财，虎皮聚气，金气旺盛利财运',img:'https://images.pexels.com/photos/7937507/pexels-photo-7937507.jpeg?auto=compress&cs=tinysrgb&w=400'},
   // 主菜
-  {n:'水煮鱼',w:'金',c:'川菜',p:'40-70',cat:'主菜',t:['鲜香','下饭'],x:'鱼跃龙门，水煮生财，金气旺盛利事业',img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'},
-  {n:'麻辣香锅',w:'金',c:'川菜',p:'30-60',cat:'主菜',t:['辣','聚餐','下饭'],x:'百味汇聚，麻辣开运，金气充沛旺人缘',img:'https://images.unsplash.com/photo-1585238341710-4913987c7c5b?w=400'},
-  {n:'辣子鸡',w:'金',c:'川菜',p:'25-45',cat:'主菜',t:['干香','下酒'],x:'鸡肉属金，辣椒助火，火炼真金旺事业',img:'https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=400'},
-  {n:'剁椒鱼头',w:'金',c:'湘菜',p:'45-75',cat:'主菜',t:['鲜','聚餐'],x:'鱼头为阳，剁椒助运，金气升腾旺贵人',img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'},
-  {n:'小炒黄牛肉',w:'金',c:'湘菜',p:'30-50',cat:'主菜',t:['下饭','快手'],x:'牛肉补脾，小炒聚气，金土相生旺稳定',img:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400'},
-  {n:'宫保鸡丁',w:'金',c:'川菜',p:'25-40',cat:'主菜',t:['经典','下饭'],x:'宫保聚财，鸡丁属金，金气平和利人缘',img:'https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=400'},
-  {n:'毛血旺',w:'金',c:'川菜',p:'50-80',cat:'主菜',t:['重口','大份'],x:'血旺补气血，毛菜聚财气，金气旺盛旺财运',img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'},
-  {n:'泡椒牛蛙',w:'金',c:'川菜',p:'45-70',cat:'主菜',t:['鲜辣','过瘾'],x:'牛蛙跳龙门，泡椒助金气，旺事业升迁',img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'},
-  {n:'干锅花菜',w:'金',c:'川菜',p:'25-40',cat:'主菜',t:['下饭','素菜'],x:'花菜开花，干锅聚气，金木相济旺学业',img:'https://images.unsplash.com/photo-1599001860179-f2c86d2c9502?w=400'},
-  {n:'胡辣汤',w:'金',c:'早餐',p:'8-15',cat:'主菜',t:['早餐','暖胃'],x:'胡辣通窍，汤水养金，金气清朗旺思路',img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'},
+  {n:'水煮鱼',w:'金',c:'川菜',p:'40-70',cat:'主菜',t:['鲜香','下饭'],x:'鱼跃龙门，水煮生财，金气旺盛利事业',img:'https://images.pexels.com/photos/3594635/pexels-photo-3594635.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'麻辣香锅',w:'金',c:'川菜',p:'30-60',cat:'主菜',t:['辣','聚餐','下饭'],x:'百味汇聚，麻辣开运，金气充沛旺人缘',img:'https://images.pexels.com/photos/3438060/pexels-photo-3438060.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'辣子鸡',w:'金',c:'川菜',p:'25-45',cat:'主菜',t:['干香','下酒'],x:'鸡肉属金，辣椒助火，火炼真金旺事业',img:'https://images.pexels.com/photos/7937503/pexels-photo-7937503.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'剁椒鱼头',w:'金',c:'湘菜',p:'45-75',cat:'主菜',t:['鲜','聚餐'],x:'鱼头为阳，剁椒助运，金气升腾旺贵人',img:'https://images.pexels.com/photos/4252263/pexels-photo-4252263.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'小炒黄牛肉',w:'金',c:'湘菜',p:'30-50',cat:'主菜',t:['下饭','快手'],x:'牛肉补脾，小炒聚气，金土相生旺稳定',img:'https://images.pexels.com/photos/7937507/pexels-photo-7937507.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'宫保鸡丁',w:'金',c:'川菜',p:'25-40',cat:'主菜',t:['经典','下饭'],x:'宫保聚财，鸡丁属金，金气平和利人缘',img:'https://images.pexels.com/photos/7905856/pexels-photo-7905856.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'毛血旺',w:'金',c:'川菜',p:'50-80',cat:'主菜',t:['重口','大份'],x:'血旺补气血，毛菜聚财气，金气旺盛旺财运',img:'https://images.pexels.com/photos/3438043/pexels-photo-3438043.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'泡椒牛蛙',w:'金',c:'川菜',p:'45-70',cat:'主菜',t:['鲜辣','过瘾'],x:'牛蛙跳龙门，泡椒助金气，旺事业升迁',img:'https://images.pexels.com/photos/7937503/pexels-photo-7937503.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'干锅花菜',w:'金',c:'川菜',p:'25-40',cat:'主菜',t:['下饭','素菜'],x:'花菜开花，干锅聚气，金木相济旺学业',img:'https://images.pexels.com/photos/6315962/pexels-photo-6315962.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'胡辣汤',w:'金',c:'早餐',p:'8-15',cat:'主菜',t:['早餐','暖胃'],x:'胡辣通窍，汤水养金，金气清朗旺思路',img:'https://images.pexels.com/photos/5394516/pexels-photo-5394516.jpeg?auto=compress&cs=tinysrgb&w=400'},
   // 小食/甜点
-  {n:'桂花糕',w:'金',c:'甜点',p:'8-15',cat:'甜点',t:['甜蜜','精致'],x:'桂花属金，糕点聚财，金气芬芳旺桃花',img:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400'},
-  {n:'冰粉',w:'金',c:'川式甜品',p:'8-15',cat:'小食',t:['清凉','解辣'],x:'冰粉清凉，金气下沉，利思考决策',img:'https://images.unsplash.com/photo-1566144142944-2765e056c47a?w=400'},
+  {n:'桂花糕',w:'金',c:'甜点',p:'8-15',cat:'甜点',t:['甜蜜','精致'],x:'桂花属金，糕点聚财，金气芬芳旺桃花',img:'https://images.pexels.com/photos/3594635/pexels-photo-3594635.jpeg?auto=compress&cs=tinysrgb&w=400'},
+  {n:'冰粉',w:'金',c:'川式甜品',p:'8-15',cat:'小食',t:['清凉','解辣'],x:'冰粉清凉，金气下沉，利思考决策',img:'https://images.pexels.com/photos/3594635/pexels-photo-3594635.jpeg?auto=compress&cs=tinysrgb&w=400'},
 
   // ============ 木系（酸爽·日料·轻食·饮品）============
   // 前菜
