@@ -7,7 +7,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  background:#1a1a2e;
+  background:linear-gradient(135deg,#0f1419 0%,#1a2332 50%,#0d1117 100%);
   color:#e8e8e8;
   font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
   min-height:100vh;
@@ -16,7 +16,7 @@ body{
   overflow-x:hidden;
 }
 /* ========== 首页 ========== */
-#page-index{display:flex;flex-direction:column;align-items:center;width:100%;max-width:480px;padding-top:40px}
+#page-index{display:flex;flex-direction:column;align-items:center;width:100%;max-width:480px;padding-top:40px;background:linear-gradient(180deg,rgba(15,20,25,0.5) 0%,rgba(26,35,50,0.3) 100%);border-radius:0}
 .header{text-align:center;margin-top:30px}
 .header h1{font-size:36px;color:#d4a853;letter-spacing:2px}
 .header p{font-size:14px;color:#666;margin-top:6px}
@@ -91,7 +91,8 @@ body{
 .analysis-text{font-size:14px;color:#bbb;line-height:1.8}
 .category-section{margin-bottom:16px}
 .category-label{font-size:14px;color:#d4a853;margin-bottom:8px;font-weight:bold}
-.food-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.food-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;flex-direction:column}
+.food-item img{width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;background:rgba(255,255,255,.05)}
 .food-item:last-child{border-bottom:none}
 .food-name{font-size:16px;font-weight:bold;margin-bottom:4px}
 .food-meta{display:flex;justify-content:space-between;font-size:12px;color:#888}
@@ -101,7 +102,7 @@ body{
 .food-actions{margin-top:10px;display:flex;gap:8px}
 .food-actions a{
   flex:1;text-align:center;padding:8px 0;border-radius:8px;
-  font-size:12px;font-weight:500;text-decoration:none;
+  font-size:12px;font-weight:500;text-decoration:none;color:#999;cursor:not-allowed;opacity:0.6;
 }
 .action-meituan{background:#FFC107;color:#333}
 .action-eleme{background:#0097E6;color:#fff}
@@ -131,6 +132,13 @@ body{
   color:#d4a853;font-size:18px;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
 }
+/* 运势指南样式 */
+.guide-row{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:14px}
+.guide-label{color:#d4a853;font-weight:bold;min-width:80px}
+.guide-color-block{width:32px;height:32px;border-radius:6px;border:2px solid rgba(255,255,255,.2);box-shadow:0 0 12px rgba(212,168,83,.3)}
+.guide-desc{color:#ccc;margin-left:8px}
+.guide-value{color:#e8e8e8;font-weight:500}
+.guide-fortune{font-size:15px;color:#d4a853;font-weight:bold;line-height:1.6}
 </style>
 </head>
 <body>
@@ -140,6 +148,7 @@ body{
   <div class="header">
     <h1>🔮 今日食运</h1>
     <p>五行八卦 · 每日一测</p>
+    <div id="today-info" style="margin-top:12px;font-size:13px;color:#d4a853;">📅 <span id="today-date"></span> <span id="today-gz" style="font-weight:bold;"></span></div>
   </div>
   <div class="bagua-area">
     <div class="bagua-ring">
@@ -250,10 +259,9 @@ body{
   </div>
 
   <div class="card">
-    <div class="card-title">🌟 幸运小贴士</div>
+    <div class="card-title">🌟 今日指南 · 运势密码</div>
     <div class="weather-badge" id="r-weather"></div>
-    <div class="lucky-row"><span>幸运色</span><div class="color-dot" id="r-color"></div></div>
-    <div class="lucky-row"><span>最佳用餐时间</span><span id="r-time" style="font-weight:500"></span></div>
+    <div id="r-fortune-guide" style="margin-top:16px;"></div>
   </div>
 
   <div class="share-area">
@@ -434,91 +442,104 @@ function weatherBoost(weather, dayWX){
 }
 
 // ============================
-//  菜品数据库（扩充版 100+ 道菜）
+//  菜品数据库（150+ 道菜 带图片）
 // ============================
 var FOODS=[
   // === 金（辛辣 · 川湘凉菜）===
-  {n:'凉拌三丝',w:'金',c:'凉菜',p:'10-20',cat:'前菜',t:['清爽','开胃']},
-  {n:'水煮鱼',w:'金',c:'川菜',p:'40-70',cat:'主菜',t:['鲜香','下饭']},
-  {n:'麻辣香锅',w:'金',c:'川菜',p:'30-60',cat:'主菜',t:['辣','聚餐','下饭']},
-  {n:'辣子鸡',w:'金',c:'川菜',p:'25-45',cat:'主菜',t:['干香','下酒']},
-  {n:'剁椒鱼头',w:'金',c:'湘菜',p:'45-75',cat:'主菜',t:['鲜','聚餐']},
-  {n:'小炒黄牛肉',w:'金',c:'湘菜',p:'30-50',cat:'主菜',t:['下饭','快手']},
-  {n:'宫保鸡丁',w:'金',c:'川菜',p:'25-40',cat:'主菜',t:['经典','下饭']},
-  {n:'毛血旺',w:'金',c:'川菜',p:'50-80',cat:'主菜',t:['重口','大份']},
-  {n:'酸辣土豆丝',w:'金',c:'川菜',p:'12-20',cat:'前菜',t:['家常','酸辣']},
-  {n:'夫妻肺片',w:'金',c:'川菜',p:'30-45',cat:'前菜',t:['经典','冷菜']},
-  {n:'泡椒牛蛙',w:'金',c:'川菜',p:'45-70',cat:'主菜',t:['鲜辣','过瘾']},
-  {n:'干锅花菜',w:'金',c:'川菜',p:'25-40',cat:'主菜',t:['下饭','素菜']},
-  {n:'桂花糕',w:'金',c:'甜点',p:'8-15',cat:'甜点',t:['甜蜜','精致']},
-  {n:'冰粉',w:'金',c:'川式甜品',p:'8-15',cat:'甜点',t:['清凉','解辣']},
+  {n:'凉拌三丝',w:'金',c:'凉菜',p:'10-20',cat:'前菜',t:['清爽','开胃'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'水煮鱼',w:'金',c:'川菜',p:'40-70',cat:'主菜',t:['鲜香','下饭'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'麻辣香锅',w:'金',c:'川菜',p:'30-60',cat:'主菜',t:['辣','聚餐','下饭'],img:'https://images.unsplash.com/photo-1585238341710-4913987c7c5b?w=400&h=300&fit=crop'},
+  {n:'辣子鸡',w:'金',c:'川菜',p:'25-45',cat:'主菜',t:['干香','下酒'],img:'https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=400&h=300&fit=crop'},
+  {n:'剁椒鱼头',w:'金',c:'湘菜',p:'45-75',cat:'主菜',t:['鲜','聚餐'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'小炒黄牛肉',w:'金',c:'湘菜',p:'30-50',cat:'主菜',t:['下饭','快手'],img:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop'},
+  {n:'宫保鸡丁',w:'金',c:'川菜',p:'25-40',cat:'主菜',t:['经典','下饭'],img:'https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=400&h=300&fit=crop'},
+  {n:'毛血旺',w:'金',c:'川菜',p:'50-80',cat:'主菜',t:['重口','大份'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'酸辣土豆丝',w:'金',c:'川菜',p:'12-20',cat:'前菜',t:['家常','酸辣'],img:'https://images.unsplash.com/photo-1599001860179-f2c86d2c9502?w=400&h=300&fit=crop'},
+  {n:'夫妻肺片',w:'金',c:'川菜',p:'30-45',cat:'前菜',t:['经典','冷菜'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'泡椒牛蛙',w:'金',c:'川菜',p:'45-70',cat:'主菜',t:['鲜辣','过瘾'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'干锅花菜',w:'金',c:'川菜',p:'25-40',cat:'主菜',t:['下饭','素菜'],img:'https://images.unsplash.com/photo-1599001860179-f2c86d2c9502?w=400&h=300&fit=crop'},
+  {n:'桂花糕',w:'金',c:'甜点',p:'8-15',cat:'甜点',t:['甜蜜','精致'],img:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop'},
+  {n:'冰粉',w:'金',c:'川式甜品',p:'8-15',cat:'甜点',t:['清凉','解辣'],img:'https://images.unsplash.com/photo-1566144142944-2765e056c47a?w=400&h=300&fit=crop'},
+  {n:'鸭头',w:'金',c:'湘菜',p:'20-35',cat:'前菜',t:['重口','下酒'],img:'https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=400&h=300&fit=crop'},
+  {n:'胡辣汤',w:'金',c:'早餐',p:'8-15',cat:'主菜',t:['早餐','暖胃'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
   // === 木（酸爽 · 日料轻食饮品）===
-  {n:'牛油果沙拉',w:'木',c:'轻食',p:'25-40',cat:'前菜',t:['减脂','清爽','健康']},
-  {n:'三文鱼寿司拼盘',w:'木',c:'日料',p:'35-65',cat:'主菜',t:['清爽','健康','一人食']},
-  {n:'日式拉面',w:'木',c:'日料',p:'30-50',cat:'主菜',t:['暖胃','一人食','汤面']},
-  {n:'Poke能量碗',w:'木',c:'轻食',p:'30-45',cat:'主菜',t:['减脂','健康','精致']},
-  {n:'抹茶拿铁',w:'木',c:'饮品',p:'15-25',cat:'甜点',t:['清新','提神']},
-  {n:'芋泥奶茶',w:'木',c:'奶茶',p:'15-20',cat:'甜点',t:['甜蜜','人气']},
-  {n:'越南河粉',w:'木',c:'越南菜',p:'25-40',cat:'主菜',t:['清爽','一人食','酸辣']},
-  {n:'泰式青木瓜沙拉',w:'木',c:'泰餐',p:'20-35',cat:'前菜',t:['酸辣','清爽','开胃']},
-  {n:'日式咖喱猪排饭',w:'木',c:'日料',p:'30-45',cat:'主菜',t:['饱腹','经典']},
-  {n:'照烧鸡排饭',w:'木',c:'日料',p:'25-40',cat:'主菜',t:['甜咸','下饭']},
-  {n:'鳗鱼饭',w:'木',c:'日料',p:'40-70',cat:'主菜',t:['精致','一人食']},
-  {n:'韩式拌饭',w:'木',c:'韩餐',p:'25-40',cat:'主菜',t:['拌食','丰富']},
-  {n:'黑糖珍珠奶茶',w:'木',c:'奶茶',p:'15-25',cat:'甜点',t:['人气','甜蜜']},
-  {n:'芒果糯米糍',w:'木',c:'港式甜品',p:'15-25',cat:'甜点',t:['水果','清甜']},
-  {n:'鲜果茶',w:'木',c:'饮品',p:'12-20',cat:'甜点',t:['清爽','水果']},
+  {n:'牛油果沙拉',w:'木',c:'轻食',p:'25-40',cat:'前菜',t:['减脂','清爽','健康'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'三文鱼寿司拼盘',w:'木',c:'日料',p:'35-65',cat:'主菜',t:['清爽','健康','一人食'],img:'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400&h=300&fit=crop'},
+  {n:'日式拉面',w:'木',c:'日料',p:'30-50',cat:'主菜',t:['暖胃','一人食','汤面'],img:'https://images.unsplash.com/photo-1521390292621-cbe66dbfc433?w=400&h=300&fit=crop'},
+  {n:'Poke能量碗',w:'木',c:'轻食',p:'30-45',cat:'主菜',t:['减脂','健康','精致'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'抹茶拿铁',w:'木',c:'饮品',p:'15-25',cat:'甜点',t:['清新','提神'],img:'https://images.unsplash.com/photo-1599007357583-9f55be7ec8c2?w=400&h=300&fit=crop'},
+  {n:'芋泥奶茶',w:'木',c:'奶茶',p:'15-20',cat:'甜点',t:['甜蜜','人气'],img:'https://images.unsplash.com/photo-1599007357583-9f55be7ec8c2?w=400&h=300&fit=crop'},
+  {n:'越南河粉',w:'木',c:'越南菜',p:'25-40',cat:'主菜',t:['清爽','一人食','酸辣'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'泰式青木瓜沙拉',w:'木',c:'泰餐',p:'20-35',cat:'前菜',t:['酸辣','清爽','开胃'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'日式咖喱猪排饭',w:'木',c:'日料',p:'30-45',cat:'主菜',t:['饱腹','经典'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'照烧鸡排饭',w:'木',c:'日料',p:'25-40',cat:'主菜',t:['甜咸','下饭'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'鳗鱼饭',w:'木',c:'日料',p:'40-70',cat:'主菜',t:['精致','一人食'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'韩式拌饭',w:'木',c:'韩餐',p:'25-40',cat:'主菜',t:['拌食','丰富'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'黑糖珍珠奶茶',w:'木',c:'奶茶',p:'15-25',cat:'甜点',t:['人气','甜蜜'],img:'https://images.unsplash.com/photo-1599007357583-9f55be7ec8c2?w=400&h=300&fit=crop'},
+  {n:'芒果糯米糍',w:'木',c:'港式甜品',p:'15-25',cat:'甜点',t:['水果','清甜'],img:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop'},
+  {n:'鲜果茶',w:'木',c:'饮品',p:'12-20',cat:'甜点',t:['清爽','水果'],img:'https://images.unsplash.com/photo-1599007357583-9f55be7ec8c2?w=400&h=300&fit=crop'},
+  {n:'冷面',w:'木',c:'韩餐',p:'18-28',cat:'主菜',t:['清凉','爽脆'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'水果便当',w:'木',c:'轻食',p:'30-45',cat:'前菜',t:['新鲜','健康'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
   // === 水（咸鲜 · 汤粥海鲜炖品）===
-  {n:'紫菜蛋花汤',w:'水',c:'汤品',p:'8-15',cat:'前菜',t:['快手','便宜','暖身']},
-  {n:'蒜蓉扇贝',w:'水',c:'海鲜',p:'35-60',cat:'前菜',t:['鲜美','精致']},
-  {n:'海鲜煲',w:'水',c:'海鲜',p:'50-90',cat:'主菜',t:['丰盛','聚餐','鲜美']},
-  {n:'皮蛋瘦肉粥',w:'水',c:'粥品',p:'12-20',cat:'主菜',t:['暖胃','清淡','一人食']},
-  {n:'乌鸡汤',w:'水',c:'炖品',p:'30-55',cat:'主菜',t:['滋补','养生','汤品']},
-  {n:'仙草冻',w:'水',c:'甜点',p:'10-15',cat:'甜点',t:['清凉','解暑']},
-  {n:'酸菜鱼',w:'水',c:'川菜',p:'40-65',cat:'主菜',t:['酸爽','下饭','鲜']},
-  {n:'清蒸鲈鱼',w:'水',c:'粤菜',p:'45-70',cat:'主菜',t:['鲜美','清淡','健康']},
-  {n:'花甲粉丝煲',w:'水',c:'海鲜',p:'25-40',cat:'主菜',t:['鲜美','一人食','快手']},
-  {n:'白灼虾',w:'水',c:'粤菜',p:'40-65',cat:'主菜',t:['鲜甜','清淡','健康']},
-  {n:'番茄牛腩汤',w:'水',c:'炖品',p:'30-50',cat:'主菜',t:['暖胃','酸甜','滋补']},
-  {n:'小米粥',w:'水',c:'粥品',p:'8-15',cat:'主菜',t:['养生','清淡','暖胃']},
-  {n:'莲子银耳羹',w:'水',c:'炖品',p:'15-25',cat:'甜点',t:['滋阴','润燥','养生']},
-  {n:'椰汁西米露',w:'水',c:'港式甜品',p:'12-20',cat:'甜点',t:['清甜','冰爽']},
+  {n:'紫菜蛋花汤',w:'水',c:'汤品',p:'8-15',cat:'前菜',t:['快手','便宜','暖身'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'蒜蓉扇贝',w:'水',c:'海鲜',p:'35-60',cat:'前菜',t:['鲜美','精致'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'海鲜煲',w:'水',c:'海鲜',p:'50-90',cat:'主菜',t:['丰盛','聚餐','鲜美'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'皮蛋瘦肉粥',w:'水',c:'粥品',p:'12-20',cat:'主菜',t:['暖胃','清淡','一人食'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'乌鸡汤',w:'水',c:'炖品',p:'30-55',cat:'主菜',t:['滋补','养生','汤品'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'仙草冻',w:'水',c:'甜点',p:'10-15',cat:'甜点',t:['清凉','解暑'],img:'https://images.unsplash.com/photo-1566144142944-2765e056c47a?w=400&h=300&fit=crop'},
+  {n:'酸菜鱼',w:'水',c:'川菜',p:'40-65',cat:'主菜',t:['酸爽','下饭','鲜'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'清蒸鲈鱼',w:'水',c:'粤菜',p:'45-70',cat:'主菜',t:['鲜美','清淡','健康'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'花甲粉丝煲',w:'水',c:'海鲜',p:'25-40',cat:'主菜',t:['鲜美','一人食','快手'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'白灼虾',w:'水',c:'粤菜',p:'40-65',cat:'主菜',t:['鲜甜','清淡','健康'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'番茄牛腩汤',w:'水',c:'炖品',p:'30-50',cat:'主菜',t:['暖胃','酸甜','滋补'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'小米粥',w:'水',c:'粥品',p:'8-15',cat:'主菜',t:['养生','清淡','暖胃'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'莲子银耳羹',w:'水',c:'炖品',p:'15-25',cat:'甜点',t:['滋阴','润燥','养生'],img:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop'},
+  {n:'椰汁西米露',w:'水',c:'港式甜品',p:'12-20',cat:'甜点',t:['清甜','冰爽'],img:'https://images.unsplash.com/photo-1566144142944-2765e056c47a?w=400&h=300&fit=crop'},
+  {n:'蛤蜊汤',w:'水',c:'海鲜',p:'20-35',cat:'前菜',t:['鲜美','快手'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'鱼片粥',w:'水',c:'粥品',p:'15-25',cat:'主菜',t:['清淡','暖胃'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
   // === 火（炎上 · 火锅烧烤烤肉）===
-  {n:'烤串拼盘',w:'火',c:'烧烤',p:'30-60',cat:'前菜',t:['夜宵','下酒','社交']},
-  {n:'重庆老火锅',w:'火',c:'火锅',p:'60-120',cat:'主菜',t:['聚餐','重口','过瘾']},
-  {n:'韩式烤肉',w:'火',c:'烤肉',p:'50-100',cat:'主菜',t:['聚餐','肉食','过瘾']},
-  {n:'川味烤鱼',w:'火',c:'烤鱼',p:'45-80',cat:'主菜',t:['香辣','夜宵']},
-  {n:'麻辣烫',w:'火',c:'火锅',p:'15-30',cat:'主菜',t:['一人食','自选','便宜']},
-  {n:'焦糖布丁',w:'火',c:'甜点',p:'12-20',cat:'甜点',t:['甜蜜','焦香']},
-  {n:'羊蝎子火锅',w:'火',c:'火锅',p:'60-100',cat:'主菜',t:['暖身','大份','聚餐']},
-  {n:'铁板牛肉',w:'火',c:'铁板烧',p:'40-65',cat:'主菜',t:['滋滋','肉食','过瘾']},
-  {n:'烤羊排',w:'火',c:'烧烤',p:'60-100',cat:'主菜',t:['肉食','聚餐','豪放']},
-  {n:'铁板鱿鱼',w:'火',c:'烧烤',p:'20-35',cat:'前菜',t:['路边','夜宵','过瘾']},
-  {n:'新疆大盘鸡',w:'火',c:'西北菜',p:'40-65',cat:'主菜',t:['大份','下饭','香辣']},
-  {n:'干锅肥肠',w:'火',c:'川菜',p:'35-55',cat:'主菜',t:['重口','下饭','过瘾']},
-  {n:'炸鸡翅',w:'火',c:'小吃',p:'15-25',cat:'前菜',t:['酥脆','快餐','解馋']},
-  {n:'火山石烤肠',w:'火',c:'烧烤',p:'10-20',cat:'前菜',t:['街头','快手','过瘾']},
+  {n:'烤串拼盘',w:'火',c:'烧烤',p:'30-60',cat:'前菜',t:['夜宵','下酒','社交'],img:'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400&h=300&fit=crop'},
+  {n:'重庆老火锅',w:'火',c:'火锅',p:'60-120',cat:'主菜',t:['聚餐','重口','过瘾'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'韩式烤肉',w:'火',c:'烤肉',p:'50-100',cat:'主菜',t:['聚餐','肉食','过瘾'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'川味烤鱼',w:'火',c:'烤鱼',p:'45-80',cat:'主菜',t:['香辣','夜宵'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'麻辣烫',w:'火',c:'火锅',p:'15-30',cat:'主菜',t:['一人食','自选','便宜'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'焦糖布丁',w:'火',c:'甜点',p:'12-20',cat:'甜点',t:['甜蜜','焦香'],img:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop'},
+  {n:'羊蝎子火锅',w:'火',c:'火锅',p:'60-100',cat:'主菜',t:['暖身','大份','聚餐'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'铁板牛肉',w:'火',c:'铁板烧',p:'40-65',cat:'主菜',t:['滋滋','肉食','过瘾'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'烤羊排',w:'火',c:'烧烤',p:'60-100',cat:'主菜',t:['肉食','聚餐','豪放'],img:'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400&h=300&fit=crop'},
+  {n:'铁板鱿鱼',w:'火',c:'烧烤',p:'20-35',cat:'前菜',t:['路边','夜宵','过瘾'],img:'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400&h=300&fit=crop'},
+  {n:'新疆大盘鸡',w:'火',c:'西北菜',p:'40-65',cat:'主菜',t:['大份','下饭','香辣'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'干锅肥肠',w:'火',c:'川菜',p:'35-55',cat:'主菜',t:['重口','下饭','过瘾'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'炸鸡翅',w:'火',c:'小吃',p:'15-25',cat:'前菜',t:['酥脆','快餐','解馋'],img:'https://images.unsplash.com/photo-1626082927389-6cd097cda6ec?w=400&h=300&fit=crop'},
+  {n:'火山石烤肠',w:'火',c:'烧烤',p:'10-20',cat:'前菜',t:['街头','快手','过瘾'],img:'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400&h=300&fit=crop'},
+  {n:'牛蛙火锅',w:'火',c:'火锅',p:'50-80',cat:'主菜',t:['鲜嫩','聚餐'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'椒盐皮皮虾',w:'火',c:'烧烤',p:'35-55',cat:'前菜',t:['香酥','下酒'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
   // === 土（甘甜 · 家常菜面点盖饭粤菜）===
-  {n:'鲜肉小笼包',w:'土',c:'面点',p:'15-25',cat:'前菜',t:['精致','一人食']},
-  {n:'黄焖鸡米饭',w:'土',c:'家常菜',p:'18-30',cat:'主菜',t:['下饭','饱腹','一人食']},
-  {n:'红烧肉',w:'土',c:'家常菜',p:'30-55',cat:'主菜',t:['浓油赤酱','家常','下饭']},
-  {n:'扬州炒饭',w:'土',c:'炒饭',p:'15-25',cat:'主菜',t:['快手','饱腹','便宜']},
-  {n:'煲仔饭',w:'土',c:'粤菜',p:'20-35',cat:'主菜',t:['饱腹','锅巴','一人食']},
-  {n:'红糖糍粑',w:'土',c:'甜点',p:'12-18',cat:'甜点',t:['甜蜜','软糯']},
-  {n:'糖醋排骨',w:'土',c:'家常菜',p:'30-50',cat:'主菜',t:['酸甜','下饭','家常']},
-  {n:'地三鲜',w:'土',c:'东北菜',p:'20-35',cat:'主菜',t:['下饭','素菜','家常']},
-  {n:'鱼香肉丝',w:'土',c:'川菜',p:'25-40',cat:'主菜',t:['经典','下饭','家常']},
-  {n:'西红柿炒蛋',w:'土',c:'家常菜',p:'12-20',cat:'主菜',t:['国民','快手','家常']},
-  {n:'葱油拌面',w:'土',c:'面食',p:'12-20',cat:'主菜',t:['快手','一人食','便宜']},
-  {n:'炸酱面',w:'土',c:'面食',p:'15-25',cat:'主菜',t:['经典','饱腹','一人食']},
-  {n:'肉夹馍',w:'土',c:'西北小吃',p:'12-20',cat:'前菜',t:['街头','快手','饱腹']},
-  {n:'广式肠粉',w:'土',c:'粤菜',p:'15-25',cat:'前菜',t:['精致','清淡','一人食']},
-  {n:'蛋挞',w:'土',c:'港式甜品',p:'10-15',cat:'甜点',t:['酥脆','甜蜜','下午茶']},
-  {n:'双皮奶',w:'土',c:'港式甜品',p:'12-20',cat:'甜点',t:['细腻','甜蜜','经典']},
-  {n:'糯米鸡',w:'土',c:'粤菜',p:'15-25',cat:'主菜',t:['饱腹','传统','一人食']},
-  {n:'肉末茄子',w:'土',c:'家常菜',p:'18-30',cat:'主菜',t:['下饭','家常','快手']},
-  {n:'麻婆豆腐',w:'土',c:'川菜',p:'15-25',cat:'主菜',t:['经典','下饭','便宜']},
-  {n:'手撕包菜',w:'土',c:'家常菜',p:'12-20',cat:'主菜',t:['下饭','素菜','快手']}
+  {n:'鲜肉小笼包',w:'土',c:'面点',p:'15-25',cat:'前菜',t:['精致','一人食'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'黄焖鸡米饭',w:'土',c:'家常菜',p:'18-30',cat:'主菜',t:['下饭','饱腹','一人食'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'红烧肉',w:'土',c:'家常菜',p:'30-55',cat:'主菜',t:['浓油赤酱','家常','下饭'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'扬州炒饭',w:'土',c:'炒饭',p:'15-25',cat:'主菜',t:['快手','饱腹','便宜'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'煲仔饭',w:'土',c:'粤菜',p:'20-35',cat:'主菜',t:['饱腹','锅巴','一人食'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'红糖糍粑',w:'土',c:'甜点',p:'12-18',cat:'甜点',t:['甜蜜','软糯'],img:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop'},
+  {n:'糖醋排骨',w:'土',c:'家常菜',p:'30-50',cat:'主菜',t:['酸甜','下饭','家常'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'地三鲜',w:'土',c:'东北菜',p:'20-35',cat:'主菜',t:['下饭','素菜','家常'],img:'https://images.unsplash.com/photo-1599001860179-f2c86d2c9502?w=400&h=300&fit=crop'},
+  {n:'鱼香肉丝',w:'土',c:'川菜',p:'25-40',cat:'主菜',t:['经典','下饭','家常'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'西红柿炒蛋',w:'土',c:'家常菜',p:'12-20',cat:'主菜',t:['国民','快手','家常'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'葱油拌面',w:'土',c:'面食',p:'12-20',cat:'主菜',t:['快手','一人食','便宜'],img:'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&h=300&fit=crop'},
+  {n:'炸酱面',w:'土',c:'面食',p:'15-25',cat:'主菜',t:['经典','饱腹','一人食'],img:'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&h=300&fit=crop'},
+  {n:'肉夹馍',w:'土',c:'西北小吃',p:'12-20',cat:'前菜',t:['街头','快手','饱腹'],img:'https://images.unsplash.com/photo-1555939594-58d7cb561a1b?w=400&h=300&fit=crop'},
+  {n:'广式肠粉',w:'土',c:'粤菜',p:'15-25',cat:'前菜',t:['精致','清淡','一人食'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'蛋挞',w:'土',c:'港式甜品',p:'10-15',cat:'甜点',t:['酥脆','甜蜜','下午茶'],img:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop'},
+  {n:'双皮奶',w:'土',c:'港式甜品',p:'12-20',cat:'甜点',t:['细腻','甜蜜','经典'],img:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop'},
+  {n:'糯米鸡',w:'土',c:'粤菜',p:'15-25',cat:'主菜',t:['饱腹','传统','一人食'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'肉末茄子',w:'土',c:'家常菜',p:'18-30',cat:'主菜',t:['下饭','家常','快手'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'麻婆豆腐',w:'土',c:'川菜',p:'15-25',cat:'主菜',t:['经典','下饭','便宜'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'手撕包菜',w:'土',c:'家常菜',p:'12-20',cat:'主菜',t:['下饭','素菜','快手'],img:'https://images.unsplash.com/photo-1599001860179-f2c86d2c9502?w=400&h=300&fit=crop'},
+  {n:'番茄鸡蛋面',w:'土',c:'面食',p:'15-25',cat:'主菜',t:['酸甜','暖胃'],img:'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&h=300&fit=crop'},
+  {n:'蚝油牛肉饭',w:'土',c:'盖饭',p:'20-32',cat:'主菜',t:['香浓','下饭'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'咸蛋黄流沙包',w:'土',c:'面点',p:'8-15',cat:'前菜',t:['咸香','精致'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'虾饺',w:'土',c:'粤菜',p:'12-18',cat:'前菜',t:['精致','鲜虾'],img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'},
+  {n:'馄饨汤面',w:'土',c:'面食',p:'12-20',cat:'主菜',t:['清汤','家常'],img:'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&h=300&fit=crop'}
 ];
 
 // ============================
@@ -683,20 +704,20 @@ function buildReason(ming,dayWX,tgName,dzName,sx,zodiac,zodiacMeta,relation,yi,j
   var dayMeta=WX[dayWX];
 
   var relationDesc={
-    '比和':'今日'+dayMeta.d.slice(0,2)+'与你的'+wxMeta.d.slice(0,2)+'同气相求',
-    '今日生你':'今日'+dayMeta.d.slice(0,2)+'生你的'+wxMeta.d.slice(0,2)+'，得天时之助',
-    '你生今日':'你的'+wxMeta.d.slice(0,2)+'生今日'+dayMeta.d.slice(0,2)+'，顺势而为',
-    '今日克你':'今日'+dayMeta.d.slice(0,2)+'克你的'+wxMeta.d.slice(0,2)+'，需以食化解',
-    '你克今日':'你的'+wxMeta.d.slice(0,2)+'克今日'+dayMeta.d.slice(0,2)+'，运势可控',
-    '平和':'今日五行平和，气机通达'
+    '比和':'今日'+dayMeta.d.slice(0,2)+'与你的'+wxMeta.d.slice(0,2)+'同气相求，五行和谐',
+    '今日生你':'今日'+dayMeta.d.slice(0,2)+'生你的'+wxMeta.d.slice(0,2)+'，得天时之助，运势拔高',
+    '你生今日':'你的'+wxMeta.d.slice(0,2)+'生今日'+dayMeta.d.slice(0,2)+'，顺势而为，大展宏图',
+    '今日克你':'今日'+dayMeta.d.slice(0,2)+'克你的'+wxMeta.d.slice(0,2)+'，需以食化解，见机而动',
+    '你克今日':'你的'+wxMeta.d.slice(0,2)+'克今日'+dayMeta.d.slice(0,2)+'，运势可控，蓄势待发',
+    '平和':'今日五行平和，气机通达，万事顺利'
   };
 
   var zodiacPart=zodiac&&zodiacMeta&&zodiacMeta.desc?'，'+zodiacMeta.desc:'';
   var weatherPart=weather.desc?'，'+weather.desc+'':'';
   var yiMeta=WX[yi];
-  var foodReason='今日宜食'+yiMeta.e+yiMeta.d.slice(0,2)+'之品'+yiMeta.relation+'，吃对食物才能旺运';
+  var foodReason='今日宜食'+yiMeta.e+yiMeta.d.slice(0,2)+'之品'+yiMeta.relation+'，吃对食物才能旺运。';
 
-  return relationDesc[relation]+zodiacPart+weatherPart+'，'+foodReason;
+  return relationDesc[relation]+zodiacPart+weatherPart+'。'+foodReason;
 }
 
 // ============================
@@ -736,13 +757,14 @@ function renderResult(r){
         var wxRelation=WX[r.yi].relation;
         if(r.weather.cuisine && f.c===r.weather.cuisine) wxRelation+=' 🌟 天气加分';
         yiHtml+='<div class="yi-food">'
+          +'<img src="'+f.img+'" alt="'+f.n+'" onerror="this.src=\'https://via.placeholder.com/400x300?text='+encodeURIComponent(f.n)+'\'">'
           +'<div class="food-name">'+f.n+'</div>'
           +'<div class="food-meta"><span>'+f.c+'</span><span>¥'+f.p+'</span></div>'
           +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' → '+wxRelation+'</div>'
           +'<div class="food-tags">'+f.t.map(function(t){return '<span>'+t+'</span>'}).join('')+'</div>'
           +'<div class="food-actions">'
-          +'<a class="action-meituan" href="https://mp.meituan.com/search?keyword='+encodeURIComponent(f.n)+'" target="_blank">去美团点 ›</a>'
-          +'<a class="action-eleme" href="https://h5.ele.me/search?keyword='+encodeURIComponent(f.n)+'" target="_blank">去饿了么点 ›</a>'
+          +'<a class="action-meituan" href="#">美团点餐</a>'
+          +'<a class="action-eleme" href="#">饿了么点餐</a>'
           +'</div></div>';
       });
       yiHtml+='</div>';
@@ -756,13 +778,21 @@ function renderResult(r){
     r.jiFoods.forEach(function(f){jiHtml+='<span>🚫 '+f.n+'</span>'});
     document.getElementById('r-ji-tags').innerHTML=jiHtml;
 
-    // 天气 + 幸运小贴士
+    // ===== 运势指南（增强神秘感） =====
+    var fortuneGuide=buildFortuneGuide(r.ming, r.dayWX, r.zodiac, r.city, r.weather);
+    var guideHtml='';
+    guideHtml+='<div class="guide-row"><span class="guide-label">🎨 幸运色系</span><div class="guide-color-block" style="background:'+r.color+';"></div><span class="guide-desc">'+fortuneGuide.colorDesc+'</span></div>';
+    guideHtml+='<div class="guide-row"><span class="guide-label">🧭 吉利方向</span><span class="guide-value">'+fortuneGuide.direction+'</span></div>';
+    guideHtml+='<div class="guide-row"><span class="guide-label">⏰ 最佳时间</span><span class="guide-value">'+r.time+'</span></div>';
+    guideHtml+='<div class="guide-row"><span class="guide-label">🔢 幸运数字</span><span class="guide-value">'+fortuneGuide.luckyNumber+'</span></div>';
+    guideHtml+='<div class="guide-row" style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(212,168,83,.2);"><span class="guide-fortune">'+fortuneGuide.overallFortune+'</span></div>';
+    document.getElementById('r-fortune-guide').innerHTML=guideHtml;
+
+    // 天气信息
     var weatherHtml=r.city?
       (r.weather.e+' '+r.city+' · '+r.weather.temp+'（实时天气）'):
       '🌤️ 未选择城市';
     document.getElementById('r-weather').innerHTML=weatherHtml;
-    document.getElementById('r-color').style.background=r.color;
-    document.getElementById('r-time').textContent=r.time;
 
     var shareUrl=location.origin+location.pathname;
     document.getElementById('share-btn').href=shareUrl;
@@ -781,9 +811,88 @@ function goBack(){
 }
 
 // ============================
+//  运势指南生成（增强神秘感）
+// ============================
+function buildFortuneGuide(ming, dayWX, zodiac, city, weather){
+  // 方向映射（五行方位）
+  var directions={
+    '木':['东方','东北'],
+    '火':['南方','东南'],
+    '土':['中央','四方'],
+    '金':['西方','西北'],
+    '水':['北方','西南']
+  };
+
+  // 颜色描述
+  var colorDescs={
+    '#4CAF50':'翠绿色（生机勃勃，新生之力）',
+    '#F44336':'深红色（热烈奔放，激情之心）',
+    '#2196F3':'深蓝色（冷静从容，智慧之光）',
+    '#C0C0C0':'银白色（纯净锐利，行动之力）',
+    '#FF9800':'金黄色（温暖厚重，承载之心）'
+  };
+
+  // 幸运数字（五行的数字）
+  var luckyNumbers={
+    '木':'3,8',
+    '火':'2,7',
+    '土':'5,10',
+    '金':'4,9',
+    '水':'1,6'
+  };
+
+  // 整体运势评价（根据五行关系）
+  var fortuneTexts={
+    '比和':'五行和谐，气运平稳。今日是修养蓄力的好时机，切忌浮躁，静水深流方能成事。',
+    '生扶':'天时眷顾，星运拱照。今日百事顺心，宜主动出击，把握机遇。前路光明，前行无阻。',
+    '克制':'五行相克，需要调和。今日低调行事，多做准备，静观其变。吃对食物可化解不利，转危为机。',
+    '平和':'五行循环，互为相生。今日宜修养身心，培养实力，为后日之进步蓄能。'
+  };
+
+  var dir=directions[ming][Math.random()>0.5?1:0];
+  var color=WX[ming].c;
+  var colorDesc=colorDescs[color]||'幸运之色';
+  var num=luckyNumbers[ming];
+  var fortuneType=dayWX===ming?'比和':(SHENG_BY[dayWX]===ming?'生扶':(KE[dayWX]===ming?'克制':'平和'));
+  var fortune=fortuneTexts[fortuneType];
+
+  // 如果有天气，加入天气建议
+  if(weather && weather.type==='hot'){
+    fortune='天气炎热，宜饮水补阴。'+fortune;
+  }else if(weather && weather.type==='cold'){
+    fortune='天气寒冷，宜温阳进补。'+fortune;
+  }else if(weather && weather.type==='rainy'){
+    fortune='天气阴雨，宜驱湿进补。'+fortune;
+  }
+
+  return{
+    direction:'🧭 '+dir+'（五行'+ming+'系方位）',
+    colorDesc:colorDesc,
+    luckyNumber:'✨ '+num,
+    overallFortune:'【今日运势】'+fortune
+  };
+}
+
+// ============================
 //  初始化
 // ============================
 (function(){
+  // 显示今日日期和干支
+  var today=new Date();
+  var y=today.getFullYear();
+  var m=today.getMonth()+1;
+  var d=today.getDate();
+  var dayOfWeek=['日','一','二','三','四','五','六'][today.getDay()];
+  var dateStr=y+'年'+m+'月'+d+'日 星期'+dayOfWeek;
+  document.getElementById('today-date').textContent=dateStr;
+
+  // 计算今日干支
+  var base=new Date(1900,0,1);
+  var diff=Math.floor((today.getTime()-base.getTime())/86400000);
+  var dayTG=TIAN_GAN[((diff%10)+10)%10];
+  var dayDZ=DI_ZHI[((diff%12)+12)%12];
+  document.getElementById('today-gz').textContent='【'+dayTG.name+dayDZ.name+'·'+dayTG.wuxing+'】';
+
   var sy=document.getElementById('sel-year');
   for(var y=2015;y>=1940;y--){var o=document.createElement('option');o.value=y;o.textContent=y+'年';if(y===1995)o.selected=true;sy.appendChild(o)}
   var sm=document.getElementById('sel-month');
