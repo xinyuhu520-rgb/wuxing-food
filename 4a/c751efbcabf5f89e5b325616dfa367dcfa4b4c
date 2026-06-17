@@ -1,0 +1,21 @@
+index.html
+  s_7d1b09c9e9fdab::t_d7df6a5db7769a 214,216-219,222-241,243-267,269-287,289-301,303-317,319-334,336-374,377-400,402-429,431-471,473-507,509-520,522-550,552-556,558-565,567-574,576-577
+  s_7d1b09c9e9fdab::t_a1ffc4503a4329 711,714-716,719-738,740-764,766-784,786-798,800-814,816-831,833-871,874-897,899-926,928-968,970-1004,1006-1017,1019-1047,1049-1053,1055-1062,1064-1071,1073-1074
+  s_7d1b09c9e9fdab::t_542ad66588bba3 1745-1746
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.17-trip",
+  "base_commit_sha": "4ac751efbcabf5f89e5b325616dfa367dcfa4b4c",
+  "prompts": {},
+  "sessions": {
+    "s_7d1b09c9e9fdab": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "406359ad-b76a-4df2-9af7-d8f4520be62f",
+        "model": "qwen3.7-plus"
+      },
+      "human_author": "xinyhu <xinyhu@base.ctripsmartdns.com>"
+    }
+  }
+}
