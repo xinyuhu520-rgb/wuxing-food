@@ -1476,12 +1476,18 @@ function renderResult(r){
         // 先使用占位图，稍后异步加载真实图片
         var placeholderUrl = getPlaceholderImage(f.n, r.yi);
         yiHtml+='<div class="yi-food">'
-          +'<div class="food-image-container" style="position:relative;width:100%;height:120px;background:rgba(212,168,83,0.1);border-radius:8px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;">'
+          +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+          +'<div class="food-image-container" style="position:relative;width:calc(100% - 70px);height:120px;background:rgba(212,168,83,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-right:8px;">'
           +'<img src="'+placeholderUrl+'" alt="'+f.n+'" data-food-name="'+f.n+'" data-wuxing="'+r.yi+'" data-category="'+cat.key+'" data-index="'+index+'" style="width:100%;height:100%;object-fit:cover;border-radius:8px;opacity:0;transition:opacity 0.3s;" onerror="this.src=\'https://via.placeholder.com/400x300?text='+encodeURIComponent(f.n)+'\'" onload="this.style.opacity=1">'
           +'<div class="image-loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#d4a853;font-size:12px;">加载中...</div>'
           +'</div>'
+          +'<div style="width:60px;flex-shrink:0;">'
+          +'<div style="font-size:11px;color:#d4a853;background:rgba(212,168,83,0.15);padding:6px 8px;border-radius:6px;text-align:center;line-height:1.4;margin-bottom:8px;">'+cat.key+'</div>'
+          +'<div style="font-size:11px;color:#888;text-align:center;">'+f.c+'</div>'
+          +'</div>'
+          +'</div>'
           +'<div class="food-name">'+f.n+'</div>'
-          +'<div class="food-meta"><span>'+f.c+'</span><span>¥'+f.p+'</span></div>'
+          +'<div class="food-meta"><span>¥'+f.p+'</span></div>'
           +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' · '+wxRelation+'</div>'
           +'<div class="food-tags">'+f.t.map(function(t){return '<span>'+t+'</span>'}).join('')+'</div>'
           +(xuanxueText?'<div class="xuanxue-tip">'+xuanxueText+'</div>':'')
@@ -1494,11 +1500,8 @@ function renderResult(r){
     });
     document.getElementById('r-yi-foods').innerHTML=yiHtml;
 
-    // 延迟500ms后开始加载图片，给用户缓冲时间
-    setTimeout(function(){
-      // 异步加载真实图片
-      loadFoodImages();
-    }, 500);
+    // 立即开始加载图片（无延迟）
+    loadFoodImages();
 
     // 今日忌
     var jiMeta=WX[r.ji];
