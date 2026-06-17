@@ -120,7 +120,7 @@ body{
 .food-tags{margin-top:6px;display:flex;gap:6px}
 .food-tags span{font-size:11px;color:#666;background:rgba(212,168,83,.15);padding:2px 8px;border-radius:6px}
 .wuxing-reason{font-size:12px;color:#d4a853;margin-top:4px}
-.xuanxue-tip{font-size:11px;color:#555;margin-top:6px;padding:8px;background:rgba(212,168,83,.1);border-left:3px solid #d4a853;border-radius:4px;line-height:1.6}
+.xuanxue-tip{font-size:12px;color:#666;margin-top:8px;padding:10px;background:rgba(212,168,83,0.08);border-left:3px solid #d4a853;border-radius:4px;line-height:1.6}
 .food-actions{margin-top:10px;display:flex;gap:8px}
 .food-actions a{
   flex:1;text-align:center;padding:8px 0;border-radius:8px;
@@ -275,7 +275,7 @@ body{
   </div>
 
   <div class="card">
-    <div class="card-title">✅ 今日宜 · 为您推荐<span id="r-lucky-count" style="color:#d4a853;font-size:14px;margin-left:8px;"></span></div>
+    <div class="card-title">✅ 今日宜</div>
     <div id="r-yi-foods"></div>
   </div>
 
@@ -1425,6 +1425,14 @@ function renderResult(r){
 
     // ===== 菜品分类渲染 =====
     var yiHtml='';
+
+    // 在菜品推荐顶部显示幸运色和数字说明（只显示一次）
+    if(r.lucky && r.lucky.color && r.lucky.number){
+      yiHtml+='<div class="lucky-summary" style="margin-bottom:20px;padding:12px;background:rgba(212,168,83,0.1);border-radius:8px;font-size:13px;color:#555;line-height:1.6;">';
+      yiHtml+='<strong>今日推荐依据：</strong>幸运色 '+r.lucky.colorName+' · 幸运数字 '+r.lucky.number+' · 共推荐 '+r.yiFoods.length+' 道菜品';
+      yiHtml+='</div>';
+    }
+
     var categories=[
       {key:'前菜',icon:'🥗',label:'前菜 · 开胃小菜'},
       {key:'主菜',icon:'🍲',label:'主菜 · 正餐推荐'},
@@ -1440,19 +1448,9 @@ function renderResult(r){
       yiHtml+='<div class="category-label">'+cat.icon+' '+cat.label+'</div>';
       foods.forEach(function(f, index){
         var wxRelation=WX[r.yi].relation;
-        if(r.weather.cuisine && f.c===r.weather.cuisine) wxRelation+=' 🌟 天气加分';
+        if(r.weather.cuisine && f.c===r.weather.cuisine) wxRelation+=' · 天气加分';
 
-        // 添加幸运色和幸运数字关联
-        var luckyColorText = '';
-        var luckyNumberText = '';
-        if(r.lucky && r.lucky.color){
-          luckyColorText = ' 🎨 今日幸运色：' + r.lucky.colorName + '，此菜色泽相合，旺运加分';
-        }
-        if(r.lucky && r.lucky.number){
-          luckyNumberText = ' 🔢 幸运数字：' + r.lucky.number + '，第' + (index+1) + '道推荐，数字相合';
-        }
-
-        // 添加玄学联系
+        // 添加玄学联系（简化）
         var xuanxueText = f.x || '';
         // 先使用占位图，稍后异步加载真实图片
         var placeholderUrl = getPlaceholderImage(f.n, r.yi);
@@ -1460,11 +1458,9 @@ function renderResult(r){
           +'<img src="'+placeholderUrl+'" alt="'+f.n+'" data-food-name="'+f.n+'" data-wuxing="'+r.yi+'" data-category="'+cat.key+'" data-index="'+index+'" onerror="this.src=\'https://via.placeholder.com/400x300?text='+encodeURIComponent(f.n)+'\'">'
           +'<div class="food-name">'+f.n+'</div>'
           +'<div class="food-meta"><span>'+f.c+'</span><span>¥'+f.p+'</span></div>'
-          +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' → '+wxRelation+'</div>'
+          +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' · '+wxRelation+'</div>'
           +'<div class="food-tags">'+f.t.map(function(t){return '<span>'+t+'</span>'}).join('')+'</div>'
-          +(luckyColorText?'<div class="lucky-tip">✨ '+luckyColorText+'</div>':'')
-          +(luckyNumberText?'<div class="lucky-tip">✨ '+luckyNumberText+'</div>':'')
-          +(xuanxueText?'<div class="xuanxue-tip">✨ '+xuanxueText+'</div>':'')
+          +(xuanxueText?'<div class="xuanxue-tip">'+xuanxueText+'</div>':'')
           +'<div class="food-actions">'
           +'<a class="action-meituan" href="#">美团点餐</a>'
           +'<a class="action-eleme" href="#">饿了么点餐</a>'
@@ -1473,10 +1469,6 @@ function renderResult(r){
       yiHtml+='</div>';
     });
     document.getElementById('r-yi-foods').innerHTML=yiHtml;
-
-    // 显示幸运数字说明
-    var luckyCountText = '（根据您的幸运数字 ' + r.lucky.number + '，为您推荐 ' + r.yiFoods.length + ' 道菜品）';
-    document.getElementById('r-lucky-count').textContent = luckyCountText;
 
     // 异步加载真实图片
     loadFoodImages();
