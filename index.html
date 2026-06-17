@@ -350,17 +350,24 @@ function getZodiac(m,d){
 }
 
 // ============================
-//  动态图片获取（根据菜品名称搜索）
+//  动态图片获取（根据菜品名称生成占位图）
 // ============================
 function getFoodImage(foodName, wuxing, category, index){
-  // 使用Unsplash Source API，根据菜品名称搜索图片
-  // 如果搜索失败，使用占位图
-  var keywords = encodeURIComponent(foodName + ' food');
-  var imgUrl = 'https://source.unsplash.com/400x300/?' + keywords;
+  // 使用占位图服务，根据菜品名称生成带文字的图片
+  // 颜色根据五行属性变化
+  var colors = {
+    '金': 'C0C0C0',  // 银色
+    '木': '4CAF50',  // 绿色
+    '水': '2196F3',  // 蓝色
+    '火': 'F44336',  // 红色
+    '土': 'FF9800'   // 橙色
+  };
+  var bgColor = colors[wuxing] || '888888';
+  var textColor = 'FFFFFF';
+  var size = '400x300';
+  var text = encodeURIComponent(foodName);
 
-  // 为每道菜生成唯一的seed，确保同一道菜总是显示同一张图片
-  var seed = wuxing + category + index;
-  return 'https://source.unsplash.com/400x300/?' + keywords + '&sig=' + seed;
+  return 'https://via.placeholder.com/' + size + '/' + bgColor + '/' + textColor + '?text=' + text;
 }
 
 // ============================
