@@ -1385,8 +1385,10 @@ function renderResult(r){
           +'<div style="font-size:11px;color:#5c5c5c;text-align:center;">'+f.c+'</div>'
           +'</div>'
           +'</div>'
+          +'<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">'
           +'<div class="food-name">'+f.n+'</div>'
-          +'<div class="food-meta"><span>¥'+f.p+'</span></div>'
+          +'<div style="font-size:12px;color:#5c5c5c;white-space:nowrap;">¥'+f.p+'</div>'
+          +'</div>'
           +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' · '+wxRelation+'</div>'
           +'<div class="food-tags">'+f.t.map(function(t){return '<span>'+t+'</span>'}).join('')+'</div>'
           +(xuanxueText?'<div class="xuanxue-tip">'+xuanxueText+'</div>':'')
