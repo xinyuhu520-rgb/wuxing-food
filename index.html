@@ -420,46 +420,7 @@ body{
   </div>
   <div class="bagua-area">
     <div class="bagua-ring">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <!-- 外圈装饰 -->
-        <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(212,168,83,0.2)" stroke-width="1"/>
-        <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(212,168,83,0.3)" stroke-width="2"/>
-
-        <!-- 八卦符号 -->
-        <g fill="#d4a853" font-size="24" font-weight="bold" text-anchor="middle">
-          <!-- 乾 ☰ -->
-          <text x="100" y="25">☰</text>
-          <!-- 兑 ☱ -->
-          <text x="155" y="55">☱</text>
-          <!-- 离 ☲ -->
-          <text x="175" y="105">☲</text>
-          <!-- 震 ☳ -->
-          <text x="155" y="155">☳</text>
-          <!-- 巽 ☴ -->
-          <text x="100" y="185">☴</text>
-          <!-- 坎 ☵ -->
-          <text x="45" y="155">☵</text>
-          <!-- 艮 ☶ -->
-          <text x="25" y="105">☶</text>
-          <!-- 坤 ☷ -->
-          <text x="45" y="55">☷</text>
-        </g>
-
-        <!-- 太极图 -->
-        <g transform="translate(100,100)">
-          <!-- 外圆 -->
-          <circle r="50" fill="rgba(212,168,83,0.1)" stroke="#d4a853" stroke-width="2"/>
-          <!-- 阴阳鱼 -->
-          <path d="M 0,-50 A 50,50 0 0,1 0,50 A 25,25 0 0,0 0,0 A 25,25 0 0,1 0,-50" fill="#d4a853"/>
-          <path d="M 0,50 A 50,50 0 0,1 0,-50 A 25,25 0 0,0 0,0 A 25,25 0 0,1 0,50" fill="rgba(212,168,83,0.3)"/>
-          <!-- 阴阳眼 -->
-          <circle cx="0" cy="-25" r="6" fill="rgba(212,168,83,0.3)"/>
-          <circle cx="0" cy="25" r="6" fill="#d4a853"/>
-        </g>
-
-        <!-- 内圈装饰 -->
-        <circle cx="100" cy="100" r="55" fill="none" stroke="rgba(212,168,83,0.4)" stroke-width="1" stroke-dasharray="3,3"/>
-      </svg>
+      <img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk1IiBmaWxsPSJub25lIiBzdHJva2U9InJzZ2JhKDIxMiwxNjgsODMsMC4yKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI4NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyc2diYSgyMTIsMTY4LDgzLDAuMykiIHN0cm9rZS13aWR0aD0iMiIvPjxnIGZpbGw9IiNkNGE4NTMiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj48dGV4dCB4PSIxMDAiIHk9IjI1Ij7imLAvPC90ZXh0Pjx0ZXh0IHg9IjE1NSIgeT0iNTUiPjjimLExPC90ZXh0Pjx0ZXh0IHg9IjE3NSIgeT0iMTA1Ij7imLAvPC90ZXh0Pjx0ZXh0IHg9IjE1NSIgeT0iMTU1Ij7imLAvPC90ZXh0Pjx0ZXh0IHg9IjEwMCIgeT0iMTg1Ij7imLAvPC90ZXh0Pjx0ZXh0IHg9IjQ1IiB5PSIxNTUiPjjimLAvPC90ZXh0Pjx0ZXh0IHg9IjI1IiB5PSIxMDUiPjjimLAvPC90ZXh0Pjx0ZXh0IHg9IjQ1IiB5PSI1NSI+4piwPC90ZXh0PjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMDAsMTAwKSI+PGNpcmNsZSByPSI1MCIgZmlsbD0icmdiYSgyMTIsMTY4LDgzLDAuMSkiIHN0cm9rZT0iI2Q0YTg1MyIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTSAwLC01MCBBIDUwLDUwIDAsMCwxIDAsNTAgQSAyNSwyNSAwLDAsMCAwLDAgQSAyNSwyNSAwLDAsMSAwLC01MCIgZmlsbD0iI2Q0YTg1MyIvPjxwYXRoIGQ9Ik0gMCw1MCBBIDUwLDUwIDAsMCwxIDAsLTUwIEEgMjUsMjUgMCwwLDAgMCwwIEEgMjUsMjUgMCwwLDEgMCw1MCIgZmlsbD0icmdiYSgyMTIsMTY4LDgzLDAuMykiLz48Y2lyY2xlIGN4PSIwIiBjeT0iLTI1IiByPSI2IiBmaWxsPSJyZ2JhKDIxMiwxNjgsODMsMC4zKSIvPjxjaXJjbGUgY3g9IjAiIGN5PSIyNSIgcj0iNiIgZmlsbD0iI2Q0YTg1MyIvPjwvZz48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjU1IiBmaWxsPSJub25lIiBzdHJva2U9InJncGJhKDIxMiwxNjgsODMsMC40KSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtZGFzaGFycmF5PSIzLDMiLz48L3N2Zz4=" alt="八卦" style="width:100%;height:100%;">
     </div>
   </div>
 
