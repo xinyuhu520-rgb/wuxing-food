@@ -354,7 +354,8 @@ function getZodiac(m,d){
 // ============================
 //  Spoonacular API 配置
 // ============================
-const SPOONACULAR_API_KEY = 'c7175c6ebe004b4b9f98db75209fdde8';
+// const SPOONACULAR_API_KEY = 'c7175c6ebe004b4b9f98db75209fdde8'; // API 额度已用完
+const SPOONACULAR_API_KEY = 'YOUR_API_KEY_HERE'; // 暂时禁用，使用占位图
 
 // 图片缓存（避免重复请求）
 const imageCache = {};
@@ -1285,6 +1286,15 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
   else if(weather.type==='cold') finalColor=WX['火'].c;
   else if(zodiacMeta.pref && WX[zodiacMeta.pref]) finalColor=WX[zodiacMeta.pref].c;
 
+  // 幸运色名称映射
+  var colorNames={
+    '#4CAF50':'翠绿色',
+    '#F44336':'深红色',
+    '#2196F3':'深蓝色',
+    '#C0C0C0':'银白色',
+    '#FF9800':'金黄色'
+  };
+
   var hours={木:'05:00-07:00',火:'11:00-13:00',土:'07:00-09:00',金:'15:00-17:00',水:'21:00-23:00'};
   var ds=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
 
@@ -1295,7 +1305,8 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
     color:finalColor, time:hours[ming],
     bagua:personalBagua,
     zodiac:zodiac, zodiacMeta:zodiacMeta,
-    weather:weather, weatherTip:weatherTip, city:city
+    weather:weather, weatherTip:weatherTip, city:city,
+    lucky:{color:finalColor, colorName:colorNames[finalColor]||'幸运色', number:luckyNumStr}
   });
 }
 
