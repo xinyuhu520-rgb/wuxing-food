@@ -449,11 +449,17 @@ async function loadFoodImages(){
       img.onerror = function() {
         console.warn('图片加载失败，使用占位图: ' + this.getAttribute('data-food-name'));
         this.src = getPlaceholderImage(this.getAttribute('data-food-name'), this.getAttribute('data-wuxing'));
+        // 隐藏加载提示
+        var loading = this.parentNode.querySelector('.image-loading');
+        if(loading) loading.style.display = 'none';
       };
 
       // 添加成功处理
       img.onload = function() {
         console.log('图片加载成功: ' + this.getAttribute('data-food-name'));
+        // 隐藏加载提示
+        var loading = this.parentNode.querySelector('.image-loading');
+        if(loading) loading.style.display = 'none';
       };
 
       img.src = realImageUrl;
@@ -465,6 +471,9 @@ async function loadFoodImages(){
     }catch(error){
       console.warn('[' + (i+1) + '/' + images.length + '] 加载图片失败:', foodName, error);
       img.src = getPlaceholderImage(foodName, wuxing);
+      // 隐藏加载提示
+      var loading = img.parentNode.querySelector('.image-loading');
+      if(loading) loading.style.display = 'none';
     }
   }
   console.log('所有图片加载完成');
@@ -1467,7 +1476,10 @@ function renderResult(r){
         // 先使用占位图，稍后异步加载真实图片
         var placeholderUrl = getPlaceholderImage(f.n, r.yi);
         yiHtml+='<div class="yi-food">'
-          +'<img src="'+placeholderUrl+'" alt="'+f.n+'" data-food-name="'+f.n+'" data-wuxing="'+r.yi+'" data-category="'+cat.key+'" data-index="'+index+'" onerror="this.src=\'https://via.placeholder.com/400x300?text='+encodeURIComponent(f.n)+'\'">'
+          +'<div class="food-image-container" style="position:relative;width:100%;height:120px;background:rgba(212,168,83,0.1);border-radius:8px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;">'
+          +'<img src="'+placeholderUrl+'" alt="'+f.n+'" data-food-name="'+f.n+'" data-wuxing="'+r.yi+'" data-category="'+cat.key+'" data-index="'+index+'" style="width:100%;height:100%;object-fit:cover;border-radius:8px;opacity:0;transition:opacity 0.3s;" onerror="this.src=\'https://via.placeholder.com/400x300?text='+encodeURIComponent(f.n)+'\'" onload="this.style.opacity=1">'
+          +'<div class="image-loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#d4a853;font-size:12px;">加载中...</div>'
+          +'</div>'
           +'<div class="food-name">'+f.n+'</div>'
           +'<div class="food-meta"><span>'+f.c+'</span><span>¥'+f.p+'</span></div>'
           +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' · '+wxRelation+'</div>'
@@ -1482,8 +1494,11 @@ function renderResult(r){
     });
     document.getElementById('r-yi-foods').innerHTML=yiHtml;
 
-    // 异步加载真实图片
-    loadFoodImages();
+    // 延迟1秒后开始加载图片，给用户缓冲时间
+    setTimeout(function(){
+      // 异步加载真实图片
+      loadFoodImages();
+    }, 1000);
 
     // 今日忌
     var jiMeta=WX[r.ji];
