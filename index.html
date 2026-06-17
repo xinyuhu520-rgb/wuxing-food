@@ -352,20 +352,20 @@ function getZodiac(m,d){
 }
 
 // ============================
-//  Spoonacular API 配置
+//  Edamam API 配置
 // ============================
-// const SPOONACULAR_API_KEY = 'c7175c6ebe004b4b9f98db75209fdde8'; // API 额度已用完
-const SPOONACULAR_API_KEY = 'YOUR_API_KEY_HERE'; // 暂时禁用，使用占位图
+const EDAMAM_APP_ID = 'YOUR_APP_ID'; // 替换为你的 App ID
+const EDAMAM_APP_KEY = 'YOUR_APP_KEY'; // 替换为你的 App Key
 
 // 图片缓存（避免重复请求）
 const imageCache = {};
 
 // ============================
-//  动态图片获取（使用 Spoonacular API）
+//  动态图片获取（使用 Edamam API）
 // ============================
 async function getFoodImage(foodName, wuxing, category, index){
   // 如果 API key 未配置，使用占位图
-  if(SPOONACULAR_API_KEY === 'YOUR_API_KEY_HERE'){
+  if(EDAMAM_APP_ID === 'YOUR_APP_ID' || EDAMAM_APP_KEY === 'YOUR_APP_KEY'){
     return getPlaceholderImage(foodName, wuxing);
   }
 
@@ -376,19 +376,20 @@ async function getFoodImage(foodName, wuxing, category, index){
   }
 
   try{
-    // 使用 Spoonacular API 搜索食物图片（限制返回数量，减少数据量）
+    // 使用 Edamam Recipe Search API
     var searchQuery = encodeURIComponent(foodName);
-    var url = 'https://api.spoonacular.com/food/ingredients/search?query=' + searchQuery
-      + '&number=1'
-      + '&apiKey=' + SPOONACULAR_API_KEY;
+    var url = 'https://api.edamam.com/api/recipes/v2?q=' + searchQuery
+      + '&type=public'
+      + '&app_id=' + EDAMAM_APP_ID
+      + '&app_key=' + EDAMAM_APP_KEY;
 
     var response = await fetch(url);
     var data = await response.json();
 
-    if(data.results && data.results.length > 0){
-      var ingredient = data.results[0];
-      // 使用更小的图片尺寸（90x90）
-      var imageUrl = 'https://spoonacular.com/cdn/ingredients_90x90/' + ingredient.image;
+    if(data.hits && data.hits.length > 0){
+      var recipe = data.hits[0].recipe;
+      // 获取食谱图片
+      var imageUrl = recipe.image;
 
       // 缓存结果
       imageCache[cacheKey] = imageUrl;
@@ -398,7 +399,7 @@ async function getFoodImage(foodName, wuxing, category, index){
     // 如果没有找到，使用占位图
     return getPlaceholderImage(foodName, wuxing);
   }catch(error){
-    console.warn('Spoonacular API 调用失败:', error);
+    console.warn('Edamam API 调用失败:', error);
     return getPlaceholderImage(foodName, wuxing);
   }
 }
@@ -423,8 +424,8 @@ function getPlaceholderImage(foodName, wuxing){
 // 异步加载食物图片
 async function loadFoodImages(){
   // 如果 API key 未配置，跳过
-  if(SPOONACULAR_API_KEY === 'YOUR_API_KEY_HERE'){
-    console.log('Spoonacular API key 未配置，使用占位图');
+  if(EDAMAM_APP_ID === 'YOUR_APP_ID' || EDAMAM_APP_KEY === 'YOUR_APP_KEY'){
+    console.log('Edamam API key 未配置，使用占位图');
     return;
   }
 
