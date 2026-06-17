@@ -458,7 +458,10 @@ function getFoodImage(wuxing, category, index){
 //  省份-城市数据结构
 // ============================
 var PROVINCE_CITY={
-  '直辖市':['北京','上海','天津','重庆'],
+  '北京':['北京'],
+  '上海':['上海'],
+  '天津':['天津'],
+  '重庆':['重庆'],
   '广东':['广州','深圳','东莞','佛山','珠海','中山','惠州','江门','汕头','湛江','茂名','肇庆','梅州','揭阳','阳江','河源','韶关','清远','云浮','潮州','汕尾'],
   '浙江':['杭州','宁波','温州','绍兴','台州','嘉兴','金华','湖州','衢州','丽水','舟山'],
   '江苏':['南京','苏州','无锡','常州','南通','徐州','扬州','镇江','泰州','盐城','连云港','淮安','宿迁'],
@@ -1397,6 +1400,17 @@ function renderResult(r){
       foods.forEach(function(f, index){
         var wxRelation=WX[r.yi].relation;
         if(r.weather.cuisine && f.c===r.weather.cuisine) wxRelation+=' 🌟 天气加分';
+
+        // 添加幸运色和幸运数字关联
+        var luckyColorText = '';
+        var luckyNumberText = '';
+        if(r.lucky && r.lucky.color){
+          luckyColorText = ' 🎨 今日幸运色：' + r.lucky.colorName + '，此菜色泽相合，旺运加分';
+        }
+        if(r.lucky && r.lucky.number){
+          luckyNumberText = ' 🔢 幸运数字：' + r.lucky.number + '，第' + (index+1) + '道推荐，数字相合';
+        }
+
         // 添加玄学联系
         var xuanxueText = f.x || '';
         // 使用动态图片
@@ -1407,6 +1421,8 @@ function renderResult(r){
           +'<div class="food-meta"><span>'+f.c+'</span><span>¥'+f.p+'</span></div>'
           +'<div class="wuxing-reason">'+WX[r.yi].e+' 五行属'+r.yi+' → '+wxRelation+'</div>'
           +'<div class="food-tags">'+f.t.map(function(t){return '<span>'+t+'</span>'}).join('')+'</div>'
+          +(luckyColorText?'<div class="lucky-tip">✨ '+luckyColorText+'</div>':'')
+          +(luckyNumberText?'<div class="lucky-tip">✨ '+luckyNumberText+'</div>':'')
           +(xuanxueText?'<div class="xuanxue-tip">✨ '+xuanxueText+'</div>':'')
           +'<div class="food-actions">'
           +'<a class="action-meituan" href="#">美团点餐</a>'
