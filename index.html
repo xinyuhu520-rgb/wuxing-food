@@ -32,7 +32,10 @@
 <meta name="keywords" content="五行八卦,今日吃什么,食运测算,幸运色,吉利方向,幸运数字,交友指南,今天吃什么,外卖推荐,五行食运,生辰八字,每日运势">
 
 <style>
+/* ========== 全局重置 ========== */
 *{margin:0;padding:0;box-sizing:border-box}
+
+/* ========== 基础样式 ========== */
 body{
   background:linear-gradient(135deg,#dce9ff 0%,#e8d5f5 50%,#f0e6ff 100%);
   color:#2c3e50;
@@ -41,13 +44,21 @@ body{
   display:flex;flex-direction:column;align-items:center;
   padding:0 16px 40px;
   overflow-x:hidden;
+  line-height:1.6;
 }
+
 /* ========== 首页 ========== */
-#page-index{display:flex;flex-direction:column;align-items:center;width:100%;max-width:480px;padding-top:40px;background:transparent}
-.header{text-align:center;margin-top:30px}
-.header h1{font-size:36px;color:#d4a853;letter-spacing:2px}
-.header p{font-size:14px;color:#444;margin-top:6px}
-.bagua-area{margin:40px 0;position:relative;width:180px;height:180px}
+#page-index{
+  display:flex;flex-direction:column;align-items:center;
+  width:100%;max-width:480px;padding-top:40px;
+  background:transparent;
+}
+
+.header{text-align:center;margin-top:30px;margin-bottom:20px}
+.header h1{font-size:32px;color:#d4a853;letter-spacing:2px;font-weight:bold;margin-bottom:8px}
+.header p{font-size:14px;color:#5c5c5c;line-height:1.6}
+
+.bagua-area{margin:30px 0;position:relative;width:160px;height:160px}
 .bagua-ring{
   width:100%;height:100%;border-radius:50%;
   border:2px solid rgba(212,168,83,.4);
@@ -55,122 +66,225 @@ body{
 }
 .bagua-ring::before{
   content:'☯';position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%);font-size:52px;color:#d4a853;
+  transform:translate(-50%,-50%);font-size:48px;color:#d4a853;
 }
-.bagua-char{position:absolute;font-size:20px;color:#d4a853;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.bagua-char{position:absolute;font-size:18px;color:#d4a853;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+/* ========== 表单卡片 ========== */
 .form-card{
-  width:100%;background:linear-gradient(135deg,rgba(255,255,255,.96) 0%,rgba(250,248,255,.96) 100%);
-  border-radius:20px;padding:24px 20px;margin-bottom:32px;
-  box-shadow:0 4px 20px rgba(100,80,160,.1),0 1px 3px rgba(0,0,0,.05);
-  border:1px solid rgba(212,168,83,.15);
+  width:100%;
+  background:linear-gradient(135deg,rgba(255,255,255,.98) 0%,rgba(250,248,255,.98) 100%);
+  border-radius:16px;
+  padding:24px 20px;
+  margin-bottom:24px;
+  box-shadow:0 4px 16px rgba(100,80,160,.08),0 1px 3px rgba(0,0,0,.04);
+  border:1px solid rgba(212,168,83,.12);
 }
-.form-card label{font-size:15px;color:#d4a853;display:block;margin-bottom:12px;text-align:center}
-.form-section{margin-bottom:18px}
+.form-card label{font-size:15px;color:#d4a853;display:block;margin-bottom:12px;text-align:center;font-weight:500}
+
+.form-section{margin-bottom:16px}
 .form-section:last-child{margin-bottom:0}
-.form-section-title{font-size:13px;color:#5c5c5c;margin-bottom:8px;text-align:left}
-.date-row{display:flex;gap:10px;justify-content:center}
+.form-section-title{font-size:13px;color:#666;margin-bottom:8px;text-align:left;font-weight:500}
+
+.date-row{display:flex;gap:8px;justify-content:center}
 .date-row select{
-  flex:1;padding:12px 0;
+  flex:1;padding:10px 0;
   background:#fff;color:#2c3e50;
-  border:1px solid rgba(212,168,83,.3);border-radius:10px;
-  font-size:16px;text-align:center;
+  border:1px solid rgba(212,168,83,.25);border-radius:8px;
+  font-size:15px;text-align:center;
   appearance:none;-webkit-appearance:none;
+  transition:border-color .2s;
 }
+.date-row select:focus{border-color:#d4a853;outline:none}
 .date-row option{background:#fff;color:#2c3e50}
-.extra-row{display:flex;gap:10px}
+
+.extra-row{display:flex;gap:8px}
 .extra-row select{
-  flex:1;padding:12px 0;
+  flex:1;padding:10px 0;
   background:#fff;color:#2c3e50;
-  border:1px solid rgba(212,168,83,.3);border-radius:10px;
+  border:1px solid rgba(212,168,83,.25);border-radius:8px;
   font-size:14px;text-align:center;
   appearance:none;-webkit-appearance:none;
+  transition:border-color .2s;
 }
+.extra-row select:focus{border-color:#d4a853;outline:none}
 .extra-row option{background:#fff;color:#2c3e50}
+
 .calc-btn{
-  width:80%;height:52px;
+  width:80%;height:48px;
   background:linear-gradient(135deg,#d4a853,#c4944a);
-  border:none;border-radius:26px;
-  font-size:18px;font-weight:bold;color:#1a1a2e;
+  border:none;border-radius:24px;
+  font-size:17px;font-weight:bold;color:#fff;
   cursor:pointer;letter-spacing:2px;
-  box-shadow:0 6px 24px rgba(212,168,83,.35);
-  transition:opacity .2s;
+  box-shadow:0 4px 16px rgba(212,168,83,.3);
+  transition:all .2s;
+  margin-top:8px;
 }
-.calc-btn:active{opacity:.75}
-.danmu-bar{margin-top:30px;height:24px;overflow:hidden}
-.danmu-text{font-size:12px;color:#444;animation:fade 4s ease infinite}
+.calc-btn:hover{box-shadow:0 6px 20px rgba(212,168,83,.4);transform:translateY(-1px)}
+.calc-btn:active{transform:translateY(0);box-shadow:0 2px 8px rgba(212,168,83,.3)}
+
+.danmu-bar{margin-top:24px;height:24px;overflow:hidden}
+.danmu-text{font-size:12px;color:#666;animation:fade 4s ease infinite}
 @keyframes fade{0%,100%{opacity:.3}50%{opacity:1}}
-.footer{margin-top:16px;font-size:11px;color:#444}
-/* ========== 加载 ========== */
+.footer{margin-top:16px;font-size:11px;color:#888}
+
+/* ========== 加载页面 ========== */
 #page-loading{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:80vh}
-.load-bagua{font-size:64px;color:#d4a853;animation:spin 2s linear infinite}
-.load-text{margin-top:16px;font-size:16px;color:#d4a853}
+.load-bagua{font-size:56px;color:#d4a853;animation:spin 2s linear infinite}
+.load-text{margin-top:16px;font-size:16px;color:#d4a853;font-weight:500}
+
 /* ========== 结果页 ========== */
 #page-result{display:none;width:100%;max-width:480px}
-.result-header{text-align:center;padding:30px 0 20px;border-bottom:1px solid rgba(212,168,83,.2);margin-bottom:20px}
-.result-header h2{font-size:20px;color:#d4a853}
+
+.result-header{text-align:center;padding:24px 0 16px;border-bottom:1px solid rgba(212,168,83,.2);margin-bottom:16px}
+.result-header h2{font-size:20px;color:#d4a853;font-weight:bold}
+
+/* ========== 卡片 ========== */
 .card{
-  width:100%;background:linear-gradient(135deg,rgba(255,255,255,.96) 0%,rgba(250,248,255,.96) 100%);
-  border-radius:18px;padding:18px 16px;margin-bottom:16px;
-  box-shadow:0 4px 20px rgba(100,80,160,.1),0 1px 3px rgba(0,0,0,.05);
-  border:1px solid rgba(212,168,83,.15);
+  width:100%;
+  background:linear-gradient(135deg,rgba(255,255,255,.98) 0%,rgba(250,248,255,.98) 100%);
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 2px 12px rgba(100,80,160,.06),0 1px 2px rgba(0,0,0,.03);
+  border:1px solid rgba(212,168,83,.1);
 }
-.card-title{font-size:16px;font-weight:bold;color:#d4a853;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid rgba(212,168,83,.25)}
-.info-row{display:flex;justify-content:space-between;padding:6px 0;font-size:14px}
-.info-row .label{color:#444}
+
+.card-title{
+  font-size:16px;font-weight:bold;color:#d4a853;
+  margin-bottom:12px;padding-bottom:10px;
+  border-bottom:2px solid rgba(212,168,83,.2);
+}
+
+/* ========== 信息行 ========== */
+.info-row{display:flex;justify-content:space-between;padding:8px 0;font-size:14px;line-height:1.5}
+.info-row .label{color:#666}
 .info-row .value{color:#2c3e50;font-weight:500}
-.analysis-text{font-size:14px;color:#5d4e8c;line-height:1.8;font-weight:500}
-.category-section{margin-bottom:16px}
+
+/* ========== 运势解读 ========== */
+.analysis-text{font-size:14px;color:#4a4a6a;line-height:1.8;font-weight:400}
+
+/* ========== 菜品分类 ========== */
+.category-section{margin-bottom:14px}
 .category-label{font-size:14px;color:#d4a853;margin-bottom:8px;font-weight:bold}
-.food-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;flex-direction:column}
-.food-item img{width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:8px;background:rgba(255,255,255,.05)}
+
+/* ========== 菜品项 ========== */
+.food-item{
+  padding:12px 0;
+  border-bottom:1px solid rgba(212,168,83,.08);
+  display:flex;flex-direction:column;
+}
 .food-item:last-child{border-bottom:none}
-.food-name{font-size:16px;font-weight:bold;margin-bottom:4px;color:#2c3e50}
-.food-meta{display:flex;justify-content:space-between;font-size:12px;color:#5c5c5c}
-.food-tags{margin-top:6px;display:flex;gap:6px}
-.food-tags span{font-size:11px;color:#444;background:rgba(212,168,83,.15);padding:2px 8px;border-radius:6px}
-.wuxing-reason{font-size:12px;color:#d4a853;margin-top:4px}
-.xuanxue-tip{font-size:12px;color:#444;margin-top:8px;padding:10px;background:rgba(212,168,83,0.08);border-left:3px solid #d4a853;border-radius:4px;line-height:1.6}
+
+.food-image-container{
+  position:relative;width:100%;height:140px;
+  background:rgba(212,168,83,.05);
+  border-radius:10px;margin-bottom:10px;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.food-item img{
+  width:100%;height:100%;object-fit:cover;
+  border-radius:10px;
+  transition:opacity .3s;
+}
+
+.food-name{font-size:16px;font-weight:bold;margin-bottom:6px;color:#2c3e50;line-height:1.4}
+
+.food-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;color:#888;margin-bottom:6px;
+}
+
+.food-tags{margin-top:4px;display:flex;flex-wrap:wrap;gap:6px}
+.food-tags span{
+  font-size:11px;color:#666;
+  background:rgba(212,168,83,.12);
+  padding:3px 8px;border-radius:6px;
+  font-weight:500;
+}
+
+.wuxing-reason{font-size:12px;color:#d4a853;margin-top:6px;line-height:1.5;font-weight:500}
+
+.xuanxue-tip{
+  font-size:12px;color:#555;margin-top:8px;padding:10px 12px;
+  background:rgba(212,168,83,.06);
+  border-left:3px solid #d4a853;border-radius:6px;
+  line-height:1.6;
+}
+
 .food-actions{margin-top:10px;display:flex;gap:8px}
 .food-actions a{
   flex:1;text-align:center;padding:8px 0;border-radius:8px;
-  font-size:12px;font-weight:500;text-decoration:none;color:#666;cursor:not-allowed;opacity:0.6;
+  font-size:12px;font-weight:500;text-decoration:none;
+  cursor:not-allowed;opacity:0.7;
+  transition:opacity .2s;
 }
+.food-actions a:hover{opacity:1}
+
 .action-meituan{background:#FFC107;color:#333}
 .action-eleme{background:#0097E6;color:#fff}
-.ji-tip{font-size:13px;color:#ef5350;line-height:1.6}
+
+/* ========== 今日忌 ========== */
+.ji-tip{font-size:13px;color:#ef5350;line-height:1.6;font-weight:500}
 .ji-tags{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
-.ji-tags span{font-size:12px;color:#ef5350;background:rgba(239,83,80,.1);padding:6px 10px;border-radius:8px}
-.lucky-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:14px}
+.ji-tags span{
+  font-size:12px;color:#ef5350;
+  background:rgba(239,83,80,.08);
+  padding:6px 10px;border-radius:8px;
+  font-weight:500;
+}
+
+/* ========== 幸运贴士 ========== */
+.lucky-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:14px;line-height:1.5}
 .color-dot{width:18px;height:18px;border-radius:4px;border:1px solid rgba(255,255,255,.2)}
+
+/* ========== 天气徽章 ========== */
 .weather-badge{
   display:inline-flex;align-items:center;gap:4px;
-  background:rgba(255,255,255,.06);padding:4px 10px;border-radius:8px;
-  font-size:13px;color:#444;margin-bottom:8px;
+  background:rgba(212,168,83,.08);
+  padding:6px 12px;border-radius:8px;
+  font-size:13px;color:#555;margin-bottom:10px;
+  font-weight:500;
 }
-.share-area{text-align:center;margin-top:8px;padding-bottom:20px}
+
+/* ========== 分享区域 ========== */
+.share-area{text-align:center;margin-top:12px;padding-bottom:20px}
 .share-btn{
-  display:inline-block;padding:14px 40px;
+  display:inline-block;padding:12px 36px;
   background:linear-gradient(135deg,#d4a853,#c4944a);
-  border-radius:24px;font-size:16px;font-weight:bold;
-  color:#1a1a2e;text-decoration:none;
-  box-shadow:0 4px 16px rgba(212,168,83,.3);
+  border-radius:24px;font-size:15px;font-weight:bold;
+  color:#fff;text-decoration:none;
+  box-shadow:0 4px 12px rgba(212,168,83,.25);
+  transition:all .2s;
 }
-.share-hint{font-size:11px;color:#444;margin-top:10px}
+.share-btn:hover{box-shadow:0 6px 16px rgba(212,168,83,.35);transform:translateY(-1px)}
+.share-hint{font-size:11px;color:#888;margin-top:10px}
+
+/* ========== 返回按钮 ========== */
 .back-btn{
   position:fixed;top:16px;left:16px;z-index:10;
   width:36px;height:36px;border-radius:50%;
-  background:rgba(255,255,255,.1);border:none;
+  background:rgba(255,255,255,.15);border:none;
   color:#d4a853;font-size:18px;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(10px);
+  transition:background .2s;
 }
-/* 运势指南样式 */
-.guide-row{display:flex;align-items:center;gap:12px;padding:6px 0;font-size:14px}
+.back-btn:hover{background:rgba(255,255,255,.25)}
+
+/* ========== 运势指南 ========== */
+.guide-row{display:flex;align-items:center;gap:12px;padding:8px 0;font-size:14px;line-height:1.5}
 .guide-label{color:#d4a853;font-weight:bold;min-width:80px}
-.guide-color-block{width:32px;height:32px;border-radius:6px;border:2px solid rgba(255,255,255,.2);box-shadow:0 0 12px rgba(212,168,83,.3)}
-.guide-desc{color:#444;margin-left:8px}
-.guide-value{color:#2c3e50;font-weight:500}
-.guide-fortune{font-size:15px;color:#d4a853;font-weight:bold;line-height:1.6}
+.guide-color-block{
+  width:32px;height:32px;border-radius:6px;
+  border:2px solid rgba(255,255,255,.3);
+  box-shadow:0 2px 8px rgba(212,168,83,.2);
+}
+.guide-desc{color:#555;margin-left:8px;line-height:1.5}
+.guide-value{color:#2c3e50;font-weight:500;line-height:1.5}
+.guide-fortune{font-size:14px;color:#d4a853;font-weight:bold;line-height:1.7}
 </style>
 </head>
 <body>
