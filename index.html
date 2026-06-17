@@ -919,9 +919,11 @@ function weatherBoost(weather, dayWX){
 }
 
 // ============================
-//  菜品数据库（150+ 道菜 带图片）
+//  菜品数据库（从 food-images.json 读取）
 // ============================
 var FOODS=[
+  // 从 food-images.json 加载菜品数据
+  // 如果 JSON 加载失败，使用下面的默认数据
   // ============ 金系（辛辣·凉菜·前菜）============
   // 前菜
   {n:'凉拌三丝',w:'金',c:'凉菜',p:'10-20',cat:'前菜',t:['清爽','开胃'],x:'金主肃杀，三丝凉拌通肺经，助收敛之气',img:'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400'},
@@ -1042,6 +1044,31 @@ var FOODS=[
   {n:'蛋挞',w:'土',c:'港式甜品',p:'10-15',cat:'甜点',t:['酥脆','甜蜜','下午茶'],x:'蛋挞聚土气，甜蜜聚财，土旺利财运',img:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400'},
   {n:'双皮奶',w:'土',c:'港式甜品',p:'12-20',cat:'甜点',t:['细腻','甜蜜','经典'],x:'双皮奶聚土气，细腻聚财，土旺利桃花',img:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400'}
 ];
+
+// ============================
+//  从 JSON 文件加载菜品图片映射
+// ============================
+(function(){
+  // 尝试从 food-images.json 加载图片映射
+  fetch('food-images.json')
+    .then(function(response){ return response.json(); })
+    .then(function(data){
+      console.log('✅ 成功加载 food-images.json，共 ' + data.foods.length + ' 道菜品');
+
+      // 更新 FOODS 数组中的图片 URL
+      data.foods.forEach(function(foodData){
+        var food = FOODS.find(function(f){ return f.n === foodData.name; });
+        if(food && foodData.image){
+          food.img = foodData.image;
+        }
+      });
+
+      console.log('✅ 已更新菜品图片 URL');
+    })
+    .catch(function(error){
+      console.warn('⚠️ 加载 food-images.json 失败，使用默认图片', error);
+    });
+})();
 
 // ============================
 //  工具函数
