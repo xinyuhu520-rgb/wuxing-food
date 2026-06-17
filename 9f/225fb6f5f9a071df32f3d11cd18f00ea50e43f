@@ -1,0 +1,25 @@
+lunar.js
+  s_7d1b09c9e9fdab::t_2ac5f74567a255 1-149
+index.html
+  s_7d1b09c9e9fdab::t_11853417d87701 623-624
+  s_7d1b09c9e9fdab::t_4d75ee2f9fb7d6 1499-1503,1505-1509,1513,1520-1521
+  s_7d1b09c9e9fdab::t_8d346fc554e734 1656-1657
+  s_7d1b09c9e9fdab::t_41bf942c342a16 667
+  s_7d1b09c9e9fdab::t_697288f2a182f6 1753-1754
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.17-trip",
+  "base_commit_sha": "9f225fb6f5f9a071df32f3d11cd18f00ea50e43f",
+  "prompts": {},
+  "sessions": {
+    "s_7d1b09c9e9fdab": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "406359ad-b76a-4df2-9af7-d8f4520be62f",
+        "model": "qwen3.7-plus"
+      },
+      "human_author": "xinyhu <xinyhu@base.ctripsmartdns.com>"
+    }
+  }
+}
