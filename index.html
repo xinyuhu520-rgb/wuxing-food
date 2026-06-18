@@ -750,36 +750,49 @@ const EDAMAM_APP_KEY = 'ba4859cd79abef0ded59c989ac333d9b';
 // 注意：Edamam API 有速率限制，容易导致连接错误
 // 当前已禁用 API 调用，使用占位图确保稳定性
 
-// 占位图备用方案
+// 占位图备用方案（国风食运签 SVG 动态卡片，完美解决加载慢、图片错位、变形、不符等所有问题）
 function getPlaceholderImage(foodName, wuxing){
-  // 为每个菜品生成独特的颜色（基于菜品名称哈希）
-  var hash = 0;
-  for(var i=0; i<foodName.length; i++){
-    hash = foodName.charCodeAt(i) + ((hash << 5) - hash);
-  }
-
-  // 五行基础颜色
-  var baseColors = {
-    '金': [192, 192, 192],
-    '木': [76, 175, 80],
-    '水': [33, 150, 243],
-    '火': [244, 67, 54],
-    '土': [255, 152, 0]
+  var themes = {
+    '金': { bgStart: '#F5F5F7', bgEnd: '#E0E0E6', border: '#B0B0B8', text: '#2C2C30', accent: '#D4A853', symbol: '⚔️', desc: '金气肃杀 · 辛辣收敛', seal: '金' },
+    '木': { bgStart: '#F1F8E9', bgEnd: '#DCEDC8', border: '#7CB342', text: '#1B5E20', accent: '#4CAF50', symbol: '🌿', desc: '木生万物 · 酸爽清新', seal: '木' },
+    '水': { bgStart: '#E3F2FD', bgEnd: '#BBDEFB', border: '#42A5F5', text: '#0D47A1', accent: '#2196F3', symbol: '💧', desc: '水润万物 · 咸鲜滋养', seal: '水' },
+    '火': { bgStart: '#FFEBEE', bgEnd: '#FFCDD2', border: '#EF5350', text: '#B71C1C', accent: '#F44336', symbol: '🔥', desc: '火运炎上 · 苦焦发散', seal: '火' },
+    '土': { bgStart: '#FFF3E0', bgEnd: '#FFE0B2', border: '#FFA726', text: '#E65100', accent: '#FF9800', symbol: '🏔️', desc: '土纳百川 · 甘甜厚味', seal: '土' }
   };
-
-  // 基于哈希值微调颜色，让每个菜品都不同
-  var baseColor = baseColors[wuxing] || [136, 136, 136];
-  var variation = (hash % 60) - 30; // -30 到 +30 的变化
-  var r = Math.max(0, Math.min(255, baseColor[0] + variation));
-  var g = Math.max(0, Math.min(255, baseColor[1] + variation));
-  var b = Math.max(0, Math.min(255, baseColor[2] + variation));
-
-  var bgColor = ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-  var textColor = 'FFFFFF';
-  var size = '400x300';
-  var text = encodeURIComponent(foodName);
-
-  return 'https://via.placeholder.com/' + size + '/' + bgColor + '/' + textColor + '?text=' + text;
+  
+  var theme = themes[wuxing] || themes['土'];
+  
+  // 绘制一个精致的国风食运卡片 SVG
+  var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="100%" height="100%">'
+    + '<defs>'
+    + '  <linearGradient id="bgGrad-' + wuxing + '" x1="0%" y1="0%" x2="100%" y2="100%">'
+    + '    <stop offset="0%" stop-color="' + theme.bgStart + '"/>'
+    + '    <stop offset="100%" stop-color="' + theme.bgEnd + '"/>'
+    + '  </linearGradient>'
+    + '</defs>'
+    + '<rect width="400" height="260" rx="12" fill="url(#bgGrad-' + wuxing + ')"/>'
+    // 传统回纹/中式边框
+    + '<rect x="12" y="12" width="376" height="236" rx="8" fill="none" stroke="' + theme.border + '" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.8"/>'
+    + '<rect x="18" y="18" width="364" height="224" rx="6" fill="none" stroke="' + theme.accent + '" stroke-width="1" opacity="0.3"/>'
+    // 祥云纹装饰 (左上 & 右下)
+    + '<path d="M25,45 C20,40 25,30 35,35 C40,30 50,35 45,45 C40,50 30,50 25,45 Z" fill="none" stroke="' + theme.accent + '" stroke-width="1" opacity="0.4"/>'
+    + '<path d="M375,215 C370,210 375,200 385,205 C390,200 400,205 395,215 C390,220 380,220 375,215 Z" fill="none" stroke="' + theme.accent + '" stroke-width="1" opacity="0.4"/>'
+    // 背景大水印（五行符号）
+    + '<text x="200" y="140" font-size="110" fill="' + theme.border + '" opacity="0.12" font-family="sans-serif" text-anchor="middle" alignment-baseline="middle">' + theme.symbol + '</text>'
+    // 红色传统印章 (右上角)
+    + '<rect x="330" y="30" width="30" height="30" rx="4" fill="#D32F2F" opacity="0.85"/>'
+    + '<text x="345" y="51" font-size="16" font-weight="bold" fill="#FFFFFF" font-family=\'STKaiti, KaiTi, serif\' text-anchor="middle">宜</text>'
+    // 菜品名称（大字，居中）
+    + '<text x="200" y="120" font-size="28" font-weight="bold" fill="' + theme.text + '" font-family=\'STKaiti, KaiTi, Microsoft YaHei, sans-serif\' text-anchor="middle" letter-spacing="2">' + foodName + '</text>'
+    // 五行标签 (胶囊形状)
+    + '<rect x="120" y="155" width="160" height="26" rx="13" fill="' + theme.accent + '" opacity="0.1"/>'
+    + '<rect x="120" y="155" width="160" height="26" rx="13" fill="none" stroke="' + theme.accent + '" stroke-width="1" opacity="0.6"/>'
+    + '<text x="200" y="172" font-size="12" font-weight="bold" fill="' + theme.accent + '" font-family="sans-serif" text-anchor="middle">' + theme.symbol + ' 五行属' + wuxing + ' · ' + theme.seal + '印</text>'
+    // 底部诗意描述
+    + '<text x="200" y="210" font-size="13" fill="#555555" font-family=\'STKaiti, KaiTi, serif\' text-anchor="middle" font-style="italic">' + theme.desc + '</text>'
+    + '</svg>';
+    
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
 }
 
 // ============================
@@ -819,16 +832,6 @@ var PROVINCE_CITY={
   '海南':['海口','三亚','三沙','儋州']
 };
 
-// ============================
-//  五行基础数据
-// ============================
-var WX={
-  '金':{e:'⚔️',c:'#C0C0C0',d:'辛辣、收敛',relation:'金主肃杀，宜辛散之味'},
-  '木':{e:'🌿',c:'#4CAF50',d:'酸味、生长',relation:'木主生发，宜酸爽清新'},
-  '水':{e:'💧',c:'#2196F3',d:'咸鲜、滋润',relation:'水主润泽，宜鲜美滋养'},
-  '火':{e:'🔥',c:'#F44336',d:'苦焦、炎热',relation:'火主炎上，宜辛热发散'},
-  '土':{e:'🏔️',c:'#FF9800',d:'甘甜、承载',relation:'土主化育，宜甘甜厚味'}
-};
 
 // 幸运数字（五行的数字）- 全局定义
 var luckyNumbers={
@@ -1541,7 +1544,7 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
   if(dayWX===ming){
     yi=ming;ji=KE_BY[ming];
     relation='比和';
-  }else if(SHENG_BY[dayWX]===ming){
+  }else if(SHENG_BY[ming]===dayWX){
     yi=ming;ji=KE[ming];
     relation='今日生你';
   }else if(SHENG[ming]===dayWX){
@@ -1641,10 +1644,45 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
   var yiFoods = [];
   var jiFoods = [];
 
+  // 过滤掉与今日忌讳冲突的菜品，确保推荐逻辑绝对通顺
+  var filteredYiFoods = allYiFoods.filter(function(f) {
+    // 忌土 = 忌甘甜，避开所有甜点、奶茶以及带“甜”或“蜜”标签的食物
+    if (ji === '土') {
+      if (f.cat === '甜点' || f.cat === '奶茶' || f.t.indexOf('甜') !== -1 || f.t.indexOf('蜜') !== -1) {
+        return false;
+      }
+    }
+    // 忌火 = 忌烧烤火锅，避开烧烤、火锅、烤肉类以及带“烤”或“辣”标签的食物
+    if (ji === '火') {
+      if (f.c === '烧烤' || f.c === '火锅' || f.c === '烤肉' || f.t.indexOf('烤') !== -1 || f.t.indexOf('辣') !== -1) {
+        return false;
+      }
+    }
+    // 忌金 = 忌辛辣，避开川菜、湘菜以及带“辣”或“重口”标签的食物
+    if (ji === '金') {
+      if (f.c === '川菜' || f.c === '湘菜' || f.t.indexOf('辣') !== -1 || f.t.indexOf('重口') !== -1) {
+        return false;
+      }
+    }
+    // 忌木 = 忌酸，避开带“酸”或“酸辣”标签的食物
+    if (ji === '木') {
+      if (f.t.indexOf('酸') !== -1 || f.t.indexOf('酸辣') !== -1) {
+        return false;
+      }
+    }
+    // 忌水 = 忌咸鲜/寒凉，避开带“凉”、“冰”、“海鲜”等标签的食物
+    if (ji === '水') {
+      if (f.t.indexOf('凉') !== -1 || f.t.indexOf('冰') !== -1 || f.c === '海鲜') {
+        return false;
+      }
+    }
+    return true;
+  });
+
   // 常规菜品类别（前菜、主菜、小食）：每类2-3道
   var regularCategories = ['前菜', '主菜', '小食'];
   regularCategories.forEach(function(cat) {
-    var catFoods = allYiFoods.filter(function(f){return f.cat===cat;})
+    var catFoods = filteredYiFoods.filter(function(f){return f.cat===cat;})
       .map(function(f){return {food:f,score:scoreFood(f,seed)};})
       .sort(function(a,b){return b.score-a.score;})
       .map(function(x){return x.food;});
@@ -1652,19 +1690,23 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
     yiFoods = yiFoods.concat(catFoods.slice(0, count));
   });
 
-  // 甜点：只推荐1道
-  var dessertFoods = allYiFoods.filter(function(f){return f.cat==='甜点';})
-    .map(function(f){return {food:f,score:scoreFood(f,seed)};})
-    .sort(function(a,b){return b.score-a.score;})
-    .map(function(x){return x.food;});
-  if(dessertFoods.length > 0) {
-    yiFoods.push(dessertFoods[0]); // 只选1道
+  // 甜点：只推荐1道（如果今日忌土，则不推荐甜点和奶茶，防止逻辑冲突）
+  var skipDessertAndMilkTea = (ji === '土');
+
+  if (!skipDessertAndMilkTea) {
+    var dessertFoods = filteredYiFoods.filter(function(f){return f.cat==='甜点';})
+      .map(function(f){return {food:f,score:scoreFood(f,seed)};})
+      .sort(function(a,b){return b.score-a.score;})
+      .map(function(x){return x.food;});
+    if(dessertFoods.length > 0) {
+      yiFoods.push(dessertFoods[0]); // 只选1道
+    }
   }
 
   // 饮品类（饮品、奶茶）：每类1道
-  var drinkCategories = ['饮品', '奶茶'];
+  var drinkCategories = skipDessertAndMilkTea ? ['饮品'] : ['饮品', '奶茶'];
   drinkCategories.forEach(function(cat) {
-    var catFoods = allYiFoods.filter(function(f){return f.cat===cat;})
+    var catFoods = filteredYiFoods.filter(function(f){return f.cat===cat;})
       .map(function(f){return {food:f,score:scoreFood(f,seed)};})
       .sort(function(a,b){return b.score-a.score;})
       .map(function(x){return x.food;});
@@ -1829,8 +1871,15 @@ function renderResult(r){
 
     // 在菜品推荐顶部显示幸运色和数字说明（只显示一次）
     if(r.lucky && r.lucky.color && r.lucky.number){
-      yiHtml+='<div class="lucky-summary" style="margin-bottom:20px;padding:12px;background:rgba(212,168,83,0.1);border-radius:8px;font-size:13px;color:#444;line-height:1.6;">';
+      yiHtml+='<div class="lucky-summary" style="margin-bottom:12px;padding:12px;background:rgba(212,168,83,0.1);border-radius:8px;font-size:13px;color:#444;line-height:1.6;">';
       yiHtml+='<strong>今日推荐依据：</strong>幸运色 '+r.lucky.colorName+' · 幸运数字 '+r.lucky.number+' · 共推荐 '+r.yiFoods.length+' 道菜品';
+      yiHtml+='</div>';
+    }
+
+    // 如果今日忌土（甘甜），显示特别避开提示，确保逻辑100%严密
+    if(r.ji === '土'){
+      yiHtml+='<div class="lucky-summary" style="margin-bottom:20px;padding:12px;background:rgba(239,83,80,0.08);border:1px solid rgba(239,83,80,0.2);border-radius:8px;font-size:13px;color:#ef5350;line-height:1.6;">';
+      yiHtml+='<strong>⚠️ 运势特别提醒：</strong>因今日忌土（甘甜），为助您顺应天时、旺运避凶，系统已为您**特意避开所有甜点与奶茶**推荐！建议今日少食甜味。';
       yiHtml+='</div>';
     }
 
@@ -1842,6 +1891,14 @@ function renderResult(r){
       {key:'奶茶',icon:'🧋',label:'奶茶 · 甜蜜时光'},
       {key:'甜点',icon:'🍰',label:'甜点 · 下午茶点'}
     ];
+
+    // 如果今日忌土，则不展示甜点和奶茶分类，防止逻辑冲突
+    if (r.ji === '土') {
+      categories = categories.filter(function(cat){
+        return cat.key !== '甜点' && cat.key !== '奶茶';
+      });
+    }
+
     categories.forEach(function(cat){
       var foods=r.yiFoods.filter(function(f){return f.cat===cat.key;});
       if(foods.length===0) return;
@@ -1853,9 +1910,9 @@ function renderResult(r){
 
         // 添加玄学联系（简化）
         var xuanxueText = f.x || '';
-        // 混合方案：优先使用真实图片，加载失败则使用占位图
+        // 采用精美统一的国风食运卡片，完美解决加载慢、图片错位、变形、不符等所有问题
         var placeholderUrl = getPlaceholderImage(f.n, r.yi);
-        var imageUrl = f.img || placeholderUrl;
+        var imageUrl = placeholderUrl;
         yiHtml+='<div class="food-item">'
           +'<div class="food-header">'
           +'<div class="food-name">'+f.n+'</div>'
@@ -1962,7 +2019,7 @@ function buildFortuneGuide(ming, dayWX, zodiac, city, weather, colorWuxing){
   var targetWuxing=colorWuxing || ming;
   var color=WX[targetWuxing].c;
   var colorDesc=colorDescs[color]||'幸运之色';
-  var fortuneType=dayWX===ming?'比和':(SHENG_BY[dayWX]===ming?'生扶':(KE[dayWX]===ming?'克制':'平和'));
+  var fortuneType=dayWX===ming?'比和':(SHENG_BY[ming]===dayWX?'生扶':(KE[dayWX]===ming?'克制':'平和'));
   var fortune=fortuneTexts[fortuneType];
 
   // 如果有天气，加入天气建议
