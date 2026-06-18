@@ -1,0 +1,25 @@
+index.html
+  s_b05a8d143a9bb2::t_05de91c20d751f 1320-1327,1329-1338,1340-1341
+  s_b05a8d143a9bb2::t_7d634db2c4eee6 1391,1393,1395-1404,1406
+  s_b05a8d143a9bb2::t_a016817f8ca9f1 1410-1414,1416-1432,1434-1436
+  s_b05a8d143a9bb2::t_d5512dfa6cfa06 1449,1452
+  s_b05a8d143a9bb2::t_fcde15ff0a6848 1368-1370,1372-1381,1383-1385
+  s_b05a8d143a9bb2::t_008f5567bdaba0 1921,1923
+  s_b05a8d143a9bb2::t_47b42620653760 1345-1347,1349-1350,1352-1357,1359-1362,1364
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.17-trip",
+  "base_commit_sha": "0be992e30a885862bf043b2c5671d7028483b90e",
+  "prompts": {},
+  "sessions": {
+    "s_b05a8d143a9bb2": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "296824ef-fca0-40f4-999b-e8a4916ed6db",
+        "model": "gemini-3.5-flash"
+      },
+      "human_author": "xinyhu <xinyhu@base.ctripsmartdns.com>"
+    }
+  }
+}
