@@ -242,7 +242,7 @@ body{
 .food-image-container{
   position:relative;
   width:100%;
-  height:180px;
+  padding-top:66.67%; /* 3:2 宽高比 */
   background:linear-gradient(135deg,rgba(212,168,83,.03) 0%,rgba(212,168,83,.08) 100%);
   border-radius:12px;
   margin-bottom:14px;
@@ -250,11 +250,16 @@ body{
   box-shadow:0 2px 8px rgba(100,80,160,.06);
 }
 .food-item img{
+  position:absolute;
+  top:0;left:0;
   width:100%;
   height:100%;
   object-fit:cover;
   transition:opacity .3s ease,transform .3s ease;
-  loading:lazy;
+  opacity:0; /* 初始隐藏，加载完成后显示 */
+}
+.food-item img.loaded{
+  opacity:1;
 }
 .food-item img:hover{
   transform:scale(1.02);
@@ -263,7 +268,12 @@ body{
   position:absolute;top:50%;left:50%;
   transform:translate(-50%,-50%);
   color:#d4a853;font-size:12px;
-  display:none;
+}
+.image-error{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  color:#999;font-size:13px;
+  text-align:center;
 }
 
 /* 五行说明 - 细节 */
@@ -566,6 +576,9 @@ body{
       </div>
       <div id="lunar-display" style="margin-top:10px;padding:8px;background:rgba(212,168,83,.08);border-radius:6px;text-align:center;font-size:13px;color:#666;min-height:20px;">
         选择生日后自动显示农历
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:#999;text-align:center;line-height:1.5;">
+        💡 五行基于农历年份计算（传统命理）
       </div>
     </div>
     <div class="form-section">
@@ -1669,9 +1682,19 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
 
   // 幸运色：五行本色 + 天气调整
   var finalColor=WX[ming].c;
-  if(weather.type==='hot') finalColor=WX['水'].c;
-  else if(weather.type==='cold') finalColor=WX['火'].c;
-  else if(zodiacMeta.pref && WX[zodiacMeta.pref]) finalColor=WX[zodiacMeta.pref].c;
+  var finalColorWuxing=ming; // 记录最终颜色对应的五行
+  if(weather.type==='hot') {
+    finalColor=WX['水'].c;
+    finalColorWuxing='水';
+  }
+  else if(weather.type==='cold') {
+    finalColor=WX['火'].c;
+    finalColorWuxing='火';
+  }
+  else if(zodiacMeta.pref && WX[zodiacMeta.pref]) {
+    finalColor=WX[zodiacMeta.pref].c;
+    finalColorWuxing=zodiacMeta.pref;
+  }
 
   // 幸运色名称映射
   var colorNames={
@@ -1690,7 +1713,7 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
     ming:ming, sx:sx, gz:dayTG.name+dayDZ.name, dayWX:dayWX,
     yi:yi, ji:ji, reason:reasonText, relation:relation,
     yiFoods:yiFoods, jiFoods:jiFoods,
-    color:finalColor, time:hours[ming],
+    color:finalColor, colorWuxing:finalColorWuxing, time:hours[ming],
     bagua:personalBagua,
     zodiac:zodiac, zodiacMeta:zodiacMeta,
     weather:weather, weatherTip:weatherTip, city:city,
@@ -1843,7 +1866,7 @@ function renderResult(r){
           +'</div>'
           +'</div>'
           +'<div class="food-image-container">'
-          +'<img src="'+imageUrl+'" alt="'+f.n+'" data-food-name="'+f.n+'" data-wuxing="'+r.yi+'" data-placeholder="'+placeholderUrl+'" data-category="'+cat.key+'" data-index="'+index+'" onerror="if(!this.dataset.failed){this.dataset.failed=\'true\';this.src=this.dataset.placeholder;this.style.opacity=1;}" onload="this.style.opacity=1">'
+          +'<img src="'+imageUrl+'" alt="'+f.n+'" data-food-name="'+f.n+'" data-wuxing="'+r.yi+'" data-placeholder="'+placeholderUrl+'" data-category="'+cat.key+'" data-index="'+index+'" onload="this.classList.add(\'loaded\');this.parentElement.querySelector(\'.image-loading\').style.display=\'none\';" onerror="if(!this.dataset.failed){this.dataset.failed=\'true\';this.src=this.dataset.placeholder;}else{this.style.display=\'none\';this.parentElement.querySelector(\'.image-loading\').innerHTML=\'<div class=\\\'image-error\\\'>暂无图片</div>\';this.parentElement.querySelector(\'.image-loading\').style.display=\'block\';}">'
           +'<div class="image-loading">加载中...</div>'
           +'</div>'
           +'<div class="wuxing-reason"><span class="emoji">'+WX[r.yi].e+'</span>五行属'+r.yi+' · '+wxRelation+'</div>'
@@ -1870,7 +1893,7 @@ function renderResult(r){
     document.getElementById('r-ji-tags').innerHTML=jiHtml;
 
     // ===== 运势指南（增强神秘感） =====
-    var fortuneGuide=buildFortuneGuide(r.ming, r.dayWX, r.zodiac, r.city, r.weather);
+    var fortuneGuide=buildFortuneGuide(r.ming, r.dayWX, r.zodiac, r.city, r.weather, r.colorWuxing);
     var guideHtml='';
     guideHtml+='<div class="guide-row"><span class="guide-label">🎨 幸运色系</span><div class="guide-color-block" style="background:'+r.color+';"></div><span class="guide-desc">'+fortuneGuide.colorDesc+'</span></div>';
     guideHtml+='<div class="guide-row"><span class="guide-label">🧭 吉利方向</span><span class="guide-value">'+fortuneGuide.direction+'</span></div>';
@@ -1904,7 +1927,7 @@ function goBack(){
 // ============================
 //  运势指南生成（增强神秘感）
 // ============================
-function buildFortuneGuide(ming, dayWX, zodiac, city, weather){
+function buildFortuneGuide(ming, dayWX, zodiac, city, weather, colorWuxing){
   // 方向映射（五行方位）
   var directions={
     '木':['东方','东北'],
@@ -1935,7 +1958,9 @@ function buildFortuneGuide(ming, dayWX, zodiac, city, weather){
   };
 
   var dir=directions[ming][Math.random()>0.5?1:0];
-  var color=WX[ming].c;
+  // 使用传入的 colorWuxing（已考虑天气调整），而非 ming
+  var targetWuxing=colorWuxing || ming;
+  var color=WX[targetWuxing].c;
   var colorDesc=colorDescs[color]||'幸运之色';
   var fortuneType=dayWX===ming?'比和':(SHENG_BY[dayWX]===ming?'生扶':(KE[dayWX]===ming?'克制':'平和'));
   var fortune=fortuneTexts[fortuneType];
