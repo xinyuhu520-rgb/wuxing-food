@@ -1,0 +1,24 @@
+index.html
+  s_13520a2348ad96::t_ab88f584a9713e 1930,1961-1963
+  s_13520a2348ad96::t_f0091370109578 1685-1697,1716
+  s_13520a2348ad96::t_2135b6437f374d 245,253-254,259-262,271-276
+  s_13520a2348ad96::t_6d9d90ffeb8516 580-582
+  s_13520a2348ad96::t_022dc1577da248 1869
+  s_13520a2348ad96::t_c3536809e546b9 1896
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.17-trip",
+  "base_commit_sha": "a5a4a557a42c7e547a1db6fd54387bcbfcd87c11",
+  "prompts": {},
+  "sessions": {
+    "s_13520a2348ad96": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c47aa4c4-360e-4873-ab55-cac8787838d7",
+        "model": "qwen3.7-plus"
+      },
+      "human_author": "xinyhu <xinyhu@base.ctripsmartdns.com>"
+    }
+  }
+}
