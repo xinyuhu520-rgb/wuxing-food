@@ -1521,13 +1521,20 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
   var lunarMonth = lunar.lMonth;
   var lunarDay = lunar.lDay;
 
-  // 使用农历年份计算五行和生肖
-  var ming=TIAN_GAN[(lunarYear-4)%10].wuxing;
-  var sx=DI_ZHI[(lunarYear-4)%12].animal;
+  // 计算出生日柱（天干地支）—— 命理正统：以日干（日元）为本命五行
+  var birthDate = new Date(y, m-1, d);
+  var baseDate = new Date(1900, 0, 1); // 1900-01-01 是甲戌日
+  var birthDiff = Math.floor((birthDate.getTime() - baseDate.getTime()) / 86400000);
+  var birthTG = TIAN_GAN[((birthDiff % 10) + 10) % 10];
+  var birthDZ = DI_ZHI[((birthDiff % 12) + 12) % 12];
+
+  // 正统命理：以日干（日元）作为本命五行
+  var ming = birthTG.wuxing;
+  var sx = DI_ZHI[(lunarYear-4)%12].animal;
 
   // 星座（自动识别 or 手动选择）- 使用阳历
-  var zodiac=zodiacInput || getZodiac(m,d);
-  var zodiacMeta=ZODIAC_META[zodiac];
+  var zodiac=zodiacInput || getZodiac(m,d) || '摩羯';
+  var zodiacMeta=ZODIAC_META[zodiac] || {e:'⭐',pref:'土',desc:'踏实可靠，宜饱腹暖胃'};
 
   // 日柱 - 使用今天的日期
   var base=new Date(1900,0,1);
@@ -1753,6 +1760,7 @@ function doCalculation(y,m,d,zodiacInput,city,weather){
   renderResult({
     date:ds, solarDate:y+'年'+m+'月'+d+'日', lunarDate:lunar.yearCn+' '+lunar.monthCn+lunar.dayCn,
     ming:ming, sx:sx, gz:dayTG.name+dayDZ.name, dayWX:dayWX,
+    birthTG:birthTG.name, birthDZ:birthDZ.name,
     yi:yi, ji:ji, reason:reasonText, relation:relation,
     yiFoods:yiFoods, jiFoods:jiFoods,
     color:finalColor, colorWuxing:finalColorWuxing, time:hours[ming],
@@ -1850,7 +1858,7 @@ function renderResult(r){
     document.getElementById('result-date').textContent='🔮 '+r.date;
     document.getElementById('r-solar-date').textContent=r.solarDate;
     document.getElementById('r-lunar-date').textContent=r.lunarDate;
-    document.getElementById('r-ming').textContent=WX[r.ming].e+' '+r.ming+'命';
+    document.getElementById('r-ming').textContent=WX[r.ming].e+' '+r.birthTG+r.ming+'命（日柱：'+r.birthTG+r.birthDZ+'）';
     document.getElementById('r-sx').textContent='🐾 '+r.sx;
     document.getElementById('r-zodiac').textContent=(ZODIAC_META[r.zodiac]?ZODIAC_META[r.zodiac].e:'⭐')+' '+r.zodiac+'座';
     document.getElementById('r-gz').textContent=r.gz;
